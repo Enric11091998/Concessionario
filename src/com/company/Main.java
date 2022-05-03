@@ -19,7 +19,8 @@ public class Main {
                 }while (choiceSellerMenu !=4 );
             }else if (choiceMainMenu ==2){
                 System.out.println("Dealer Management Menu");
-            }else if (choiceMainMenu ==3)break;
+            }else if (choiceMainMenu ==3)
+                break;
             else{
                 System.out.println("Please enter valid option");
             }
@@ -60,6 +61,8 @@ public class Main {
                 System.out.println("Return");
                 break;
 
+            } default:{
+                System.out.println("please enter valid option");
             }
 
 
@@ -82,6 +85,12 @@ public class Main {
             }
             if(choiceCustomerMenu ==2){
                 System.out.println("Search Customer");
+            }
+            if(choiceCustomerMenu ==3){
+                System.out.println("Remove Customer");
+            }
+            if(choiceCustomerMenu ==4){
+                System.out.println("Modify Customer");
             }
         }while (choiceCustomerMenu!=5);
 
