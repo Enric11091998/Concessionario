@@ -72,7 +72,29 @@ public class Main {//Main
 
             choiceCustomerMenu = reader.nextInt();
             if(choiceCustomerMenu ==1){
-                System.out.println("Register Customer");
+                Scanner scanner = new Scanner(System.in);
+                System.out.println("Are you sure to register customer (Y or N)?");
+                String YorN = scanner.nextLine();
+                if (YorN.equals("Y")){
+                    System.out.println("dni?");
+                    String dni = scanner.nextLine();
+                    System.out.println("name?");
+                    String name = scanner.nextLine();
+                    System.out.println("surname?");
+                    String surname = scanner.nextLine();
+                    System.out.println("age?");
+                    int age = scanner.nextInt();
+                    System.out.println("phone?");
+                    String phone = scanner.nextLine();
+                    System.out.println("favorite color car?");
+                    String favoriteColorCar = scanner.nextLine();
+                    System.out.println("favorite brand car?");
+                    String favoriteBrandCar = scanner.nextLine();
+                    System.out.println("Card(Y or N)?");
+                    //to do -
+                }
+                else System.out.println("Customer Registered Successfully");
+
             }
             if(choiceCustomerMenu ==2){
                 System.out.println("Search Customer");
