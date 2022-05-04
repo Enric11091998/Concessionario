@@ -9,7 +9,6 @@ public class Main {//Main
     static int choiceCustomerMenu;
 
 
-
     public static void main(String[] args) { //void main
         Scanner reader = new Scanner(System.in);
 
@@ -36,11 +35,6 @@ public class Main {//Main
                 System.out.println("Please enter valid option");
             }
         }
-
-
-
-
-
 
     }//void main
     public static void displayMainMenu() {//Mainmenu
