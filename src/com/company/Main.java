@@ -37,7 +37,7 @@ public class Main {
     public static  void displayMainMenu(){
         System.out.println("1-Seller Management Menu" + "\n" + "2-Dealer Management Menu"+ "\n" + "3-Quit"+ "\n" + "Option?");
 
-    }
+    }//
     public static  void  displaySellerManagementMenu(Scanner reader){
         System.out.println("1-Customer Menu" + "\n" +"2-Car Menu" + "\n" + "3-Make car sale Menu"+ "\n" + "4-Return"+ "\n" +"Option?");
         choiceSellerMenu = reader.nextInt();
