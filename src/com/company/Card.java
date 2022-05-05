@@ -29,4 +29,14 @@ public class Card {
     public String getExpiration() {
         return expiration;
     }
+
+    @Override
+    public String toString() {
+        return "Card{" +
+                "numberCard=" + numberCard +
+                ", expiration='" + expiration + '\'' +
+                ", type='" + type + '\'' +
+                ", securityCode=" + securityCode +
+                '}';
+    }
 }
