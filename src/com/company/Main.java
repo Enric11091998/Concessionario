@@ -118,13 +118,13 @@ public class Main {//Main
                 for(int i = 0; i < db.getCustomers().size(); i++) {
                     if (db.getCustomers().get(i).getDNI().equals(search)){
                         int a = i;
-                        //System.out.println(customer);
-                        /*System.out.println("phone?");
+
+                        System.out.println("phone?");
                         String phone = reader.next();
                         System.out.println("colorFavoriteCar?");
                         String colorFavoriteCar = reader.next();
                         System.out.println("brandCarFavorite?");
-                        String brandCarFavorite = reader.next();*/
+                        String brandCarFavorite = reader.next();
 
                         System.out.println("number Card?");
                         long numberCard = Long.parseLong(reader.next());
@@ -134,7 +134,7 @@ public class Main {//Main
                         String type = reader.next();
                         System.out.println("securityCode?");
                         int securityCode = Integer.parseInt(reader.next());
-                        //db.getCustomers().get(a).setPhoneFavoriteColorBrand(phone,colorFavoriteCar,brandCarFavorite);
+                        db.getCustomers().get(a).setPhoneFavoriteColorBrand(phone,colorFavoriteCar,brandCarFavorite);
                         Card t = new Card(numberCard,expiration,type,securityCode);
                         db.getCustomers().get(a).setCard(t);
                         break;
