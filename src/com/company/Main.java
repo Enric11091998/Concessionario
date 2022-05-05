@@ -1,6 +1,8 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import com.company.DataBase;
 
 public class Main {//Main
     static int choiceDealerMenu;
@@ -10,6 +12,7 @@ public class Main {//Main
 
 
     public static void main(String[] args) { //void main
+
         Scanner reader = new Scanner(System.in);
 
         while(true) {
@@ -72,28 +75,52 @@ public class Main {//Main
 
             choiceCustomerMenu = reader.nextInt();
             if(choiceCustomerMenu ==1){
+
+                DataBase db = new DataBase();
+                Customer customer = new Customer();
+                String dni, name, surname, phone,favoriteColorCar,favoriteBrandCar,YorN,YorNCard;
+                int age;
                 Scanner scanner = new Scanner(System.in);
+
+
+
                 System.out.println("Are you sure to register customer (Y or N)?");
-                String YorN = scanner.nextLine();
+                YorN = scanner.nextLine();
                 if (YorN.equals("Y")){
                     System.out.println("dni?");
-                    String dni = scanner.nextLine();
+                     dni = scanner.nextLine();
                     System.out.println("name?");
-                    String name = scanner.nextLine();
+                     name = scanner.nextLine();
                     System.out.println("surname?");
-                    String surname = scanner.nextLine();
+                     surname = scanner.nextLine();
                     System.out.println("age?");
-                    int age = scanner.nextInt();
+                     age = Integer.valueOf(scanner.nextLine());
                     System.out.println("phone?");
-                    String phone = scanner.nextLine();
+                     phone = scanner.nextLine();
                     System.out.println("favorite color car?");
-                    String favoriteColorCar = scanner.nextLine();
+                     favoriteColorCar = scanner.nextLine();
                     System.out.println("favorite brand car?");
-                    String favoriteBrandCar = scanner.nextLine();
+                     favoriteBrandCar = scanner.nextLine();
+                    db.addCustomer(dni,name,surname,age,phone,favoriteColorCar,favoriteBrandCar);
+                    System.out.println(db.customers.toString());
+
+
+                    //-------------------------
                     System.out.println("Card(Y or N)?");
-                    //to do -
+                     YorNCard = scanner.nextLine();
+                    if (YorNCard.equals("Y")){
+                        System.out.println("Number Card?");
+                        long cardNumber = Long.valueOf(scanner.nextLine());
+                        System.out.println("Expiration?");
+                        String expiration = scanner.nextLine();
+                        System.out.println("Type?");
+                        String type = scanner.nextLine();
+                        System.out.println("Security code?");
+                        String securityCode = scanner.nextLine();
+                    }
+                    else System.out.println("Customer Registered Successfully");
                 }
-                else System.out.println("Customer Registered Successfully");
+
 
             }
             if(choiceCustomerMenu ==2){
