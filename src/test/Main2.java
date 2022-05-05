@@ -28,7 +28,6 @@ public class Main2 {
         Customer customer = new Customer();
         Card card = new Card();
 
-        String[] vars2 = new String[] {"dni?", "name?", "surname?","age?", "phone?", "favorite color car?", "favorite brand car?"};
 
         String[] chainWhithoutCard = new String[] {"dni?", "name?", "surname?","age?", "phone?", "favorite color car?", "favorite brand car?"};
         String[] chainCard = new String[] {"numberCard?","expiration?","type?","securityCode?"};

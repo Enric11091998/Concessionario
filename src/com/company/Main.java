@@ -76,7 +76,6 @@ public class Main {//Main
             }
         }
     }//SellerManagementMenu
-
     public static void customersMenu(Scanner reader){//customerMenu
         do {
             System.out.println("1-Register Customer" + "\n" +"2-Search Customer" + "\n" + "3-Remove Customer"+ "\n" + "4-Modify Customer"+ "\n" +"5-Return to SellerManagementMenu ?"+ "\n" +"Option?");
