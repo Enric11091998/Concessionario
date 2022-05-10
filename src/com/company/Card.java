@@ -4,14 +4,14 @@ public class Card {
     public long numberCard;
     public String expiration;
     public String type;
-    public int securityCode;
+    public String securityCode;
 
 
     public Card() {
 
     }
 
-    public Card(long numberCard, String expiration, String type, int securityCode) {
+    public Card(long numberCard, String expiration, String type, String securityCode) {
         this.numberCard = numberCard;
         this.expiration = expiration;
         this.type = type;
