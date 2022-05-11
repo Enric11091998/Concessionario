@@ -8,8 +8,8 @@ import java.util.stream.Stream;
 public class DataBase {
 
     static  ArrayList<Customer> customers= new ArrayList<>();
-    static ArrayList<Employee> employees= new ArrayList<>();
-    ArrayList<Car> cars = new ArrayList<>();
+    static  ArrayList<Employee> employees= new ArrayList<>();
+    static  ArrayList<Car> cars = new ArrayList<>();
 
     public  void addCustomerWithouCard(String dni, String name, String surname, int age, String phone, String favoriteColorCar, String favoriteBrandCar){
         customers.add(new Customer(dni,name,surname,age,phone,favoriteColorCar,favoriteBrandCar));
