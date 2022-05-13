@@ -1,17 +1,15 @@
 package com.company;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {//Main
-    static int choiceDealerMenu,choiceSellerMenu,choiceMainMenu,choice,numberofdoors,age,securityCode;
-    static long numberCard;
+    static int choiceDealerMenu,choiceSellerMenu,choiceMainMenu,choice,numberofdoors;
     static double km, price;
 
 
     public static void main(String[] args) {
-
         Scanner reader = new Scanner(System.in);
-
         while(true) {
             displayMainMenu();
             choiceMainMenu = reader.nextInt();
@@ -24,8 +22,8 @@ public class Main {//Main
                 }
             } else if (choiceMainMenu == 2) {
                 while(true) {
-                    displayDealerManagementMenu(reader);
-                    if (choiceDealerMenu == 5) {
+                    //displayDealerManagementMenu(reader);
+                    if (choiceDealerMenu == 6) {
                         break;
                     }
                 }
@@ -71,7 +69,7 @@ public class Main {//Main
     //-----------------methods for menu------------//
     public static void customersMenu(Scanner reader){//Register, Search, Remove and Modify Customers
         do {
-            System.out.println("1-Register Customer" + "\n" +"2-Search Customer" + "\n" + "3-Remove Customer"+ "\n" + "4-Modify Customer"+ "\n" +"5-Return to SellerManagementMenu ?"+ "\n" +"Option?");
+            System.out.println("1-Register Customer" + "\n" +"2-Search Customer" + "\n" + "3-Delete Customer"+ "\n" + "4-Modify Customer"+"\n" +"5-Modifiy Cards Customer"+ "\n" +"6-Return to SellerManagementMenu"+ "\n" +"Option?");
             choice = reader.nextInt();
             if(choice ==1){
                 registerCustomer(reader);
@@ -80,12 +78,15 @@ public class Main {//Main
                 searchCustomer(reader);
             }
             if(choice ==3){
-                removeCustomer(reader);
+               deleteCustomer(reader);
             }
             if(choice ==4){
                 modifyCustomer(reader);
             }
-        }while (choice!=5);
+            if(choice ==5){
+               modifyCardCustomer(reader);
+            }
+        }while (choice!=6);
 
     }//customerMenu
 
@@ -123,34 +124,12 @@ public class Main {//Main
         }while (choice!=3);
     }
 
-    public static void displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
-        System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Return \nOption?");
-        choiceDealerMenu = reader.nextInt();
-        switch(choiceDealerMenu) {
-            case 1:
-                System.out.println("Register Employee");
-                break;
-            case 2:
-                System.out.println("Search Employee");
-                break;
-            case 3:
-                System.out.println("Delete Employee");
-                break;
-            case 4:
-                System.out.println("Modify Employee");
-                break;
-            case 5:
-                System.out.println("Return");
-                break;
-            default:
-                System.out.println("Please enter valid option");
-        }
-    }
-
     //-----------------methods for customer------------//
     public static void registerCustomer(Scanner reader){
+        ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[11];
         DataBase db = new DataBase();
+        Customer customer ;
         Card card ;
         String listCustomerAndCard = ("dni?,name?,surname?,age?,phone?,favorite color car?,favorite brand car?,numberCard?,expiration?,type?,securityCode?");
 
@@ -162,7 +141,7 @@ public class Main {//Main
                 for(String test2: listAll){
                     System.out.println(test2);
                     String a = reader.next();
-                    vars0[count] = ValidatorData.selectValidatorCustomerAndCard(String.valueOf(test2),a);
+                    vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
                     boolean dniExists = db.getListDNI().contains(vars0[0]);
                     if(dniExists){
                         System.out.println("this DNI already exists");
@@ -171,18 +150,19 @@ public class Main {//Main
                     count++;
                     if (count==7){
                         if(!actionVerification(reader,"Register Card").equals("Y")){
-                            db.addCustomerWithouCard(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
-                            System.out.println(db.getCustomers().toString());
+                            customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
+                            db.addCustomerWithouCard(customer);
+                            System.out.println(customer);
                             break;
                         }
                     }
                     if (count>10){
-
+                        customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
                         card =new Card(Long.parseLong(vars0[7]),vars0[8],vars0[9],vars0[10]);
-                        db.addCustomersCard(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6],card);
-                        System.out.println(db.getCustomers().toString());
+                        db.addCustomerWithouCard(customer);
+                        customer.addCard(card);
+                        System.out.println(customer);
                         break;
-
                     }
                 }
             }else break;
@@ -191,80 +171,125 @@ public class Main {//Main
 
     public static void searchCustomer(Scanner reader){
         DataBase db = new DataBase();
-        System.out.println("Please enter a DNI");
-        String search = reader.next();
-        for(int i = 0 ; i < db.getListDNI().size(); i++){
-            if(db.getListDNI().get(i) == search){
-                for(Customer customer : db.getCustomers()) {
-                    if(customer.getDNI().equals(search)){
-                        System.out.println(customer);
-                        break;
-                    }
-                }
-            }else  {
-                System.out.println("Not exists this dni");
-                break;
-            }
+        Customer customer;
+        System.out.println("Enter a dni");
+        String dni = reader.next();
+        boolean c = db.searchCustomersTrueOrFalse(dni);
+        if(c){
+            int w = db.searchCustomer(dni);
+            customer= db.getCustomers().get(w);
+            System.out.println(customer);
         }
+        else System.out.println("this dni no exists");
     }
 
-    public static void removeCustomer(Scanner reader){
+    public static void deleteCustomer(Scanner reader){
         DataBase db = new DataBase();
-        while(true){
-            System.out.println("Are you sure to remove the customer (Y or N)?");
-            String inputYorN = reader.next();
-            if(inputYorN.equals("Y")){
-                System.out.println("Please enter a DNI");
-                String search = reader.next();
-                for(Customer customer : db.getCustomers()) {
-                    if (customer.getDNI().equals(search)){
-                        db.getCustomers().remove((customer));
-                        break;
-                    }
-                }
-            }else break;
+        Customer customer;
+        System.out.println("Enter a dni");
+        String dni = reader.next();
+        boolean c = db.searchCustomersTrueOrFalse(dni);
+        if(c){
+            int w = db.searchCustomer(dni);
+            customer= db.getCustomers().get(w);
+            System.out.println(" this " + customer + "is deleted");
+            db.getCustomers().remove(customer);
         }
+        else System.out.println("this dni no exists");
     }
 
     public static void modifyCustomer(Scanner reader){
-        Customer customer = new Customer();
         DataBase db = new DataBase();
-        boolean find ;
-        String[] vars0 = new String[7];
-        String listModifyCustomer = ("phone?,favorite color car?,favorite brand car?,numberCard?,expiration?,type?,securityCode?");
-        String[] listAll = listModifyCustomer.split(",");
-        int  count =0;
-
-        while(true){
-            if(actionVerification(reader,"ModifyCustomer").equals("Y")){
-                System.out.println("Please enter a DNI");
-                String search = reader.next();
-                customer = DataBase.getSearchCustomer(search);
-                if(!customer.equals("null")){
-                    System.out.println(customer);
-                    for(String test2: listAll){
-                        System.out.println(test2);
-                        String a = reader.next();
-                        vars0[count] = ValidatorData.selectValidatorCustomerAndCard(String.valueOf(test2),a);
-                        if (count==3){
-                            if(!actionVerification(reader,"Modify Y or N").equals("Y")){
-                                customer.setPhoneFavoriteColorBrand(vars0[0],vars0[1],vars0[2]);
-                                System.out.println(customer);
-                                break;
-                            }
-                        }
-                        if(count>3){
-                            if(!actionVerification(reader,"Modify Y or N").equals("Y")){
-                                Card card = new Card(Long.parseLong(vars0[3]),vars0[4],vars0[5],vars0[6]);
-                                customer.setCard(card);
-                                System.out.println(customer);
-                                break;
-                            }
-                        }
-                    }//for
-                }
-            }
+        ValidatorData validator = new ValidatorData();
+        Customer customer ;
+        System.out.println("Please enter a DNI");
+        String search = reader.next();
+        boolean c = db.searchCustomersTrueOrFalse(search);
+        int w = db.searchCustomer(search);
+        customer= db.getCustomers().get(w);
+        int i;
+        System.out.println(customer);
+        if(!c) {
+            System.out.println("This dni no exists");
         }
+        else  do{
+            System.out.println("1-Phone\n" + "2-Favorite color car\n" + "3-Favorite brand car\n" + "4-Return");//for
+            i = reader.nextInt();
+            if(i==1){
+                System.out.println("Enter a new phone");
+                String a = reader.next();
+                a = validator.checkPhone(a);
+                customer.setPhone(a);
+                System.out.println(customer);
+            }else if(i==2){
+                System.out.println("Enter a new Favorite color car");
+                String a = reader.next();
+                a = validator.checkColorCar(a);
+                customer.setFavoriteColorCar(a);
+                System.out.println(customer);
+            }else if(i==3){
+                System.out.println("Enter a new Favorite brand car");
+                String a = reader.next();
+                a = validator.checkCarBrand(a);
+                customer.setFavoriteBrandCar(a);
+                System.out.println(customer);
+            }
+        }while(i!=4);
+    }
+
+    public static void modifyCardCustomer(Scanner reader){
+
+        DataBase db = new DataBase();
+        ValidatorData validator = new ValidatorData();
+
+        System.out.println("Please enter a DNI");
+        String search = reader.next();
+        int w  = db.searchCustomer(search);
+        Customer customer = db.getCustomers().get(w);
+        int i;
+        boolean z = customer.getDNI() == "null";
+
+        do{
+                if(z) {
+                    break;
+                }
+                System.out.println(customer);
+                int count=0;
+                System.out.println("1-Show cards\n"+"2-Add card\n"+"3-Delete card\n"+"4-Return");//for
+                i = reader.nextInt();
+                if(i==1){
+                    customer.showCard(customer);
+                }else if(i==2){
+                    String[] vars0 = new String[4];
+                    String listAddCard = ("numberCard?,expiration?,type?,securityCode?");
+                    String[] listCard  = listAddCard.split(",");
+
+                    for(String test: listCard){
+                        System.out.println(test);
+                        String a = reader.next();
+                        vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test),a);
+                        boolean cardNumberExists =  customer.existsCards(customer,vars0[0]);
+                        if(cardNumberExists){
+                            System.out.println("this numbercard already exists");
+                            break;
+                        }
+
+                        if(count == 3 ){
+                            Card card = new Card(Long.parseLong(vars0[0]),vars0[1],vars0[2],vars0[3]);
+                            customer.addCard(card);
+                            System.out.println(customer);
+                        }
+                        count++;
+
+                    }
+                }else if(i==3){
+                    System.out.println("Enter a numbercard");
+                    String b = validator.checkNumberCard(reader.next());
+                    customer.deleteCards(customer,b);
+                    System.out.println(customer);
+                }
+            }while(i!=4);
+
     }
 
     //-----------------methods for car------------//
@@ -273,6 +298,8 @@ public class Main {//Main
 
         Scanner scanner = new Scanner(System.in);
         String[] vars0 = new String[7];
+
+
         DataBase db = new DataBase();
         String[] chaincar = new String[] {"brand?","number of doors?","color?", "km?","car license?", "insurance","price?"};
 

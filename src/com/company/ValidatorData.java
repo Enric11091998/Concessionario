@@ -1,13 +1,13 @@
 package com.company;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-
 public class ValidatorData {
-    static ArrayList<String> p = new ArrayList<>();
 
-    public static String selectValidatorCustomerAndCard(String i, String b){
+
+    ValidatorData(){};
+
+    public  String selectValidatorCustomerAndCard(String i, String b){
         String a = new String();
         switch (i){
 
@@ -40,10 +40,9 @@ public class ValidatorData {
 
     }
 
-    public static String checkDNI(String a) {
+    public  String checkDNI(String a) {
         String patternDNI = "^[0-9]{8}+[A-Z]{1}$";
         Scanner reader = new Scanner(System.in);
-
         while(!a.matches(patternDNI)){
             System.out.println("INVALID DNI!!.Please INSERT a valid DNI");
             a = reader.next();
@@ -52,15 +51,15 @@ public class ValidatorData {
 
     }
 
-
-    public static String name(String a) {
-        return a;
-    }
-    public static String surname(String a) {
+    public  String name(String a) {
         return a;
     }
 
-    public static String checkAge(String a) {
+    public  String surname(String a) {
+        return a;
+    }
+
+    public  String checkAge(String a) {
         String patternAge= "^1[89]|[2-4][0-9]|5[0-5]$";
         Scanner reader = new Scanner(System.in);
        while(!a.matches(patternAge)){
@@ -70,7 +69,7 @@ public class ValidatorData {
         return  a;
     }
 
-    public static String checkPhone(String a) {
+    public  String checkPhone(String a) {
         String patternPhone= "^[67][0-9]{8}$";
         Scanner reader = new Scanner(System.in);
         while(!a.matches(patternPhone) ){
@@ -80,7 +79,7 @@ public class ValidatorData {
         return  a;
     }
 
-    public static String checkColorCar(String a) {
+    public  String checkColorCar(String a) {
         String patternColorCar= "^(?i:White|Grey|Black|Silver|Blue|Red|Beige|Green|Yellow)$";
         Scanner reader = new Scanner(System.in);
         while(!a.matches(patternColorCar)){
@@ -90,7 +89,7 @@ public class ValidatorData {
         return  a;
     }
 
-    public static String checkCarBrand(String a) {
+    public  String checkCarBrand(String a) {
         String patternCarBrand= "^(?i:BMW|MercedesBenz|Audi|Lexus|Renault|Ford|Opel|Seat|Honda|Toyota|Nissan|Hyundai|Kia|Chevrolet|Volkswagen)$";
         Scanner reader = new Scanner(System.in);
         while(!a.matches(patternCarBrand)){
@@ -100,7 +99,7 @@ public class ValidatorData {
         return  a;
     }
 
-    public static String checkNumberCard(String a) {
+    public  String checkNumberCard(String a) {
         String patternNumberCard= "^([4][0-9]{15}|5[1-5][0-9]{14})$";
         Scanner reader = new Scanner(System.in);
         while (!a.matches(patternNumberCard)){
@@ -110,7 +109,7 @@ public class ValidatorData {
         return a;
     }
 
-    public static String checkExpirationCard(String a) {
+    public  String checkExpirationCard(String a) {
         String patternExpirationCard= "^(([0][1-9]|[1][0-2])20[2-9]{2})$";
         Scanner reader = new Scanner(System.in);
         while (!a.matches(patternExpirationCard)){
@@ -119,11 +118,12 @@ public class ValidatorData {
         }
         return a;
     }
-    public static String checkTypeCard(String a) {
+
+    public  String checkTypeCard(String a) {
         return a;
     }
 
-    public static String checkSecurityCodeCard(String a) {
+    public  String checkSecurityCodeCard(String a) {
         String patterSecurityCodeCard= "^([0-9]{3})$";
         Scanner reader = new Scanner(System.in);
         while (!a.matches(patterSecurityCodeCard)){
@@ -131,12 +131,28 @@ public class ValidatorData {
             a = reader.next();
         }return a;
     }
-    public static void checkWorkHours() {
+
+    public  String checkWorkHours(String a) {
         String patterSecurityCodeCard= "^(3[89]|4[0])$";
         Scanner reader = new Scanner(System.in);
-        while (!reader.next().matches(patterSecurityCodeCard)){
+        while (!a.matches(patterSecurityCodeCard)){
             System.out.println("INVALID HOURS!!.Please INSERT a HOURS");
+            a = reader.next();
         }
+        return  a;
+
+    }
+
+    public  String checkPassword(String a) {
+        String patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,12}$";
+        Scanner reader = new Scanner(System.in);
+        while (!a.matches(patternPassword)){
+            System.out.println("INVALID PASSWORD!!.Please INSERT a valid PASSWORD");
+            a = reader.nextLine();
+        }
+
+        return a;
+
     }
 }
 

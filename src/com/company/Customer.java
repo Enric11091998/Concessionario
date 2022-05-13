@@ -1,6 +1,7 @@
 package com.company;
 
-import com.company.Card;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Customer {
     public String dni;
@@ -10,15 +11,14 @@ public class Customer {
     public String phone;
     public String favoriteColorCar;
     public String favoriteBrandCar;
-    public Card card;
+    public ArrayList<Card> cards = new ArrayList<>();
 
     // empty constructor
     public Customer() {
 
     }
-
     //constructor with card
-    public Customer(String dni, String name, String surname, int age, String phone, String favoriteColorCar, String favoriteBrandCar, Card card){
+    public Customer(String dni, String name, String surname, int age, String phone, String favoriteColorCar, String favoriteBrandCar, ArrayList<Card> cards){
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -26,7 +26,7 @@ public class Customer {
         this.phone = phone;
         this.favoriteColorCar = favoriteColorCar;
         this.favoriteBrandCar = favoriteBrandCar;
-        this.card = card;
+        this.cards = cards;
     }
 
     //constructor without card
@@ -40,63 +40,84 @@ public class Customer {
         this.favoriteBrandCar = favoriteBrandCar;
     }
 
+    ////--------------------methods get---------------
     public String getDNI(){
         return this.dni;
     }
-    public Card getCard(){
-        return card;
-    }
-    public void setCard(Card t){
-        this.card = t;
+
+    public ArrayList<Long> getCardNumber(Customer customer){
+        ArrayList<Long> temp = new ArrayList<>();
+        for(int i = 0; i< this.cards.size(); i++){
+            temp.add(customer.cards.get(i).getNumberCard());
+        }
+        return temp;
     }
 
-    public  void setPhoneFavoriteColorBrand(String phone,String favoriteColorCar,String favoriteBrandCar ){
-        this.phone = phone;
-        this.favoriteBrandCar = favoriteBrandCar;
-        this.favoriteColorCar = favoriteColorCar;
-    }
-    //set phone number
+    ////--------------------methods set---------------
+
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
-    //set customer favorite color car
     public void setFavoriteColorCar(String favoriteColorCar) {
         this.favoriteColorCar = favoriteColorCar;
     }
 
-    //set customer favorite brand Car
     public void setFavoriteBrandCar(String favoriteBrandCar) {
         this.favoriteBrandCar = favoriteBrandCar;
     }
 
-    //set attributes of Card
-    /*public void setCard(long numberCard, String expiration, String type, int securityCode){
-        this.card.numberCard =numberCard;
-        this.card.expiration =expiration;
-        this.card.type =type;
-        this.card.securityCode =securityCode;
-
-    }*/
-
-    // check if exist dni
-    public boolean checkExistDni(String dni){
-
-
-        return false;
+    ////--------------------methods show---------------
+    public ArrayList<Card> showCard(Customer customer){
+        for(Card card: customer.cards ){
+            System.out.println(card);
+        }
+        return cards;
     }
 
     @Override
     public String toString() {
         return "Customer{" +
-                "dni='" + dni + '\'' +
-                ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
-                ", age=" + age +
-                ", phone='" + phone + '\'' +
-                ", favoriteColorCar='" + favoriteColorCar + '\'' +
-                ", favoriteBrandCar='" + favoriteBrandCar + '\'' +
-                ", card=" + card +
+                "dni='" + this.dni + '\'' +
+                ", name='" + this.name + '\'' +
+                ", surname='" + this.surname + '\'' +
+                ", age=" + this.age +
+                ", phone='" + this.phone + '\'' +
+                ", favoriteColorCar='" + this.favoriteColorCar + '\'' +
+                ", favoriteBrandCar='" + this.favoriteBrandCar + '\'' +
+                ", cards=" + this.cards.toString()+
                 '}';
     }
+
+    public ArrayList<Card> printCard(){
+        for(Card card : this.cards){
+            System.out.println(card);
+        }
+        return cards;
+    }
+    ////--------------------methods add---------------
+    public ArrayList<Card> addCard(Card card){
+        this.cards.add(card);
+        return cards;
+    }
+    ////--------------------methods add---------------
+    public void deleteCards(Customer customer, String b){
+        for(int i = 0; i < this.cards.size(); i++){
+            String nc = String.valueOf(customer.cards.get(i).getNumberCard());
+            if(nc.equals(b)){
+                customer.cards.remove(i);
+            }
+        }
+    }
+
+    public boolean existsCards(Customer customer, String b){
+        for(int i = 0; i < this.cards.size(); i++){
+            String nc = String.valueOf(customer.cards.get(i).getNumberCard());
+            if(nc.equals(b)){
+                return true;
+            }
+        }return  false;
+    }
+
+
 }
