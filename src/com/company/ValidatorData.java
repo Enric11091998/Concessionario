@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class ValidatorData {
 
-
     ValidatorData(){};
 
     public  String selectValidatorCustomerAndCard(String i, String b){
@@ -35,6 +34,32 @@ public class ValidatorData {
                     break;
 
 
+        }
+        return a;
+
+    }
+
+    public String selectValidatorEmployee(String i, String b){
+        String a = new String();
+        switch (i){
+
+            case "dni?":a = checkDNI(b);
+                break;
+            case "name?":a= name(b);
+                break;
+            case "surname?":a= surname(b);
+                break;
+            case "age?":a= checkAge(b);
+                break;
+            case "rol?": a= checkRol(b);
+                break;
+            case "salary by month?":a =checkSalaryByMonth(b);
+                break;
+            case "worked hours?":a = checkWorkedHours(b);
+                break;
+            case "Confirm password","Enter password:\n1. Password must contain at least one digit [0-9].\n2. Password must contain at least one lowercase Latin character [a-z].\n3. Password must contain at least one uppercase Latin character [A-Z].\n4. Password must contain at least one special character like ! @ # & ( ) – { } : ; ' ? / * ~ $ ^ + = < >\n5. Password must contain a length of at least 6 characters and a maximum of 12 characters.": a=checkPassword(b);
+                break;
+            case "Confirm password?":a = checkPassword(b);
         }
         return a;
 
@@ -142,6 +167,18 @@ public class ValidatorData {
         return  a;
 
     }
+    public String checkWorkedHours(String a) {
+        String patterSecurityCodeCard= "^(3[89]|4[0])$";
+        Scanner reader = new Scanner(System.in);
+        while (!a.matches(patterSecurityCodeCard)){
+            System.out.println("INVALID HOURS!!.Please INSERT a HOURS");
+            a = reader.nextLine();
+            if(a.equals("null")){
+                break;
+            }
+        }
+        return a;
+    }
 
     public  String checkPassword(String a) {
         String patternPassword = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{6,12}$";
@@ -153,6 +190,22 @@ public class ValidatorData {
 
         return a;
 
+    }
+    public String checkSalaryByMonth(String a){
+        return  a;
+    }
+
+    public String checkRol(String a){
+        String patternRol= "^(?i:Employee|Manager)$";
+        Scanner reader = new Scanner(System.in);
+        while(!a.matches(patternRol)){
+            System.out.println("INVALID ROL!!.Please INSERT a valid ROL");
+            a = reader.next();
+            if(a.equals("null")){
+                break;
+            }
+        }
+        return  a;
     }
 }
 

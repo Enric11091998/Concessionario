@@ -7,6 +7,7 @@ public class DataBase {
 
     static ArrayList<Customer> customers= new ArrayList<>();
     static  ArrayList<Car> cars = new ArrayList<>();
+    static ArrayList<Employee> employees= new ArrayList<>();
 
     public DataBase() {
 
@@ -24,6 +25,33 @@ public class DataBase {
         }
         return i;
     }
+
+    public Employee getSearchEmployee(String dni){ //method to return a specific employee
+        for(int i=0; i < employees.size(); i++) {
+            Employee searchedEmployee = new Employee();
+            searchedEmployee = employees.get(i);
+            if (dni.equals(searchedEmployee.getDni())) {
+                return searchedEmployee;
+            }
+        }
+        System.out.println("There is no employee with this dni");
+        return null;
+    }//method to return a specific employee
+
+    public void searchEmployee(String dni){ //method to search a specific employee
+        Employee searchedEmployee = null;
+        for(int i=0; i < employees.size(); i++) {
+            if (dni.equals(employees.get(i).getDni())) {
+                searchedEmployee = employees.get(i);
+                break;
+            }
+        }
+        if(searchedEmployee == null){
+            System.out.println("No Employee was found with this dni");
+        } else{
+            System.out.println("Employee found " + searchedEmployee);
+        }
+    }//method to search a specific employee
 
     public boolean searchCustomersTrueOrFalse(String dni){
 
@@ -46,6 +74,15 @@ public class DataBase {
         return customers;
     }
 
+    public List<String> getListDNIEmployee() {
+        List<String> dni = new ArrayList<String>();
+        for (Employee employee: employees) {
+            dni.add(employee.getDni());
+        }
+        return dni;
+    }
+
+
     public  ArrayList<Car> getCars() {
         return cars;
     }
@@ -60,6 +97,9 @@ public class DataBase {
 
     public void addCar(String brand, int numberofdoors, String color, double km, String carLicense,String insurance,double price){
         cars.add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price));
+    }
+    public  void addEmployee(String dni, String name, String surname, int age, String rol, String salaryByMonth,String workedHours, String password){
+        employees.add(new Employee(dni,name,surname,age,rol,salaryByMonth,workedHours,password));
     }
 
 }

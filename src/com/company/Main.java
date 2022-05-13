@@ -22,7 +22,7 @@ public class Main {//Main
                 }
             } else if (choiceMainMenu == 2) {
                 while(true) {
-                    //displayDealerManagementMenu(reader);
+                    displayDealerManagementMenu(reader);
                     if (choiceDealerMenu == 6) {
                         break;
                     }
@@ -66,6 +66,54 @@ public class Main {//Main
             }
         }
     }//Call customer, car, makeCarSale menus
+
+    public static void displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
+        System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
+        DataBase db = new DataBase();
+        choiceDealerMenu = reader.nextInt();
+        switch(choiceDealerMenu) {
+            case 1:
+                System.out.println("Register Employee");
+                if(actionVerification(reader,"Register Employee").equals("Y")) {
+                    registerEmployee(reader);
+                }
+                break;
+            case 2:
+                System.out.println("Search Employee");
+                if(actionVerification(reader,"Search Employee").equals("Y")){
+                    System.out.println("Enter a dni");
+                    String dniToSearch = reader.next();
+                    db.searchEmployee(dniToSearch);
+                }
+                break;
+            case 3:
+                System.out.println("Delete Employee");
+                if(actionVerification(reader,"Delete Employee").equals("Y")) {
+                    System.out.println("Enter a dni");
+                    String dniToDelete = reader.next();
+                    deleteEmployee(reader, dniToDelete);
+                }
+                break;
+            case 4:
+                System.out.println("Modify Employee");
+                if(actionVerification(reader,"Modify Employee").equals("Y")) {
+                    System.out.println("Enter a dni");
+                    String dniToModify = reader.next();
+                    modifyEmployee(reader, dniToModify);
+                }
+                break;
+            case 5:
+                System.out.println("Show all employees");
+                System.out.println(DataBase.employees);
+                break;
+            case 6:
+                System.out.println("Return");
+                break;
+            default:
+                System.out.println("Please enter valid option");
+        }
+    }//displayDealerManagementMenu
+
     //-----------------methods for menu------------//
     public static void customersMenu(Scanner reader){//Register, Search, Remove and Modify Customers
         do {
@@ -142,7 +190,7 @@ public class Main {//Main
                     System.out.println(test2);
                     String a = reader.next();
                     vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
-                    boolean dniExists = db.getListDNI().contains(vars0[0]);
+                    boolean dniExists = db.searchCustomersTrueOrFalse(vars0[0]);
                     if(dniExists){
                         System.out.println("this DNI already exists");
                         break;
@@ -238,21 +286,19 @@ public class Main {//Main
     }
 
     public static void modifyCardCustomer(Scanner reader){
-
-        DataBase db = new DataBase();
         ValidatorData validator = new ValidatorData();
-
-        System.out.println("Please enter a DNI");
-        String search = reader.next();
-        int w  = db.searchCustomer(search);
-        Customer customer = db.getCustomers().get(w);
+        DataBase db = new DataBase();
+        Customer customer;
+        System.out.println("Enter a dni");
+        String dni = reader.next();
+        boolean c = db.searchCustomersTrueOrFalse(dni);
         int i;
-        boolean z = customer.getDNI() == "null";
-
         do{
-                if(z) {
+                if(!c) {
                     break;
                 }
+                int w = db.searchCustomer(dni);
+                customer= db.getCustomers().get(w);
                 System.out.println(customer);
                 int count=0;
                 System.out.println("1-Show cards\n"+"2-Add card\n"+"3-Delete card\n"+"4-Return");//for
@@ -263,7 +309,6 @@ public class Main {//Main
                     String[] vars0 = new String[4];
                     String listAddCard = ("numberCard?,expiration?,type?,securityCode?");
                     String[] listCard  = listAddCard.split(",");
-
                     for(String test: listCard){
                         System.out.println(test);
                         String a = reader.next();
@@ -273,14 +318,12 @@ public class Main {//Main
                             System.out.println("this numbercard already exists");
                             break;
                         }
-
                         if(count == 3 ){
                             Card card = new Card(Long.parseLong(vars0[0]),vars0[1],vars0[2],vars0[3]);
                             customer.addCard(card);
                             System.out.println(customer);
                         }
                         count++;
-
                     }
                 }else if(i==3){
                     System.out.println("Enter a numbercard");
@@ -291,6 +334,54 @@ public class Main {//Main
             }while(i!=4);
 
     }
+    //---------methods for employee------------
+    public static void registerEmployee(Scanner reader){ //method that return a new object Employee with attributes //para hacer
+        String[] vars0 = new String[9];
+        DataBase db = new DataBase();
+        ValidatorData vd = new ValidatorData();
+        String listEmployee = ("dni?,name?,surname?,age?,rol?,salary by month?,worked hours?,Enter password:\n1. Password must contain at least one digit [0-9].\n2. Password must contain at least one lowercase Latin character [a-z].\n3. Password must contain at least one uppercase Latin character [A-Z].\n4. Password must contain at least one special character like ! @ # & ( ) – { } : ; ' ? / * ~ $ ^ + = < >\n5. Password must contain a length of at least 6 characters and a maximum of 12 characters.,Confirm password");
+
+        while(true){
+            int count = 0;
+            if(actionVerification(reader,"registerEmployee").equals("Y")){
+                String[] listAll = listEmployee.split(",");
+
+                for(String test2: listAll){
+                    System.out.println(test2);
+                    String a = reader.next();
+                    vars0[count] = vd.selectValidatorEmployee(String.valueOf(test2),a);
+                    boolean dniExists = db.getListDNIEmployee().contains(vars0[0]);
+                    if(dniExists){
+                        System.out.println("this DNI already exists");
+                        break;
+                    }
+                    count++;
+                    if (count>8){
+                        if(!vars0[8].equals(vars0[7])){
+                            System.out.println("Wrong password");
+                            break;
+                        }
+                        Employee employee = new Employee(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6],vars0[7]);
+                        DataBase.employees.add(employee);
+                        System.out.println(DataBase.employees.toString());
+                        break;
+                    }
+                }
+            }else break;
+        }
+    }//method that return a new object Employee with attributes
+
+    public static void deleteEmployee(Scanner reader, String dni){ //method to delete an Employee
+        Employee employeeToDelete = new Employee ();
+        DataBase db = new DataBase();
+        employeeToDelete = db.getSearchEmployee(dni);
+        System.out.println(employeeToDelete);
+        if(actionVerification(reader,"Delete Employee").equals("Y")) {
+            DataBase.employees.remove(employeeToDelete);
+        } else {
+            System.out.println("employee not deleted");
+        }
+    }//method to delete an Employee
 
     //-----------------methods for car------------//
     public static  void registerCar(){
@@ -324,6 +415,35 @@ public class Main {//Main
             }
         }
     }//Regiser car
+
+    public static void modifyEmployee(Scanner reader, String dni){//method to modify an Employee
+        Employee employeeToModify = new Employee ();
+        DataBase db = new DataBase();
+        ValidatorData vd = new ValidatorData();
+        employeeToModify = db.getSearchEmployee(dni);
+        if(!employeeToModify.equals("null")) {
+            System.out.println(employeeToModify);
+            System.out.println("If you want to modify the rol enter the new rol if not write null");
+            String newRol = reader.next();
+            newRol = vd.checkRol(newRol);
+            if (!newRol.equals("null")) {
+                employeeToModify.setRol(newRol);
+            }
+            System.out.println("If you want to modify the salary by month enter the new salary if not write null");
+            String newSalary = reader.next();
+            newSalary = vd.checkSalaryByMonth(newSalary);
+            if (!(newSalary.equals("null"))) {
+                employeeToModify.setSalaryByMonth(newSalary);
+            }
+            System.out.println("If you want to modify the worked hours enter the hours worked if not write null");
+            String newHoursWorked = reader.next();
+            newHoursWorked =vd.checkWorkedHours(newHoursWorked);
+            if (!(newHoursWorked.equals("null"))) {
+                employeeToModify.setWorkedHours(newHoursWorked);
+            }
+            System.out.println(employeeToModify);
+        }
+    }//method to modify an Employee
 
     public static String actionVerification (Scanner reader, String actionToConfirm){//method to verification if you want to execute another method
         System.out.println("Are you sure you want to " + actionToConfirm + " (Y/N)");
