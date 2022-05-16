@@ -1,13 +1,11 @@
 package com.view;
-
-import com.controller.DatabaseController;
-import com.model.DataBase;
-import com.controller.EmployeeController;
 import java.util.Scanner;
-import com.utils.Utilitys;
 
 
 public class ViewMenu {
+
+    //show all main menus
+
     static int choiceDealerMenu,choiceSellerMenu,choiceMainMenu;
 
     public static  void Mainmenu(Scanner reader){
@@ -23,7 +21,7 @@ public class ViewMenu {
                 }
             } else if (choiceMainMenu == 2) {
                 while(true) {
-                    displayDealerManagementMenu(reader);
+                    Menu.displayDealerManagementMenu(reader);
                     if (choiceDealerMenu == 6) {
                         break;
                     }
@@ -45,7 +43,6 @@ public class ViewMenu {
         choiceSellerMenu = reader.nextInt();
         switch (choiceSellerMenu){
             case 1: {
-                System.out.println("Customer");
                 Menu.customersMenu(reader);
                 break;
             }
@@ -67,51 +64,6 @@ public class ViewMenu {
         }
     }//Call customer, car, makeCarSale menus
 
-    public static void displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
-        System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
-        DatabaseController db = new DatabaseController();
-        choiceDealerMenu = reader.nextInt();
-        switch(choiceDealerMenu) {
-            case 1:
-                System.out.println("Register Employee");
-                if(Utilitys.actionVerification(reader,"Register Employee").equals("Y")) {
-                    EmployeeController.registerEmployee(reader);
-                }
-                break;
-            case 2:
-                System.out.println("Search Employee");
-                if(Utilitys.actionVerification(reader,"Search Employee").equals("Y")){
-                    System.out.println("Enter a dni");
-                    String dniToSearch = reader.next();
-                    db.searchEmployee(dniToSearch);
-                }
-                break;
-            case 3:
-                System.out.println("Delete Employee");
-                if(Utilitys.actionVerification(reader,"Delete Employee").equals("Y")) {
-                    System.out.println("Enter a dni");
-                    String dniToDelete = reader.next();
-                    EmployeeController.deleteEmployee(reader, dniToDelete);
-                }
-                break;
-            case 4:
-                System.out.println("Modify Employee");
-                if(Utilitys.actionVerification(reader,"Modify Employee").equals("Y")) {
-                    System.out.println("Enter a dni");
-                    String dniToModify = reader.next();
-                    EmployeeController.modifyEmployee(reader, dniToModify);
-                }
-                break;
-            case 5:
-                System.out.println("Show all employees");
-                System.out.println(DataBase.getEmployees());
-                break;
-            case 6:
-                System.out.println("Return");
-                break;
-            default:
-                System.out.println("Please enter valid option");
-        }
-    }//displayDealerManagementMenu
+
 
 }

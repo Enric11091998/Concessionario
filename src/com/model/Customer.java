@@ -44,14 +44,6 @@ public class Customer {
         return this.dni;
     }
 
-    public ArrayList<Long> getCardNumber(Customer customer){
-        ArrayList<Long> temp = new ArrayList<>();
-        for(int i = 0; i< this.cards.size(); i++){
-            temp.add(customer.cards.get(i).getNumberCard());
-        }
-        return temp;
-    }
-
     ////--------------------methods set---------------
 
     public void setPhone(String phone) {
@@ -88,12 +80,6 @@ public class Customer {
                 '}';
     }
 
-    public ArrayList<Card> printCard(){
-        for(Card card : this.cards){
-            System.out.println(card);
-        }
-        return cards;
-    }
     ////--------------------methods add---------------
     public ArrayList<Card> addCard(Card card){
         this.cards.add(card);

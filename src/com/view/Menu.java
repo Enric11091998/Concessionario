@@ -3,10 +3,15 @@ package com.view;
 import java.util.Scanner;
 import com.controller.CustomerController;
 import com.controller.CarController;
+import com.controller.DatabaseController;
+import com.controller.EmployeeController;
 
 public class Menu {
+    //Show and call methods
+
     static  int choice;
-    public static void customersMenu(Scanner reader){//Register, Search, Remove and Modify Customers
+
+    public static void customersMenu(Scanner reader){//Register, Search, delete, modify and modifyCard Customers
         do {
             System.out.println("1-Register Customer" + "\n" +"2-Search Customer" + "\n" + "3-Delete Customer"+ "\n" + "4-Modify Customer"+"\n" +"5-Modifiy Cards Customer"+ "\n" +"6-Return to SellerManagementMenu"+ "\n" +"Option?");
             choice = reader.nextInt();
@@ -62,4 +67,32 @@ public class Menu {
             }
         }while (choice!=3);
     }
+
+    public static void displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
+        System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
+        DatabaseController db = new DatabaseController();
+        choice = reader.nextInt();
+        switch(choice) {
+            case 1:
+                EmployeeController.registerEmployee(reader);
+                break;
+            case 2:
+                db.searchEmployee(reader);
+                break;
+            case 3:
+                EmployeeController.deleteEmployee(reader);
+                break;
+            case 4:
+                EmployeeController.modifyEmployee(reader);
+                break;
+            case 5:
+                EmployeeController.showAllEmployee();
+                break;
+            case 6:
+                System.out.println("Return");
+                break;
+            default:
+                System.out.println("Please enter valid option");
+        }
+    }//displayDealerManagementMenu
 }

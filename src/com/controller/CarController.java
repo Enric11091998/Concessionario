@@ -4,7 +4,7 @@ import com.model.Card;
 import com.model.Customer;
 import com.model.DataBase;
 import com.utils.ValidatorData;
-import com.utils.Utilitys;
+
 
 import java.util.Scanner;
 
@@ -12,14 +12,14 @@ public class CarController {
     public static void registerCar(Scanner reader){
         ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[6];
-        DataBase db = new DataBase();
+        DatabaseController db = new DatabaseController();
         Customer customer ;
         Card card ;
         String listCustomerAndCard = ("car license?,brand?,number of doors?,color?,km?,insurance,price?");
 
         while(true){
             int count = 0;
-            if(Utilitys.actionVerification(reader,"registerCar").equals("Y")){
+
                 String[] listAll = listCustomerAndCard.split(",");
 
                 for(String test2: listAll){
@@ -34,11 +34,11 @@ public class CarController {
                     if (count ==7){
                         //Car car = new Car(vars0[0],numberofdoors,vars0[2],km,vars0[4],vars0[5],price);
                         db.addCar(vars0[0],vars0[1],vars0[2],Double.valueOf(vars0[3]),vars0[4],vars0[5],Double.valueOf(vars0[6]));
-                        System.out.println(db.getCars().toString());
+                        System.out.println(DataBase.getCars().toString());
                     }
 
                 }
-            }else break;
+            break;
         }
     }
 }

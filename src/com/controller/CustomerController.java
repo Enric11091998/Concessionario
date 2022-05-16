@@ -12,44 +12,41 @@ public class CustomerController {
     public static void registerCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[11];
-        DataBase db = new DataBase();
+        DatabaseController db = new DatabaseController();
         Customer customer ;
         Card card ;
         String listCustomerAndCard = ("dni?,name?,surname?,age?,phone?,favorite color car?,favorite brand car?,numberCard?,expiration?,type?,securityCode?");
-
         while(true){
             int count = 0;
-            if(Utilitys.actionVerification(reader,"registerCustomer").equals("Y")){
-                String[] listAll = listCustomerAndCard.split(",");
-
-                for(String test2: listAll){
-                    System.out.println(test2);
-                    String a = reader.next();
-                    vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
-                    boolean dniExists = db.searchCustomersTrueOrFalse(vars0[0]);
-                    if(dniExists){
-                        System.out.println("this DNI already exists");
-                        break;
-                    }
-                    count++;
-                    if (count==7){
-                        if(!Utilitys.actionVerification(reader,"Register Card").equals("Y")){
-                            customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
-                            db.addCustomerWithouCard(customer);
-                            System.out.println(customer);
-                            break;
-                        }
-                    }
-                    if (count>10){
+            String[] listAll = listCustomerAndCard.split(",");
+            for(String test2: listAll){
+                System.out.println(test2);
+                String a = reader.next();
+                vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
+                boolean dniExists = DatabaseController.searchCustomersTrueOrFalse(vars0[0]);
+                if(dniExists){
+                    System.out.println("this DNI already exists");
+                    break;
+                }
+                count++;
+                if(count==7){
+                    if(!Utilitys.actionVerification(reader,"Register Card").equals("Y")){
                         customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
-                        card =new Card(Long.parseLong(vars0[7]),vars0[8],vars0[9],vars0[10]);
                         db.addCustomerWithouCard(customer);
-                        customer.addCard(card);
                         System.out.println(customer);
                         break;
                     }
                 }
-            }else break;
+                if(count>10){
+                    customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
+                    card =new Card(Long.parseLong(vars0[7]),vars0[8],vars0[9],vars0[10]);
+                    db.addCustomerWithouCard(customer);
+                    customer.addCard(card);
+                    System.out.println(customer);
+                    break;
+                }
+            }
+        break;
         }
     }
 
@@ -58,9 +55,9 @@ public class CustomerController {
         Customer customer;
         System.out.println("Enter a dni");
         String dni = reader.next();
-        boolean c = db.searchCustomersTrueOrFalse(dni);
+        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         if(c){
-            int w = db.searchCustomer(dni);
+            int w = DatabaseController.searchCustomer(dni);
             customer= db.getCustomers().get(w);
             System.out.println(customer);
         }
@@ -72,9 +69,9 @@ public class CustomerController {
         Customer customer;
         System.out.println("Enter a dni");
         String dni = reader.next();
-        boolean c = db.searchCustomersTrueOrFalse(dni);
+        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         if(c){
-            int w = db.searchCustomer(dni);
+            int w = DatabaseController.searchCustomer(dni);
             customer= db.getCustomers().get(w);
             System.out.println(" this " + customer + "is deleted");
             db.getCustomers().remove(customer);
@@ -88,8 +85,8 @@ public class CustomerController {
         Customer customer ;
         System.out.println("Please enter a DNI");
         String search = reader.next();
-        boolean c = db.searchCustomersTrueOrFalse(search);
-        int w = db.searchCustomer(search);
+        boolean c = DatabaseController.searchCustomersTrueOrFalse(search);
+        int w = DatabaseController.searchCustomer(search);
         customer= db.getCustomers().get(w);
         int i;
         System.out.println(customer);
@@ -127,13 +124,13 @@ public class CustomerController {
         Customer customer;
         System.out.println("Enter a dni");
         String dni = reader.next();
-        boolean c = db.searchCustomersTrueOrFalse(dni);
+        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         int i;
         do{
             if(!c) {
                 break;
             }
-            int w = db.searchCustomer(dni);
+            int w = DatabaseController.searchCustomer(dni);
             customer= db.getCustomers().get(w);
             System.out.println(customer);
             int count=0;
