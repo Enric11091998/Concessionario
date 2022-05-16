@@ -1,7 +1,6 @@
-package com.company;
+package com.model;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Customer {
     public String dni;
@@ -68,11 +67,11 @@ public class Customer {
     }
 
     ////--------------------methods show---------------
-    public ArrayList<Card> showCard(Customer customer){
+    public void showCards(Customer customer){
         for(Card card: customer.cards ){
             System.out.println(card);
         }
-        return cards;
+
     }
 
     @Override
@@ -85,7 +84,7 @@ public class Customer {
                 ", phone='" + this.phone + '\'' +
                 ", favoriteColorCar='" + this.favoriteColorCar + '\'' +
                 ", favoriteBrandCar='" + this.favoriteBrandCar + '\'' +
-                ", cards=" + this.cards.toString()+
+                ", cards=" + this.cards +
                 '}';
     }
 

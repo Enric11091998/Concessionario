@@ -1,10 +1,10 @@
-package com.company;
+package com.utils;
 
 import java.util.Scanner;
 
 public class ValidatorData {
 
-    ValidatorData(){};
+    public ValidatorData(){};
 
     public  String selectValidatorCustomerAndCard(String i, String b){
         String a = new String();
@@ -157,16 +157,6 @@ public class ValidatorData {
         }return a;
     }
 
-    public  String checkWorkHours(String a) {
-        String patterSecurityCodeCard= "^(3[89]|4[0])$";
-        Scanner reader = new Scanner(System.in);
-        while (!a.matches(patterSecurityCodeCard)){
-            System.out.println("INVALID HOURS!!.Please INSERT a HOURS");
-            a = reader.next();
-        }
-        return  a;
-
-    }
     public String checkWorkedHours(String a) {
         String patterSecurityCodeCard= "^(3[89]|4[0])$";
         Scanner reader = new Scanner(System.in);
@@ -191,6 +181,7 @@ public class ValidatorData {
         return a;
 
     }
+
     public String checkSalaryByMonth(String a){
         return  a;
     }

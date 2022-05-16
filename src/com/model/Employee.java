@@ -1,4 +1,4 @@
-package com.company;
+package com.model;
 
 public class Employee {
     public String dni;

@@ -1,25 +1,19 @@
-package com.company;
+package com.controller;
 
+import com.model.Car;
+import com.model.Customer;
+import com.model.Employee;
+import com.model.DataBase;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-public class DataBase {
 
-    static ArrayList<Customer> customers= new ArrayList<>();
-    static  ArrayList<Car> cars = new ArrayList<>();
-    static ArrayList<Employee> employees= new ArrayList<>();
+public class DatabaseController {
 
-    public DataBase() {
-
-    }
-
-    ////--------------------methods search--------------
-
-    public int searchCustomer(String dni){
+    public int   searchCustomer(String dni){
         int b = 000000000000000000000000000000000000000000;
         int i ;
-        for( i =0; i < customers.size(); i++){
-            if(customers.get(i).getDNI().equals(dni)) {
+        for( i =0; i < DataBase.getCustomers().size(); i++){
+            if(DataBase.getCustomers().get(i).getDNI().equals(dni)) {
                 break;
             }else return b;
         }
@@ -27,9 +21,9 @@ public class DataBase {
     }
 
     public Employee getSearchEmployee(String dni){ //method to return a specific employee
-        for(int i=0; i < employees.size(); i++) {
+        for(int i=0; i < DataBase.getEmployees().size(); i++) {
             Employee searchedEmployee = new Employee();
-            searchedEmployee = employees.get(i);
+            searchedEmployee = DataBase.getEmployees().get(i);
             if (dni.equals(searchedEmployee.getDni())) {
                 return searchedEmployee;
             }
@@ -40,9 +34,9 @@ public class DataBase {
 
     public void searchEmployee(String dni){ //method to search a specific employee
         Employee searchedEmployee = null;
-        for(int i=0; i < employees.size(); i++) {
-            if (dni.equals(employees.get(i).getDni())) {
-                searchedEmployee = employees.get(i);
+        for(int i=0; i < DataBase.getEmployees().size(); i++) {
+            if (dni.equals(DataBase.getEmployees().get(i).getDni())) {
+                searchedEmployee = DataBase.getEmployees().get(i);
                 break;
             }
         }
@@ -55,51 +49,54 @@ public class DataBase {
 
     public boolean searchCustomersTrueOrFalse(String dni){
 
-        for (Customer customer: customers){
+        for (Customer customer: DataBase.getCustomers()){
             if(customer.getDNI().equals(dni)){
-                break;
+                return true;
             }else return false;
-        }return true;
+        }
+        return false;
+    }
+    public boolean searchCarsTrueOrFalse(String carLicense){
+        for (Car car: DataBase.getCars()){
+            if(car.getCarLicense().equals(carLicense)){
+                return  true;
+            }else return false;
+        }return false;
     }
 
     public List<String> getListDNI() {
         List<String> dni = new ArrayList<>();
-        for (Customer customer: this.getCustomers()) {
+        for (Customer customer: DataBase.getCustomers()) {
             dni.add(customer.getDNI());
         }
         return dni;
     }
 
-    public  ArrayList<Customer> getCustomers() {
-        return customers;
-    }
 
-    public List<String> getListDNIEmployee() {
+
+    public  List<String> getListDNIEmployee() {
         List<String> dni = new ArrayList<String>();
-        for (Employee employee: employees) {
+        for (Employee employee: DataBase.getEmployees()) {
             dni.add(employee.getDni());
         }
         return dni;
     }
 
 
-    public  ArrayList<Car> getCars() {
-        return cars;
-    }
+
 
     ///--------------------methods add---------------
     public  void addCustomerWithouCard(String dni, String name, String surname, int age, String phone, String favoriteColorCar, String favoriteBrandCar){
-        customers.add(new Customer(dni,name,surname,age,phone,favoriteColorCar,favoriteBrandCar));
+        DataBase.getCustomers().add(new Customer(dni,name,surname,age,phone,favoriteColorCar,favoriteBrandCar));
     }
     public  void addCustomerWithouCard(Customer customer){
-        customers.add(customer);
+        DataBase.getCustomers().add(customer);
     }
 
-    public void addCar(String brand, int numberofdoors, String color, double km, String carLicense,String insurance,double price){
-        cars.add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price));
+    public void addCar(String brand, String numberofdoors, String color, double km, String carLicense,String insurance,double price){
+        DataBase.getCars().add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price));
     }
     public  void addEmployee(String dni, String name, String surname, int age, String rol, String salaryByMonth,String workedHours, String password){
-        employees.add(new Employee(dni,name,surname,age,rol,salaryByMonth,workedHours,password));
+        DataBase.getEmployees().add(new Employee(dni,name,surname,age,rol,salaryByMonth,workedHours,password));
     }
-
 }
