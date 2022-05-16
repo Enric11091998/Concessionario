@@ -9,6 +9,7 @@ public class Car {
     String insurance;
     double price;
     //Hello
+    //hello
 
     //Constructor empty
     public Car(){}
@@ -33,7 +34,16 @@ public class Car {
         return  false;
     }
 
-
-
-
+    @Override
+    public String toString() {
+        return "Car{" +
+                "brand='" + brand + '\'' +
+                ", numberofdoors=" + numberofdoors +
+                ", color='" + color + '\'' +
+                ", km=" + km +
+                ", carLicense='" + carLicense + '\'' +
+                ", insurance='" + insurance + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
