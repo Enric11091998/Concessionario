@@ -1,9 +1,7 @@
 package com.controller;
 
-import com.model.Car;
-import com.model.Customer;
-import com.model.Employee;
-import com.model.DataBase;
+import com.model.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -16,10 +14,10 @@ public class DatabaseController {
         int i ;
         for( i =0; i < DataBase.getCustomers().size(); i++){
             if(DataBase.getCustomers().get(i).getDNI().equals(dni)) {
-                break;
-            }else return b;
+               return i;
+            }
         }
-        return i;
+        return b;
     }
 
     public static boolean searchCustomersTrueOrFalse(String dni){
@@ -31,13 +29,6 @@ public class DatabaseController {
         return false;
     }
 
-    public static boolean searchCarsTrueOrFalse(String carLicense){
-        for (Car car: DataBase.getCars()){
-            if(car.getCarLicense().equals(carLicense)){
-                return  true;
-            }
-        }return false;
-    }
 
     public static void addCustomerWithouCard(Customer customer){
         DataBase.getCustomers().add(customer);
@@ -88,5 +79,36 @@ public class DatabaseController {
 
     public static void addEmployee(String dni, String name, String surname, int age, String rol, String salaryByMonth,String workedHours, String password){
         DataBase.getEmployees().add(new Employee(dni,name,surname,age,rol,salaryByMonth,workedHours,password));
+    }
+    ///-------------------methods of Car------------
+    public static boolean searchCarsTrueOrFalse(String carlicense){
+        for (Car car: DataBase.getCars()){
+            if(car.getCarLicense().equals(carlicense)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static int  searchCars(String carlicense){
+        int b = 000000000000000000000000000000000000000000;
+        int i ;
+        for( i =0; i < DataBase.getCars().size(); i++){
+            if(DataBase.getCars().get(i).getCarLicense().equals(carlicense)) {
+                return i;
+            }
+        }
+        return b;
+    }
+
+    public static boolean searchCardTrueOrFalse(String cardNumber, Customer customer){
+
+        for(int i = 0 ; i < customer.getCards().size(); i++){
+            String cardnumber = String.valueOf(customer.getCards().get(i).getNumberCard());
+            if(cardnumber.equals(cardNumber)){
+                return true;
+            }
+        }
+        return false;
     }
 }

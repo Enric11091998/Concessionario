@@ -36,22 +36,16 @@ public class Menu {
 
     public static void carMenu(Scanner reader){//carMenu
         do {
-            System.out.println("1-Register car" + "\n" +"2-Search Car" + "\n" + "3-Remove Car"+ "\n" + "4-Modify Car"+ "\n" +"5-Return to SellerManagementMenu"+ "\n" +"Option?");
+            System.out.println("1-Search Car" + "\n" +"2-Delete Car" + "\n" + "3-Return to SellerManagement Menu" + "\n" +"Option?");
 
             choice = reader.nextInt();
             if(choice ==1){
-                CarController.registerCar(reader);
+                CarController.searchCar(reader);
             }
             if(choice ==2){
-                System.out.println("Search Car");
+                CarController.deleteCar(reader);
             }
-            if(choice ==3){
-                System.out.println("Remove Car");
-            }
-            if(choice ==4){
-                System.out.println("Modify Car");
-            }
-        }while (choice!=5);
+        }while (choice!=3);
     }
 
     public static void makeCarSaleMenu(Scanner reader){//makeCarSaleMenu

@@ -1,8 +1,8 @@
-package com.company;
+package com.model;
 
 public class Car {
     String brand;
-    int numberofdoors;
+    String numberofdoors;
     String color;
     double km;
     String carLicense;
@@ -11,12 +11,12 @@ public class Car {
     //Hello
     //hello
 
-    public String getCarLicense() {
-        return carLicense;
-    }
+
 
     //Constructor empty
     public Car(){}
+
+
 
     public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price){
         this.brand = brand;
@@ -36,6 +36,10 @@ public class Car {
     public boolean checkExistsCarLicense(String carLicense){
         this.carLicense = carLicense;
         return  false;
+    }
+
+    public String getCarLicense() {
+        return carLicense;
     }
 
     @Override

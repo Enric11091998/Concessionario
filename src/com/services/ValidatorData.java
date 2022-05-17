@@ -1,4 +1,4 @@
-package com.utils;
+package com.services;
 
 import java.util.Scanner;
 
@@ -64,6 +64,7 @@ public class ValidatorData {
         return a;
 
     }
+
 
     public  String checkDNI(String a) {
         String patternDNI = "^[0-9]{8}+[A-Z]{1}$";
