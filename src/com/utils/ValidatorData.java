@@ -1,37 +1,37 @@
-package com.company;
+package com.utils;
 
 import java.util.Scanner;
 
 public class ValidatorData {
 
-    ValidatorData(){};
+    public ValidatorData(){};
 
     public  String selectValidatorCustomerAndCard(String i, String b){
         String a = new String();
         switch (i){
 
             case "dni?":a = checkDNI(b);
-                    break;
+                break;
             case "name?":a= name(b);
-                    break;
+                break;
             case "surname?":a= surname(b);
-                    break;
+                break;
             case "age?":a= checkAge(b);
-                    break;
+                break;
             case "phone?": a= checkPhone(b);
-                    break;
+                break;
             case "favorite color car?":a =checkColorCar(b);
-                    break;
+                break;
             case "favorite brand car?":a = checkCarBrand(b);
-                    break;
+                break;
             case "numberCard?":a= checkNumberCard(b);
-                    break;
+                break;
             case "expiration?":a= checkExpirationCard(b);
-                    break;
+                break;
             case "type?":a =checkTypeCard(b);
-                    break;
+                break;
             case "securityCode?":a = checkSecurityCodeCard(b);
-                    break;
+                break;
 
 
         }
@@ -87,7 +87,7 @@ public class ValidatorData {
     public  String checkAge(String a) {
         String patternAge= "^1[89]|[2-4][0-9]|5[0-5]$";
         Scanner reader = new Scanner(System.in);
-       while(!a.matches(patternAge)){
+        while(!a.matches(patternAge)){
             System.out.println("INVALID AGE!!.Please INSERT a valid AGE");
             a = reader.next();
         }
@@ -157,16 +157,6 @@ public class ValidatorData {
         }return a;
     }
 
-    public  String checkWorkHours(String a) {
-        String patterSecurityCodeCard= "^(3[89]|4[0])$";
-        Scanner reader = new Scanner(System.in);
-        while (!a.matches(patterSecurityCodeCard)){
-            System.out.println("INVALID HOURS!!.Please INSERT a HOURS");
-            a = reader.next();
-        }
-        return  a;
-
-    }
     public String checkWorkedHours(String a) {
         String patterSecurityCodeCard= "^(3[89]|4[0])$";
         Scanner reader = new Scanner(System.in);
@@ -191,6 +181,7 @@ public class ValidatorData {
         return a;
 
     }
+
     public String checkSalaryByMonth(String a){
         return  a;
     }
@@ -208,7 +199,3 @@ public class ValidatorData {
         return  a;
     }
 }
-
-
-
-
