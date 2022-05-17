@@ -2,7 +2,7 @@ package com.controller;
 
 import com.model.DataBase;
 import com.model.Employee;
-import com.utils.ValidatorData;
+import com.services.ValidatorData;
 import com.utils.Utilitys;
 
 import java.util.Scanner;

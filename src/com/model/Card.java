@@ -22,6 +22,13 @@ public class Card {
         return numberCard;
     }
 
+    public void setNumberCard(long numberCard) {
+        this.numberCard = numberCard;
+}
+
+    public String getExpiration() {
+        return expiration;
+    }
     @Override
     public String toString() {
         return "Card{" +

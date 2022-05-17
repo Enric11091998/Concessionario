@@ -3,7 +3,7 @@ package com.controller;
 import com.model.Card;
 import com.model.Customer;
 import com.model.DataBase;
-import com.utils.ValidatorData;
+import com.services.ValidatorData;
 import com.utils.Utilitys;
 
 import java.util.Scanner;
@@ -31,14 +31,14 @@ public class CustomerController {
                 count++;
                 if(count==7){
                     if(!Utilitys.actionVerification(reader,"Register Card").equals("Y")){
-                        customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
+                        customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
                         db.addCustomerWithouCard(customer);
                         System.out.println(customer);
                         break;
                     }
                 }
                 if(count>10){
-                    customer = new Customer(vars0[0],vars0[1],vars0[2],Integer.parseInt(vars0[3]),vars0[4],vars0[5],vars0[6]);
+                    customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
                     card =new Card(Long.parseLong(vars0[7]),vars0[8],vars0[9],vars0[10]);
                     db.addCustomerWithouCard(customer);
                     customer.addCard(card);
@@ -132,12 +132,11 @@ public class CustomerController {
             }
             int w = DatabaseController.searchCustomer(dni);
             customer= db.getCustomers().get(w);
-            System.out.println(customer);
             int count=0;
             System.out.println("1-Show cards\n"+"2-Add card\n"+"3-Delete card\n"+"4-Return");//for
             i = reader.nextInt();
             if(i==1){
-                customer.showCards(customer);
+                System.out.println(customer.getCards().toString());
             }else if(i==2){
                 String[] vars0 = new String[4];
                 String listAddCard = ("numberCard?,expiration?,type?,securityCode?");
@@ -154,15 +153,19 @@ public class CustomerController {
                     if(count == 3 ){
                         Card card = new Card(Long.parseLong(vars0[0]),vars0[1],vars0[2],vars0[3]);
                         customer.addCard(card);
-                        System.out.println(customer);
+                        System.out.println(customer.getCards().toString());
                     }
                     count++;
                 }
             }else if(i==3){
                 System.out.println("Enter a numbercard");
                 String b = validator.checkNumberCard(reader.next());
+                boolean cardNumberExists =  customer.existsCards(customer,b);
+                if(cardNumberExists){
                 customer.deleteCards(customer,b);
-                System.out.println(customer);
+                    System.out.println(customer.getCards().toString());
+                }
+                else System.out.println("this card no exists");
             }
         }while(i!=4);
 

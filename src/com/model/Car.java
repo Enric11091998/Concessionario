@@ -11,9 +11,6 @@ public class Car {
     //Hello
     //hello
 
-    public String getCarLicense() {
-        return carLicense;
-    }
 
     //Constructor empty
     public Car(){}
@@ -38,6 +35,9 @@ public class Car {
         return  false;
     }
 
+    public String getCarLicense() {
+        return carLicense;
+    }
     @Override
     public String toString() {
         return "Car{" +
