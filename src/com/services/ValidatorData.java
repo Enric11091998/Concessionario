@@ -33,7 +33,6 @@ public class ValidatorData {
             case "securityCode?":a = checkSecurityCodeCard(b);
                 break;
 
-
         }
         return a;
 

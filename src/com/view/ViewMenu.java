@@ -8,7 +8,7 @@ public class ViewMenu {
 
     static int choiceDealerMenu,choiceSellerMenu,choiceMainMenu;
 
-    public static  void Mainmenu(Scanner reader){
+    public static  void MainMenu(Scanner reader){
         while(true) {
             displayMainMenu();
             choiceMainMenu = reader.nextInt();
