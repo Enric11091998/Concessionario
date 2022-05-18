@@ -70,7 +70,6 @@ public class Main {//Main
         for(int i = 0; i < 5; i++){
             DatabaseController.addCustomerWithouCard(objects[i]);
         }
-
     }
 
 }//Main

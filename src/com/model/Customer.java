@@ -69,7 +69,6 @@ public class Customer {
 
     }
 
-
     ////--------------------methods add---------------
     public ArrayList<Card> addCard(Card card){
         this.cards.add(card);

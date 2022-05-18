@@ -9,6 +9,10 @@ import com.utils.Utilitys;
 import java.util.Scanner;
 
 public class CustomerController {
+
+    public CustomerController() {
+    }
+
     public static void registerCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[11];

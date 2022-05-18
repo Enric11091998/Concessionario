@@ -8,7 +8,6 @@ import com.controller.EmployeeController;
 
 public class Menu {
     //Show and call methods
-
     static  int choice;
 
     public static void customersMenu(Scanner reader){//Register, Search, delete, modify and modifyCard Customers

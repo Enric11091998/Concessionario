@@ -4,7 +4,6 @@ import com.model.DataBase;
 import com.model.Employee;
 import com.services.ValidatorData;
 import com.utils.Utilitys;
-
 import java.util.Scanner;
 
 public class EmployeeController {

@@ -1,7 +1,6 @@
 package com.view;
 import java.util.Scanner;
 
-
 public class ViewMenu {
 
     //show all main menus

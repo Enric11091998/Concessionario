@@ -2,7 +2,6 @@ package com.model;
 
 import java.util.ArrayList;
 
-
 public class DataBase {
 
     static ArrayList<Customer> customers= new ArrayList<>();

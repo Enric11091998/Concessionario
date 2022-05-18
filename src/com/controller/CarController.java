@@ -4,7 +4,6 @@ import com.model.Car;
 import com.model.DataBase;
 import com.utils.Utilitys;
 
-
 import java.util.Scanner;
 
 public class CarController {

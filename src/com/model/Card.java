@@ -6,7 +6,6 @@ public class Card {
     public String type;
     public String securityCode;
 
-
     public Card() {
 
     }
