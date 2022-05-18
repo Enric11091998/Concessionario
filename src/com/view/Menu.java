@@ -1,10 +1,8 @@
 package com.view;
 
 import java.util.Scanner;
-import com.controller.CustomerController;
-import com.controller.CarController;
-import com.controller.DatabaseController;
-import com.controller.EmployeeController;
+
+import com.controller.*;
 
 public class Menu {
     //Show and call methods
@@ -54,7 +52,7 @@ public class Menu {
 
             choice = reader.nextInt();
             if(choice ==1){
-                System.out.println("Make Car Sale");
+                OrderController.makeCarSale();
             }
             if(choice ==2){
                 System.out.println("Search bought by ?");
