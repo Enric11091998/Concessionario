@@ -5,6 +5,7 @@ import com.model.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import com.utils.Utilities;
 
 public class DatabaseController {
 
@@ -53,11 +54,10 @@ public class DatabaseController {
     }//method to return a specific employee
 
     public void searchEmployee(Scanner reader){ //method to search a specific employee
-        System.out.println("Enter a dni");
-        String dniToSearch = reader.next();
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         Employee searchedEmployee = null;
         for (int i = 0; i < DataBase.getEmployees().size(); i++) {
-            if (dniToSearch.equals(DataBase.getEmployees().get(i).getDni())) {
+            if (dni.equals(DataBase.getEmployees().get(i).getDni())) {
                 searchedEmployee = DataBase.getEmployees().get(i);
                 break;
             }

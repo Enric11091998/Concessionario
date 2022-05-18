@@ -1,39 +1,35 @@
 package com.controller;
 
 import com.model.Car;
-
 import com.model.DataBase;
-
-
+import com.utils.Utilities;
 import java.util.Scanner;
 
 public class CarController {
 
     public static void searchCar(Scanner reader){
         Car car;
-        System.out.println("car license");
-        String carlicense = reader.next();
-        boolean c = DatabaseController.searchCarsTrueOrFalse(carlicense);
+        String carLicense = Utilities.askInfo(reader,"Enter a car license");
+        boolean c = DatabaseController.searchCarsTrueOrFalse(carLicense);
         if(c){
-            int w = DatabaseController.searchCars(carlicense);
+            int w = DatabaseController.searchCars(carLicense);
             car =  DataBase.getCars().get(w);
             System.out.println(car);
         }
-        else System.out.println("this carlicense no exists");
+        else System.out.println("this car license no exists");
     }
 
     public static void deleteCar(Scanner reader){
         DataBase db = new DataBase();
         Car car;
-        System.out.println("car license");
-        String carlicense = reader.next();
-        boolean c = DatabaseController.searchCarsTrueOrFalse(carlicense);
+        String carLicense = Utilities.askInfo(reader,"Enter a car license");
+        boolean c = DatabaseController.searchCarsTrueOrFalse(carLicense);
         if(c){
-            int w = DatabaseController.searchCars(carlicense);
+            int w = DatabaseController.searchCars(carLicense);
             car =  DataBase.getCars().get(w);
             System.out.println(" this " + car + "is deleted");
             DataBase.getCars().remove(car);
         }
-        else System.out.println("this carlicense no exists");
+        else System.out.println("this car License no exists");
     }
 }

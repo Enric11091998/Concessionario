@@ -4,15 +4,16 @@ import com.model.Card;
 import com.model.Customer;
 import com.model.DataBase;
 import com.services.ValidatorData;
-import com.utils.Utilitys;
+import com.utils.Utilities;
 
 import java.util.Scanner;
 
 public class CustomerController {
+    public CustomerController() {
+    }
     public static void registerCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[11];
-        DatabaseController db = new DatabaseController();
         Customer customer ;
         Card card ;
         String listCustomerAndCard = ("dni?,name?,surname?,age?,phone?,favorite color car?,favorite brand car?,numberCard?,expiration?,type?,securityCode?");
@@ -30,9 +31,9 @@ public class CustomerController {
                 }
                 count++;
                 if(count==7){
-                    if(!Utilitys.actionVerification(reader,"Register Card").equals("Y")){
+                    if(!Utilities.actionVerification(reader,"Register Card").equals("Y")){
                         customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
-                        db.addCustomerWithouCard(customer);
+                        DatabaseController.addCustomerWithouCard(customer);
                         System.out.println(customer);
                         break;
                     }
@@ -40,7 +41,7 @@ public class CustomerController {
                 if(count>10){
                     customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
                     card =new Card(Long.parseLong(vars0[7]),vars0[8],vars0[9],vars0[10]);
-                    db.addCustomerWithouCard(customer);
+                    DatabaseController.addCustomerWithouCard(customer);
                     customer.addCard(card);
                     System.out.println(customer);
                     break;
@@ -51,43 +52,37 @@ public class CustomerController {
     }
 
     public static void searchCustomer(Scanner reader){
-        DataBase db = new DataBase();
         Customer customer;
-        System.out.println("Enter a dni");
-        String dni = reader.next();
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         if(c){
             int w = DatabaseController.searchCustomer(dni);
-            customer= db.getCustomers().get(w);
+            customer= DataBase.getCustomers().get(w);
             System.out.println(customer);
         }
         else System.out.println("this dni no exists");
     }
 
     public static void deleteCustomer(Scanner reader){
-        DataBase db = new DataBase();
         Customer customer;
-        System.out.println("Enter a dni");
-        String dni = reader.next();
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         if(c){
             int w = DatabaseController.searchCustomer(dni);
-            customer= db.getCustomers().get(w);
+            customer= DataBase.getCustomers().get(w);
             System.out.println(" this " + customer + "is deleted");
-            db.getCustomers().remove(customer);
+            DataBase.getCustomers().remove(customer);
         }
         else System.out.println("this dni no exists");
     }
 
     public static void modifyCustomer(Scanner reader){
-        DataBase db = new DataBase();
         ValidatorData validator = new ValidatorData();
         Customer customer ;
-        System.out.println("Please enter a DNI");
-        String search = reader.next();
-        boolean c = DatabaseController.searchCustomersTrueOrFalse(search);
-        int w = DatabaseController.searchCustomer(search);
-        customer= db.getCustomers().get(w);
+        String dni = Utilities.askInfo(reader,"Enter a dni");
+        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
+        int w = DatabaseController.searchCustomer(dni);
+        customer= DataBase.getCustomers().get(w);
         int i;
         System.out.println(customer);
         if(!c) {
@@ -120,10 +115,8 @@ public class CustomerController {
 
     public static void modifyCardCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
-        DataBase db = new DataBase();
         Customer customer;
-        System.out.println("Enter a dni");
-        String dni = reader.next();
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         int i;
         do{
@@ -131,7 +124,7 @@ public class CustomerController {
                 break;
             }
             int w = DatabaseController.searchCustomer(dni);
-            customer= db.getCustomers().get(w);
+            customer= DataBase.getCustomers().get(w);
             int count=0;
             System.out.println("1-Show cards\n"+"2-Add card\n"+"3-Delete card\n"+"4-Return");//for
             i = reader.nextInt();
