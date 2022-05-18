@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class EmployeeController {
     public static void registerEmployee(Scanner reader){//method that return a new object Employee with attributes //para hacer
         String[] vars0 = new String[9];
-        DatabaseController db = new DatabaseController();
         ValidatorData vd = new ValidatorData();
         String listEmployee = ("dni?,name?,surname?,age?,rol?,salary by month?,worked hours?,Enter password:\n1. Password must contain at least one digit [0-9].\n2. Password must contain at least one lowercase Latin character [a-z].\n3. Password must contain at least one uppercase Latin character [A-Z].\n4. Password must contain at least one special character like ! @ # & ( ) – { } : ; ' ? / * ~ $ ^ + = < >\n5. Password must contain a length of at least 6 characters and a maximum of 12 characters.,Confirm password");
 
@@ -21,7 +20,7 @@ public class EmployeeController {
                 System.out.println(test2);
                 String a = reader.next();
                 vars0[count] = vd.selectValidatorEmployee(String.valueOf(test2), a);
-                boolean dniExists = db.getListDNIEmployee().contains(vars0[0]);
+                boolean dniExists = DatabaseController.getListDNIEmployee().contains(vars0[0]);
                 if(dniExists) {
                     System.out.println("this DNI already exists");
                     break;
@@ -44,11 +43,10 @@ public class EmployeeController {
     }//method that return a new object Employee with attributes
 
     public static void deleteEmployee(Scanner reader){//method to delete an Employee
-        System.out.println("Enter a dni");
-        String dniToDelete = reader.next();
+        String dni = Utilitys.askInfo(reader,"Enter a dni");
         Employee employeeToDelete ;
         DatabaseController db = new DatabaseController();
-        employeeToDelete = db.getSearchEmployee(dniToDelete);
+        employeeToDelete = db.getSearchEmployee(dni);
         System.out.println(employeeToDelete);
         if (Utilitys.actionVerification(reader, "Delete Employee").equals("Y")) {
             DataBase.getEmployees().remove(employeeToDelete);
@@ -58,12 +56,11 @@ public class EmployeeController {
     }//method to delete an Employee
 
     public static void modifyEmployee(Scanner reader){//method to modify an Employee
-        System.out.println("Enter a dni");
-        String dniToModify = reader.next();
+        String dni = Utilitys.askInfo(reader,"Enter a dni");
         DatabaseController db = new DatabaseController();
         ValidatorData validator = new ValidatorData();
         Employee employee;
-        employee= db.getSearchEmployee(dniToModify);
+        employee= db.getSearchEmployee(dni);
         int i;
         System.out.println(employee);
         if(employee.getDni().equals("null")) {

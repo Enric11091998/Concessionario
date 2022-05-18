@@ -8,9 +8,12 @@ public class Utilitys {
         String verification = reader.next();
         if(verification.equals("Y")){
             return verification;
-        } else {
-            verification = "N";
-            return verification;
         }
+        verification = "N";
+        return verification;
     }//met
+    public static String askInfo(Scanner reader,String info){
+        System.out.println(info);
+        return reader.next();
+    }
 }
