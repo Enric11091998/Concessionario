@@ -4,7 +4,7 @@ import com.model.Card;
 import com.model.Customer;
 import com.model.DataBase;
 import com.services.ValidatorData;
-import com.utils.Utilitys;
+import com.utils.Utilities;
 
 import java.util.Scanner;
 
@@ -33,7 +33,7 @@ public class CustomerController {
                 }
                 count++;
                 if(count==7){
-                    if(!Utilitys.actionVerification(reader,"Register Card").equals("Y")){
+                    if(!Utilities.actionVerification(reader,"Register Card").equals("Y")){
                         customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
                         DatabaseController.addCustomerWithouCard(customer);
                         System.out.println(customer);
@@ -55,7 +55,7 @@ public class CustomerController {
 
     public static void searchCustomer(Scanner reader){
         Customer customer;
-        String dni = Utilitys.askInfo(reader,"Enter a dni");
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         if(c){
             int w = DatabaseController.searchCustomer(dni);
@@ -67,7 +67,7 @@ public class CustomerController {
 
     public static void deleteCustomer(Scanner reader){
         Customer customer;
-        String dni = Utilitys.askInfo(reader,"Enter a dni");
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         if(c){
             int w = DatabaseController.searchCustomer(dni);
@@ -81,7 +81,7 @@ public class CustomerController {
     public static void modifyCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         Customer customer ;
-        String dni = Utilitys.askInfo(reader,"Enter a dni");
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         int w = DatabaseController.searchCustomer(dni);
         customer= DataBase.getCustomers().get(w);
@@ -118,7 +118,7 @@ public class CustomerController {
     public static void modifyCardCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         Customer customer;
-        String dni = Utilitys.askInfo(reader,"Enter a dni");
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
         int i;
         do{

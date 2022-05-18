@@ -3,7 +3,7 @@ package com.controller;
 import com.model.DataBase;
 import com.model.Employee;
 import com.services.ValidatorData;
-import com.utils.Utilitys;
+import com.utils.Utilities;
 import java.util.Scanner;
 
 public class EmployeeController {
@@ -42,12 +42,12 @@ public class EmployeeController {
     }//method that return a new object Employee with attributes
 
     public static void deleteEmployee(Scanner reader){//method to delete an Employee
-        String dni = Utilitys.askInfo(reader,"Enter a dni");
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         Employee employeeToDelete ;
         DatabaseController db = new DatabaseController();
         employeeToDelete = db.getSearchEmployee(dni);
         System.out.println(employeeToDelete);
-        if (Utilitys.actionVerification(reader, "Delete Employee").equals("Y")) {
+        if (Utilities.actionVerification(reader, "Delete Employee").equals("Y")) {
             DataBase.getEmployees().remove(employeeToDelete);
         }else{
             System.out.println("employee not deleted");
@@ -55,7 +55,7 @@ public class EmployeeController {
     }//method to delete an Employee
 
     public static void modifyEmployee(Scanner reader){//method to modify an Employee
-        String dni = Utilitys.askInfo(reader,"Enter a dni");
+        String dni = Utilities.askInfo(reader,"Enter a dni");
         DatabaseController db = new DatabaseController();
         ValidatorData validator = new ValidatorData();
         Employee employee;

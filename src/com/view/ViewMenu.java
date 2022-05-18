@@ -7,7 +7,7 @@ public class ViewMenu {
 
     static int choiceDealerMenu,choiceSellerMenu,choiceMainMenu;
 
-    public static  void Mainmenu(Scanner reader){
+    public static  void MainMenu(Scanner reader){
         while(true) {
             displayMainMenu();
             choiceMainMenu = reader.nextInt();
@@ -20,8 +20,8 @@ public class ViewMenu {
                 }
             } else if (choiceMainMenu == 2) {
                 while(true) {
-                    Menu.displayDealerManagementMenu(reader);
-                    if (choiceDealerMenu == 6) {
+                    int x = Menu.displayDealerManagementMenu(reader);
+                    if (x == 6) {
                         break;
                     }
                 }

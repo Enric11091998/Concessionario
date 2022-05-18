@@ -2,7 +2,7 @@ package com.controller;
 
 import com.model.Car;
 import com.model.DataBase;
-import com.utils.Utilitys;
+import com.utils.Utilities;
 
 import java.util.Scanner;
 
@@ -10,7 +10,7 @@ public class CarController {
 
     public static void searchCar(Scanner reader){
         Car car;
-        String carLicense = Utilitys.askInfo(reader,"Enter a car license");
+        String carLicense = Utilities.askInfo(reader,"Enter a car license");
         boolean c = DatabaseController.searchCarsTrueOrFalse(carLicense);
         if(c){
             int w = DatabaseController.searchCars(carLicense);
@@ -22,7 +22,7 @@ public class CarController {
 
     public static void deleteCar(Scanner reader){
         Car car;
-        String carLicense = Utilitys.askInfo(reader,"Enter a car license");
+        String carLicense = Utilities.askInfo(reader,"Enter a car license");
         boolean c = DatabaseController.searchCarsTrueOrFalse(carLicense);
         if(c){
             int w = DatabaseController.searchCars(carLicense);
