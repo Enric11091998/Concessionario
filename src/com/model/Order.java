@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Order {
 
-    Date date;
+    String date;
     String idOrder;
     String numberCard;
     Car car;
@@ -13,7 +13,7 @@ public class Order {
 
     public Order(){
     }
-    public Order(String numberCard,Car car,Employee employee,Date date, String idOrder){
+    public Order(String numberCard,Car car,Employee employee,String date, String idOrder){
         this.idOrder = idOrder;
         this.car = car;
         this.numberCard = numberCard;
