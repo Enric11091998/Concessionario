@@ -7,6 +7,7 @@ public class DataBase {
     static ArrayList<Customer> customers= new ArrayList<>();
     static  ArrayList<Car> cars = new ArrayList<>();
     static ArrayList<Employee> employees= new ArrayList<>();
+    static ArrayList<Order> orders = new ArrayList<>();
 
     public DataBase() {
 
@@ -22,4 +23,6 @@ public class DataBase {
     public static ArrayList<Employee> getEmployees() {
         return employees;
     }
+
+    public static ArrayList<Order> getOrders(){ return orders;}
 }
