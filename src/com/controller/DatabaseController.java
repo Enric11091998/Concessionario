@@ -37,8 +37,8 @@ public class DatabaseController {
         DataBase.getCustomers().add(customer);
     }
 
-    public static void addCar(String brand, String numberofdoors, String color, double km, String carLicense,String insurance,double price){
-        DataBase.getCars().add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price));
+    public static void addCar(String brand, String numberofdoors, String color, double km, String carLicense,String insurance,double price, String year){
+        DataBase.getCars().add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price,year));
     }
 
     //--------------------Employee-------------//

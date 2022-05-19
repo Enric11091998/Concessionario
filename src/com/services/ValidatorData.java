@@ -122,6 +122,25 @@ public class ValidatorData {
         }
         return  a;
     }
+    public String checkCarLicence(String a){
+        String patternCarLicence = "^[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}";
+        Scanner reader = new Scanner(System.in);
+        while(!a.matches(patternCarLicence)){
+            System.out.println("INVALID CAR LICENCE!!.Please INSERT a valid CAR LICENCE");
+            a = reader.next();
+        }
+        return  a;
+    }
+
+    public  String checkCarYear(String a) {
+        String patternCarBrand= "^(?i:2022|2021|2020|2019|2018|2017|2016|2015|2014|2013|2012|2011|2010)$";
+        Scanner reader = new Scanner(System.in);
+        while(!a.matches(patternCarBrand)){
+            System.out.println("INVALID YEAR!!.Please INSERT a valid YEAR");
+            a = reader.next();
+        }
+        return  a;
+    }
 
     public  String checkNumberCard(String a) {
         String patternNumberCard= "^([4][0-9]{15}|5[1-5][0-9]{14})$";

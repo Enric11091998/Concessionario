@@ -6,6 +6,7 @@ import com.controller.*;
 
 public class Menu {
     //Show and call methods
+
     static  int choice;
 
     public static void customersMenu(Scanner reader){//Register, Search, delete, modify and modifyCard Customers
@@ -51,7 +52,7 @@ public class Menu {
 
             choice = reader.nextInt();
             if(choice ==1){
-                OrderController.makeCarSale();
+                OrderController.makeCarSale(reader);
             }
             if(choice ==2){
                 System.out.println("Search bought by ?");

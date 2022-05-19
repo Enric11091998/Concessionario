@@ -30,6 +30,10 @@ public class Employee {
         return this.dni;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public String getRol() {
         return this.rol;
     }

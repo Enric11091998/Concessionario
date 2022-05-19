@@ -8,13 +8,15 @@ public class Car {
     String carLicense;
     String insurance;
     double price;
+    String year;
     //Hello
     //hello
+
 
     //Constructor empty
     public Car(){}
 
-    public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price){
+    public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price,String year){
         this.brand = brand;
         this.numberofdoors = numberofdoors;
         this.color = color;
@@ -22,6 +24,7 @@ public class Car {
         this.carLicense = carLicense;
         this.insurance = insurance;
         this.price = price;
+        this.year = year;
 
     }
     //method to modified km, carLicense, insurance and price
@@ -34,19 +37,30 @@ public class Car {
         return  false;
     }
 
+    public String getBrand() {
+        return brand;
+    }
+
+
+    public String getYear() {
+        return this.year;
+    }
+    public String getColor() {
+        return color;
+    }
     public String getCarLicense() {
         return carLicense;
     }
     @Override
     public String toString() {
-        return "Car{" +
-                "brand='" + brand + '\'' +
-                ", numberofdoors=" + numberofdoors +
+        return "brand='" + brand + '\'' +
+                ", numberofdoors='" + numberofdoors + '\'' +
                 ", color='" + color + '\'' +
                 ", km=" + km +
                 ", carLicense='" + carLicense + '\'' +
                 ", insurance='" + insurance + '\'' +
                 ", price=" + price +
-                '}';
+                ", year='" + year + '\'' ;
     }
+
 }

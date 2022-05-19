@@ -36,7 +36,7 @@ public class EmployeeController {
                     break;
                 }
             }
-        break;
+            break;
         }
 
     }//method that return a new object Employee with attributes
@@ -96,4 +96,12 @@ public class EmployeeController {
         System.out.println(DataBase.getEmployees());
     }
 
+    public static String confirmIsLoginDni(Scanner reader) {
+        String dniEmployee = "12345678Q";
+        String dni = Utilities.askInfo(reader,"Enter a dni");
+        if(dni.equals(dniEmployee)){
+            return dni;
+        }
+        return "incorrect dni";
+    }
 }

@@ -4,20 +4,21 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Order {
-
-    Date date;
+    String date;
     String idOrder;
     String numberCard;
     Car car;
-    Employee employee;
+    String nameEmployee;
+    String nameCustomer;
 
     public Order(){
     }
-    public Order(String numberCard,Car car,Employee employee,Date date, String idOrder){
+    public Order(String numberCard,Car car,String nameEmployee,String date, String idOrder, String nameCustomer){
         this.idOrder = idOrder;
         this.car = car;
         this.numberCard = numberCard;
         this.date = date;
-        this.employee = employee;
+        this.nameEmployee = nameEmployee;
+        this.nameCustomer = nameCustomer;
     }
 }

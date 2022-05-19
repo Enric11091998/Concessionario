@@ -49,7 +49,7 @@ public class CustomerController {
                     break;
                 }
             }
-        break;
+            break;
         }
     }
 
@@ -157,7 +157,7 @@ public class CustomerController {
                 String b = validator.checkNumberCard(reader.next());
                 boolean cardNumberExists =  customer.existsCards(customer,b);
                 if(cardNumberExists){
-                customer.deleteCards(customer,b);
+                    customer.deleteCards(customer,b);
                     System.out.println(customer.getCards().toString());
                 }
                 else System.out.println("this card no exists");

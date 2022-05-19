@@ -47,6 +47,9 @@ public class Customer {
         return cards;
     }
 
+    public String getName() {
+        return name;
+    }
     ////--------------------methods set---------------
 
     public void setPhone(String phone) {
