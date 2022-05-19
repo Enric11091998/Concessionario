@@ -33,7 +33,6 @@ public class ValidatorData {
             case "securityCode?":a = checkSecurityCodeCard(b);
                 break;
 
-
         }
         return a;
 
@@ -64,7 +63,6 @@ public class ValidatorData {
         return a;
 
     }
-
 
     public  String checkDNI(String a) {
         String patternDNI = "^[0-9]{8}+[A-Z]{1}$";
@@ -120,6 +118,16 @@ public class ValidatorData {
         Scanner reader = new Scanner(System.in);
         while(!a.matches(patternCarBrand)){
             System.out.println("INVALID BRAND!!.Please INSERT a valid BRAND");
+            a = reader.next();
+        }
+        return  a;
+    }
+
+    public  String checkCarYear(String a) {
+        String patternCarBrand= "^(?i:2022|2021|2020|2019|2018|2017|2016|2015|2014|2013|2012|2011|2010)$";
+        Scanner reader = new Scanner(System.in);
+        while(!a.matches(patternCarBrand)){
+            System.out.println("INVALID YEAR!!.Please INSERT a valid YEAR");
             a = reader.next();
         }
         return  a;

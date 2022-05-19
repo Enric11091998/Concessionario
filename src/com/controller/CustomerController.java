@@ -9,8 +9,10 @@ import com.utils.Utilities;
 import java.util.Scanner;
 
 public class CustomerController {
+
     public CustomerController() {
     }
+
     public static void registerCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[11];
@@ -47,7 +49,7 @@ public class CustomerController {
                     break;
                 }
             }
-        break;
+            break;
         }
     }
 
@@ -159,7 +161,6 @@ public class CustomerController {
                     System.out.println(customer.getCards().toString());
                 }
                 else System.out.println("this card no exists");
-
             }
         }while(i!=4);
 

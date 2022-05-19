@@ -1,11 +1,13 @@
 package com.controller;
 
-import com.model.*;
-
+import com.model.Car;
+import com.model.Customer;
+import com.model.Employee;
+import com.model.DataBase;
+import com.utils.Utilities;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import com.utils.Utilities;
 
 public class DatabaseController {
 
@@ -15,7 +17,7 @@ public class DatabaseController {
         int i ;
         for( i =0; i < DataBase.getCustomers().size(); i++){
             if(DataBase.getCustomers().get(i).getDNI().equals(dni)) {
-               return i;
+                return i;
             }
         }
         return b;
@@ -35,8 +37,8 @@ public class DatabaseController {
         DataBase.getCustomers().add(customer);
     }
 
-    public static void addCar(String brand, String numberofdoors, String color, double km, String carLicense,String insurance,double price){
-        DataBase.getCars().add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price));
+    public static void addCar(String brand, String numberofdoors, String color, double km, String carLicense,String insurance,double price, String year){
+        DataBase.getCars().add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price,year));
     }
 
     //--------------------Employee-------------//

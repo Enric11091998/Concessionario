@@ -3,17 +3,19 @@ package com;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.controller.OrderController;
 import com.model.*;
 import com.controller.DatabaseController;
 import com.view.ViewMenu;
 
 public class Main {//Main
     public static void main(String[] args) {
-        fakeCustomers();
-        fakeEmployees();
+        //fakeCustomers();
+        //fakeEmployees();
         fakeCars();
-        Scanner reader = new Scanner(System.in);
-        ViewMenu.MainMenu(reader);
+        //Scanner reader = new Scanner(System.in);
+        //ViewMenu.MainMenu(reader);
+        OrderController.makeCarSale();
 
     }
 
@@ -32,16 +34,16 @@ public class Main {//Main
     }
 
     public static void fakeCars(){
-        Car car = new Car("BMW","4","White",0,"1257PSW","N",30000);
-        Car car1 = new Car("MercedesBenz","4","Grey",150000,"9834WDF","Y",25000);
-        Car car2 = new Car("Audi","2","Black",300000,"4564SCV","N",12500);
-        Car car3 = new Car("Lexus","2","Silver",55000,"8988FFG","N",18500);
-        Car car4 = new Car("Renault","4","Blue",0,"9432ZXY","Y",17000);
-        Car car5 = new Car("Ford","2","Red",0,"6545JKH","N",18300);
-        Car car6 = new Car("Opel","4","Beige",0,"8761PRB","Y",23500);
-        Car car7 = new Car("MercedesBenz","4","Green",100000,"0127XLN","N",25000);
-        Car car8 = new Car("Nissan","4","Red",80000,"0618ZMS","N",16000);
-        Car car9 = new Car("Lexus","4","White",0,"5912VTJ","Y",40000);
+        Car car = new Car("BMW","4","White",0,"1257PSW","N",30000,"2022");
+        Car car1 = new Car("MercedesBenz","4","Grey",150000,"9834WDF","Y",25000,"2010");
+        Car car2 = new Car("Audi","2","Black",300000,"4564SCV","N",12500,"2011");
+        Car car3 = new Car("Lexus","2","Silver",55000,"8988FFG","N",18500,"2017");
+        Car car4 = new Car("Renault","4","Blue",0,"9432ZXY","Y",17000,"2016");
+        Car car5 = new Car("Ford","2","Red",0,"6545JKH","N",18300,"2021");
+        Car car6 = new Car("Opel","4","Beige",0,"8761PRB","Y",23500,"2022");
+        Car car7 = new Car("MercedesBenz","4","Green",100000,"0127XLN","N",25000,"2013");
+        Car car8 = new Car("BMW","4","WHITE",80000,"0618ZMS","N",16000,"2014");
+        Car car9 = new Car("BMW","4","White",0,"5912VTJ","Y",40000,"2014");
         DataBase.getCars().add(car);
         DataBase.getCars().add(car1);
         DataBase.getCars().add(car2);
@@ -53,6 +55,7 @@ public class Main {//Main
         DataBase.getCars().add(car8);
         DataBase.getCars().add(car9);
     }
+
     public static void fakeCustomers(){
         ArrayList<Card> cards1 = new ArrayList<>(),  cards2 = new ArrayList<>(), cards3 = new ArrayList<>();
         cards1.add(new Card(5555748587548754L,"052022","visa","693"));
