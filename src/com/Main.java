@@ -10,7 +10,7 @@ import com.view.ViewMenu;
 
 public class Main {//Main
     public static void main(String[] args) {
-        //fakeCustomers();
+        fakeCustomers();
         //fakeEmployees();
         fakeCars();
         //Scanner reader = new Scanner(System.in);

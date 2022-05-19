@@ -1,21 +1,22 @@
 package com.controller;
 
 import com.model.Car;
+import com.model.Card;
+import com.model.Customer;
 import com.model.DataBase;
 import com.services.ValidatorData;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OrderController {
     static int choice;
+    static ArrayList<Card> p = new ArrayList<>();
 
     public static void makeCarSale(){
         //Employee need to identify itself (ask for a dni and compare with the login and return the dni) Enric
         //Search Cars by Brand,Color and year and select Biaggio
-        Scanner reader = new Scanner(System.in);
+       /* Scanner reader = new Scanner(System.in);
         Car car ;
         ValidatorData vd = new ValidatorData();
         List<Car> carList = new ArrayList<>();
@@ -52,12 +53,27 @@ public class OrderController {
                 System.out.println(car);
 
             }
-        }while (choice !=3);
+        }while (choice !=3);*/
 
         //Employee need to identify itself (ask for a dni and compare with the login and return the dni) Enric
 
         //show customer by dni and select one of your cards Enric
         //check card balance from an external Data base(boolean) Biaggio
+        Customer customer;
+        Map<Long,String> cardsMap = new HashMap<>();
+       cardsMap.put(5555748587548754L,"0");
+       cardsMap.put(5588888587548754L,"1");
+       cardsMap.put(4512748587548754L,"1");
+       cardsMap.put(4566666666648754L,"1");
+        Integer a = 1;
+        List<Long> isbnCodes = cardsMap.entrySet().stream()
+                .filter(e -> e.getValue().equals("1"))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+        System.out.println(isbnCodes);
+
+
+
         //get date Enric
         //generate a unique idOrder by date, dni employee and car licence Enric/Biaggio
         //Confirm or cancel the order
