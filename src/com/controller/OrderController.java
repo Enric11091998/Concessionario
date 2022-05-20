@@ -15,13 +15,12 @@ import java.util.stream.Collectors;
 
 public class OrderController {
     static int choice;
-
+    static Car car = new Car();
 
     public static void makeCarSale(Scanner reader) {
 
         //Employee need to identify itself (ask for a dni and compare with the login and return the dni) Enric "done"
         DatabaseController db = new DatabaseController();
-        Car car;
         ValidatorData vd = new ValidatorData();
         List<Car> carList = new ArrayList<>();
         System.out.println("Employee");
@@ -67,18 +66,30 @@ public class OrderController {
             String dni = Utilities.askInfo(reader, "Enter a dni");
             int customerPosition = DatabaseController.searchCustomer(dni);
             Customer customer = DataBase.getCustomers().get(customerPosition);
-            System.out.println(customer.getCards().toString());
-            String cardNumber = Utilities.askInfo(reader, "Enter a Card number");
+            for(int i = 0; i < customer.getCards().size(); i++ ){
+                System.out.println(i +"- "+ customer.getCards().get(i).getNumberCard());
+            }
 
+            int a = Integer.parseInt(Utilities.askInfo(reader, "Enter a Card number"));
+            Long cardNumber = customer.getCards().get(a).getNumberCard();
+
+            System.out.println();
             //check card balance from an external Data base(boolean) Biaggio
             //get date Enric
             String date = String.valueOf(LocalDate.now());
             date = date.replace("-", "");
             //generate a unique idOrder by date, dni employee and car licence Enric/Biaggio
-            //String idOrder = employeeDni + date + car.getCarLicense();
+            String idOrder = employeeDni + date + car.getCarLicense();
+            Order order = new Order(String.valueOf(cardNumber), car, db.getSearchEmployee(employeeDni).getName(), date, idOrder, customer.getName());
             //Confirm or cancel the order
-            //if you confirm, delete car, save order in Data Base.
-            //Order order = new Order(cardNumber, car, db.getSearchEmployee(employeeDni).getName(), date, idOrder, customer.getName());
+            System.out.println(order);
+            if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
+                //if you confirm, delete car, save order in Data Base.
+                DataBase.getOrders().add(order);
+                DataBase.getCars().remove(car);
+
+
+            }
         }
     }
 }

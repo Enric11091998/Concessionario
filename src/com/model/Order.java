@@ -21,4 +21,20 @@ public class Order {
         this.nameEmployee = nameEmployee;
         this.nameCustomer = nameCustomer;
     }
+
+    public String getIdOrder() {
+        return idOrder;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "date='" + date + '\'' +
+                ", idOrder='" + idOrder + '\'' +
+                ", numberCard='" + numberCard + '\'' +
+                ", car=" + car +
+                ", nameEmployee='" + nameEmployee + '\'' +
+                ", nameCustomer='" + nameCustomer + '\'' +
+                '}';
+    }
 }

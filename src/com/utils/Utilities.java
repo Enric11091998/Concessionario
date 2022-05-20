@@ -27,6 +27,9 @@ public class Utilities {
         }else if(info.equals("Enter a Card number")){
             String a = vd.checkNumberCard(data);
             return a;
+        }else if(info.equals("Enter an id Order")){
+            String a = vd.checkIdOrder(data);
+            return a;
         }
         return "0";
     }
