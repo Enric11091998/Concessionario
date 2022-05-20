@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 public class OrderController {
     static  List<Car> carList = new ArrayList<>();
-    static int choice;
+    static int choice, w;
     static Random random = new Random();
     static Car car = new Car();
 
@@ -25,7 +25,8 @@ public class OrderController {
         //----------------------------------------------------------
         if(!employeeDni.equals("incorrect dni")){
             o.selectCar();
-            if(!car.equals(null)){
+            boolean c = DatabaseController.searchCarsTrueOrFalse(car.getCarLicense());
+            if(c){
                 System.out.println("Customer");
                 String dni = Utilities.askInfo(reader, "Enter a dni");
                 int customerPosition = DatabaseController.searchCustomer(dni);
@@ -33,14 +34,15 @@ public class OrderController {
                 //----------------------------------------------------------
                 o.hashmapCardnumberStatus();
                 //----------------------------------------------------------
-                o.showCards(customer);
-                System.out.println("Chose a Card");
-                int a = reader.nextInt();
+                do{
+                    o.showCards(customer);
+                    System.out.println("Chose a Card");
+                    int a = reader.nextInt();
                     //----------------------------------------------------------
-                Long cardNumber = customer.getCards().get(a).getNumberCard();
-                int status = o.hashmapCardnumberStatus().get(cardNumber);
-                //----------------------------------------------------------
-                if(status == 1){
+                    Long cardNumber = customer.getCards().get(a).getNumberCard();
+                    int status = 1;//o.hashmapCardnumberStatus().get(cardNumber);
+                    //----------------------------------------------------------
+                    if(status == 1){
                         String date = String.valueOf(LocalDate.now());
                         date = date.replace("-", "");
                         String idOrder = employeeDni + date + car.getCarLicense();
@@ -48,48 +50,53 @@ public class OrderController {
                         System.out.println(order);
                         if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
                             DataBase.getOrders().add(order);
-                            DataBase.getCars().remove(car);
-                        }
+                            DataBase.getCars().remove(w);
+                            break;
+                        }else break;
+                    }if(status ==0){
+                        System.out.println("This card does not have enough balance");
+                        System.out.println("1-Select another card\n" + "2-Exit");
+                        choice =reader.nextInt();
                     }
+                }while(choice != 2);
             }else System.out.println("This car no exists in stock");
         }
     }
-
     public void addCarslist(){
         for (int i = 0; i < DataBase.getCars().size(); i++) {
             car = DataBase.getCars().get(i);
             carList.add(car);
         }
     }
-
     public void selectCar(){
         ValidatorData vd = new ValidatorData();
         Scanner reader = new Scanner(System.in);
+        int chociceCar;
+
         do {
             System.out.println("Enter a brand");
             String brand = vd.checkCarBrand(reader.next());
             System.out.println("Enter a color");
             String color = vd.checkColorCar(reader.next());
             System.out.println("1-Year\n" + "2-Not Year\n" + "3-Exit");
-            choice = reader.nextInt();
-            if (choice == 1) {
+            chociceCar = reader.nextInt();
+            if (chociceCar == 1) {
                 System.out.println("Enter year");
                 String year = vd.checkCarYear(reader.next());
                 List<Car> carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color) &&
-                                z.getYear().equals(year))
-                        .collect(Collectors.toList());
+                        z.getYear().equals(year)).toList();
                 for (int x = 0; x < carList2.size(); x++) {
                     System.out.println(x + "- " + carList2.get(x));
                 }
                 System.out.println("Select a car");
                 int choicecar = reader.nextInt();
                 car = carList2.get(choicecar);
-                System.out.println(car)
-                ;
+                w = DatabaseController.searchCars(car.getCarLicense());
+                System.out.println(car);
                 break;
 
 
-            } else if (choice == 2) {
+            } else if (chociceCar == 2) {
                 List<Car> carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color))
                         .collect(Collectors.toList());
                 for (int x = 0; x < carList2.size(); x++) {
@@ -99,11 +106,12 @@ public class OrderController {
                 System.out.println("Select a car");
                 int choicecar = reader.nextInt();
                 car = carList2.get(choicecar);
+                w = DatabaseController.searchCars(car.getCarLicense());
                 System.out.println(car);
                 break;
 
             }
-        } while (choice != 3);
+        } while (chociceCar != 3);
 
     }
 
@@ -121,6 +129,13 @@ public class OrderController {
             cardsMap.put(key,value);
         }
         return cardsMap;
+    }
+    public void deleteCar(Car car){
+        for(int i =0 ; i <DataBase.getCars().size(); i++){
+            if(DataBase.getCars().get(i).getCarLicense().equals(car.getCarLicense())){
+                DataBase.getCars().remove(i);
+            }
+        }
     }
 
 }
