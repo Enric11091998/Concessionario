@@ -8,14 +8,13 @@ import com.utils.Utilities;
 import com.services.ValidatorData;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class OrderController {
     static int choice;
     static Car car = new Car();
+    static Random random = new Random();
 
     public static void makeCarSale(Scanner reader) {
 
@@ -69,11 +68,20 @@ public class OrderController {
             for(int i = 0; i < customer.getCards().size(); i++ ){
                 System.out.println(i +"- "+ customer.getCards().get(i).getNumberCard());
             }
+            CardController.getCardNumber();
 
-            int a = Integer.parseInt(Utilities.askInfo(reader, "Enter a Card number"));
+            System.out.println("Chose a Card");
+            int a = reader.nextInt();
             Long cardNumber = customer.getCards().get(a).getNumberCard();
 
-            System.out.println();
+            HashMap<Long,Integer> cardsMap = new HashMap<>();
+            for(int i =0 ; i < DataBase.getCards().size(); i++){
+                Long key= DataBase.getCards().get(i);
+
+                int value = random.nextInt(2);
+                cardsMap.put(key,value);
+            }
+            int status =cardsMap.get(cardNumber);
             //check card balance from an external Data base(boolean) Biaggio
             //get date Enric
             String date = String.valueOf(LocalDate.now());
