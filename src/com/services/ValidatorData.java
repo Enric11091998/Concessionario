@@ -122,6 +122,15 @@ public class ValidatorData {
         }
         return  a;
     }
+    public String checkCarLicence(String a){
+        String patternCarLicence = "^[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}";
+        Scanner reader = new Scanner(System.in);
+        while(!a.matches(patternCarLicence)){
+            System.out.println("INVALID CAR LICENCE!!.Please INSERT a valid CAR LICENCE");
+            a = reader.next();
+        }
+        return  a;
+    }
 
     public  String checkCarYear(String a) {
         String patternCarBrand= "^(?i:2022|2021|2020|2019|2018|2017|2016|2015|2014|2013|2012|2011|2010)$";
@@ -200,6 +209,18 @@ public class ValidatorData {
         Scanner reader = new Scanner(System.in);
         while(!a.matches(patternRol)){
             System.out.println("INVALID ROL!!.Please INSERT a valid ROL");
+            a = reader.next();
+            if(a.equals("null")){
+                break;
+            }
+        }
+        return  a;
+    }
+    public String checkIdOrder(String a) {
+        String patternIdOrder= "^[0-9]{8}+[A-Z][0-9]{8}[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}$";
+        Scanner reader = new Scanner(System.in);
+        while(!a.matches(patternIdOrder)){
+            System.out.println("INVALID ID ORDER!!.Please INSERT a valid ID ORDER");
             a = reader.next();
             if(a.equals("null")){
                 break;
