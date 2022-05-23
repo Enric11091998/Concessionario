@@ -10,9 +10,10 @@ import java.util.stream.Collectors;
 
 public class OrderController {
     static  List<Car> carList = new ArrayList<>();
-    static int choice, w;
+    static int choice, w,choicecar;
     static Random random = new Random();
     static Car car = new Car();
+    static  List<Car> carList2;
 
     public static void makeCarSale(Scanner reader){
         OrderController o = new OrderController();
@@ -25,8 +26,9 @@ public class OrderController {
         //----------------------------------------------------------
         if(!employeeDni.equals("incorrect dni")){
             o.selectCar();
-            boolean c = DatabaseController.searchCarsTrueOrFalse(car.getCarLicense());
-            if(c){
+           // boolean c = DatabaseController.searchCarsTrueOrFalse(car.getCarLicense());
+
+            if(!carList2.isEmpty()){
                 System.out.println("Customer");
                 String dni = Utilities.askInfo(reader, "Enter a dni");
                 int customerPosition = DatabaseController.searchCustomer(dni);
@@ -51,6 +53,10 @@ public class OrderController {
                         if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
                             DataBase.getOrders().add(order);
                             DataBase.getCars().remove(w);
+                            carList.clear();
+                            carList2.clear();
+
+
                             break;
                         }else break;
                     }if(status ==0){
@@ -83,13 +89,19 @@ public class OrderController {
             if (chociceCar == 1) {
                 System.out.println("Enter year");
                 String year = vd.checkCarYear(reader.next());
-                List<Car> carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color) &&
+                carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color) &&
                         z.getYear().equals(year)).toList();
+
+                if(carList2.isEmpty()) {
+                    System.out.println("there is not car to match these attributes");
+                    break;
+                }
+
                 for (int x = 0; x < carList2.size(); x++) {
                     System.out.println(x + "- " + carList2.get(x));
                 }
                 System.out.println("Select a car");
-                int choicecar = reader.nextInt();
+                choicecar = reader.nextInt();
                 car = carList2.get(choicecar);
                 w = DatabaseController.searchCars(car.getCarLicense());
                 System.out.println(car);
@@ -97,12 +109,17 @@ public class OrderController {
 
 
             } else if (chociceCar == 2) {
-                List<Car> carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color))
+                carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color))
                         .collect(Collectors.toList());
+
+                if(carList2.isEmpty()) {
+                    System.out.println("there is not car to match these attributes");
+                    break;
+                }
+
                 for (int x = 0; x < carList2.size(); x++) {
                     System.out.println(x + "- " + carList2.get(x));
                 }
-                CardController.getCardNumber();
                 System.out.println("Select a car");
                 int choicecar = reader.nextInt();
                 car = carList2.get(choicecar);
@@ -110,8 +127,11 @@ public class OrderController {
                 System.out.println(car);
                 break;
 
+
             }
         } while (chociceCar != 3);
+
+
 
     }
 
