@@ -63,4 +63,19 @@ public class Car {
         return carLicense;
     }
 
+    public String getNumberOfDoors() {
+        return numberofdoors;
+    }
+
+    public double getKm() {
+        return km;
+    }
+
+    public String getInsurance() {
+        return insurance;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 }
