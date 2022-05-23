@@ -8,7 +8,7 @@ import java.util.Scanner;
 
 public class ServicesCar {
 
-    public static void selectCar(List<Car> carList2, Car car, int w){
+    public static List<Car>  selectCar(List<Car> carList2, Car car, int w){
         ValidatorData vd = new ValidatorData();
         Scanner reader = new Scanner(System.in);
         int chociceCar;
@@ -22,9 +22,9 @@ public class ServicesCar {
             if (chociceCar == 1) {
                 System.out.println("Enter year");
                 String year = vd.checkCarYear(reader.next());
-                ServicesOrder.listCar(brand,color,year,carList2);
+                carList2=   ServicesOrder.listCar(brand,color,year);
             }else if (chociceCar == 2) {
-                ServicesOrder.listCar(brand,color,carList2);
+                carList2=  ServicesOrder.listCar(brand,color);
             }if(carList2.isEmpty()) {
                 System.out.println("there is not car to match these attributes");
                 break;
@@ -32,7 +32,7 @@ public class ServicesCar {
             selectCars(carList2,reader,car,  w);
             break;
         } while (chociceCar != 3);
-
+    return carList2;
     }
 
     public static void selectCars(List<Car> carList2, Scanner reader, Car car, int w){

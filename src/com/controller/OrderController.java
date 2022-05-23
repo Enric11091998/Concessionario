@@ -19,7 +19,7 @@ public class OrderController {
         String employeeDni = EmployeeController.confirmIsLoginDni(reader);
         //----------------------------------------------------------
         if(!employeeDni.equals("incorrect dni")){
-            ServicesCar.selectCar(carList2,car,w);
+           carList2 = ServicesCar.selectCar(carList2,car,w);
 
             if(!carList2.isEmpty()){
                 System.out.println("Customer");
