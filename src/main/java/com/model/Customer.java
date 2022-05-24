@@ -12,6 +12,8 @@ public class Customer {
     public String favoriteBrandCar;
     public ArrayList<Card> cards = new ArrayList<>();
 
+
+
     // empty constructor
     public Customer() {
 
@@ -47,6 +49,9 @@ public class Customer {
         return cards;
     }
 
+    public String getName() {
+        return name;
+    }
     ////--------------------methods set---------------
 
     public void setPhone(String phone) {
@@ -68,7 +73,6 @@ public class Customer {
         }
 
     }
-
 
     ////--------------------methods add---------------
     public ArrayList<Card> addCard(Card card){

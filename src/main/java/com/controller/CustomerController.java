@@ -49,7 +49,7 @@ public class CustomerController {
                     break;
                 }
             }
-        break;
+            break;
         }
     }
 
@@ -153,11 +153,10 @@ public class CustomerController {
                     count++;
                 }
             }else if(i==3){
-                System.out.println("Enter a numbercard");
-                String b = validator.checkNumberCard(reader.next());
+                String b = Utilities.askInfo(reader,"Enter a Card number");
                 boolean cardNumberExists =  customer.existsCards(customer,b);
                 if(cardNumberExists){
-                customer.deleteCards(customer,b);
+                    customer.deleteCards(customer,b);
                     System.out.println(customer.getCards().toString());
                 }
                 else System.out.println("this card no exists");

@@ -11,6 +11,7 @@ public class Card {
 
     }
 
+
     public Card(long numberCard, String expiration, String type, String securityCode) {
         this.numberCard = numberCard;
         this.expiration = expiration;
@@ -29,6 +30,7 @@ public class Card {
     public String getExpiration() {
         return expiration;
     }
+
     @Override
     public String toString() {
         return "Card{" +

@@ -21,8 +21,8 @@ public class ViewMenu {
                 }
             } else if (choiceMainMenu == 2) {
                 while(true) {
-                    int x = Menu.displayDealerManagementMenu(reader);
-                    if (x == 6) {
+                    Menu.displayDealerManagementMenu(reader);
+                    if (choiceDealerMenu == 6) {
                         break;
                     }
                 }

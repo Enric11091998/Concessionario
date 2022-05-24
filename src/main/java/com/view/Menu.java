@@ -48,39 +48,43 @@ public class Menu {
 
     public static void makeCarSaleMenu(Scanner reader){//makeCarSaleMenu
         do {
-            System.out.println("1-Make Car Sale" + "\n" +"2-Search bought by ?" + "\n" + "3-Return to SellerManagementMenu"+ "\n" + "Option?");
+            System.out.println("1-Make Car Sale" + "\n" +"2-Search an Order" + "\n" + "3-Return to SellerManagementMenu"+ "\n" + "Option?");
 
             choice = reader.nextInt();
             if(choice ==1){
-                OrderController.makeCarSale();
+                OrderController.makeCarSale(reader);
             }
             if(choice ==2){
-                System.out.println("Search bought by ?");
+                DatabaseController.searchOrders(reader);
             }
         }while (choice!=3);
     }
 
-    public static int displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
-        do {
-            System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
-            DatabaseController db = new DatabaseController();
-            choice = reader.nextInt();
-            if(choice ==1){
+    public static void displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
+        System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
+        DatabaseController db = new DatabaseController();
+        choice = reader.nextInt();
+        switch(choice) {
+            case 1:
                 EmployeeController.registerEmployee(reader);
-            }
-            if(choice ==2){
+                break;
+            case 2:
                 db.searchEmployee(reader);
-            }
-            if(choice ==3){
+                break;
+            case 3:
                 EmployeeController.deleteEmployee(reader);
-            }
-            if(choice ==4){
+                break;
+            case 4:
                 EmployeeController.modifyEmployee(reader);
-            }
-            if(choice ==5){
+                break;
+            case 5:
                 EmployeeController.showAllEmployee();
-            }
-        }while (choice!=6);
-        return choice;
+                break;
+            case 6:
+                System.out.println("Return");
+                break;
+            default:
+                System.out.println("Please enter valid option");
+        }
     }//displayDealerManagementMenu
 }
