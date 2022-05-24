@@ -2,9 +2,10 @@ package persistenceTest;
 
 import com.model.Card;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Customer {
     @Id
@@ -15,7 +16,10 @@ public class Customer {
     public String phone;
     public String favoriteColorCar;
     public String favoriteBrandCar;
-    public ArrayList<Card> cards = new ArrayList<>();
+    @Embedded
+    @ElementCollection
+    @CollectionTable(name = "CardsOfCustomer")
+    public List<Card> cards = new ArrayList<>();
 
 
 
@@ -24,7 +28,7 @@ public class Customer {
 
     }
     //constructor with card
-    public Customer(String dni, String name, String surname, String age, String phone, String favoriteColorCar, String favoriteBrandCar, ArrayList<Card> cards){
+    public Customer(String dni, String name, String surname, String age, String phone, String favoriteColorCar, String favoriteBrandCar, List<Card> cards){
         this.dni = dni;
         this.name = name;
         this.surname = surname;
@@ -50,7 +54,7 @@ public class Customer {
     public String getDNI(){
         return this.dni;
     }
-    public ArrayList<Card> getCards() {
+    public List<Card> getCards() {
         return cards;
     }
 
@@ -80,7 +84,7 @@ public class Customer {
     }
 
     ////--------------------methods add---------------
-    public ArrayList<Card> addCard(Card card){
+    public List<Card> addCard(Card card){
         this.cards.add(card);
         return cards;
     }

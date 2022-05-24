@@ -10,7 +10,7 @@ public class ServicesOrder {
 
     public static List<Car> listCar(String brand, String color, String year){
         List<Car> carList2 = DataBase.getCars().stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color) &&
-                z.getYear().equals(year)).toList();
+                z.getYear().equals(year)).collect(Collectors.toList());
         return carList2;
     }
     public static List<Car> listCar(String brand, String color){
