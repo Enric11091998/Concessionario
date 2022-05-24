@@ -2,7 +2,7 @@ package com.model;
 
 public class Car {
     String brand;
-    String numberofdoors;
+    String numberOfDoors;
     String color;
     double km;
     String carLicense;
@@ -18,7 +18,7 @@ public class Car {
 
     public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price,String year){
         this.brand = brand;
-        this.numberofdoors = numberofdoors;
+        this.numberOfDoors = numberofdoors;
         this.color = color;
         this.km = km;
         this.carLicense = carLicense;
@@ -41,6 +41,21 @@ public class Car {
         return brand;
     }
 
+    public String getNumberOfDoors() {
+        return numberOfDoors;
+    }
+
+    public double getKm() {
+        return km;
+    }
+
+    public String getInsurance() {
+        return insurance;
+    }
+
+    public double getPrice() {
+        return price;
+    }
 
     public String getYear() {
         return this.year;
@@ -54,7 +69,7 @@ public class Car {
     @Override
     public String toString() {
         return "brand='" + brand + '\'' +
-                ", numberofdoors='" + numberofdoors + '\'' +
+                ", numberOfDoors='" + numberOfDoors + '\'' +
                 ", color='" + color + '\'' +
                 ", km=" + km +
                 ", carLicense='" + carLicense + '\'' +

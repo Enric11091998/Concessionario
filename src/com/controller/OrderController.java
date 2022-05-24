@@ -1,103 +1,64 @@
 package com.controller;
-
-import com.model.Customer;
-import com.model.Car;
-import com.model.DataBase;
-import com.model.Order;
+import com.model.*;
+import com.services.ServicesCar;
+import com.services.ServicesCard;
 import com.utils.Utilities;
-import com.services.ValidatorData;
-
-import java.time.LocalDate;
 import java.util.*;
-import java.util.stream.Collectors;
-
 public class OrderController {
-    static int choice;
+
+    static int choice, w;
     static Car car = new Car();
-    static Random random = new Random();
+    static  List<Car> carList2;
 
-    public static void makeCarSale(Scanner reader) {
-
-        //Employee need to identify itself (ask for a dni and compare with the login and return the dni) Enric "done"
+    public static void makeCarSale(Scanner reader){
+        OrderController o = new OrderController();
         DatabaseController db = new DatabaseController();
-        ValidatorData vd = new ValidatorData();
-        List<Car> carList = new ArrayList<>();
+        CardController.getCardNumber();
+        //---------------------------------------------------------
         System.out.println("Employee");
         String employeeDni = EmployeeController.confirmIsLoginDni(reader);
-        if (!employeeDni.equals("incorrect dni")) {
-            //Search Cars by Brand,Color and year and select Biaggio
-            for (int i = 0; i < DataBase.getCars().size(); i++) {
-                car = DataBase.getCars().get(i);
-                carList.add(car);
-            }
-            do {
-                System.out.println("Enter a brand");
-                String brand = vd.checkCarBrand(reader.next());
-                System.out.println("Enter a color");
-                String color = vd.checkColorCar(reader.next());
-                System.out.println("1-Year\n" + "2-Not Year\n" + "3-Exit");
-                choice = reader.nextInt();
-                if (choice == 1) {
-                    System.out.println("Enter year");
-                    String year = vd.checkCarYear(reader.next());
-                    List<Car> carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color) &&
-                                    z.getYear().equals(year))
-                            .collect(Collectors.toList());
-                    System.out.println(carList2);
+        //----------------------------------------------------------
+        if(!employeeDni.equals("incorrect dni")){
+           carList2 = ServicesCar.selectCar(carList2,car,w);
 
-
-                } else if (choice == 2) {
-                    List<Car> carList2 = carList.stream().filter(z -> z.getBrand().equalsIgnoreCase(brand) && z.getColor().equalsIgnoreCase(color))
-                            .collect(Collectors.toList());
-                    for (int x = 0; x < carList2.size(); x++) {
-                        System.out.println(x + "- " + carList2.get(x));
+            if(!carList2.isEmpty()){
+                System.out.println("Customer");
+                String dni = Utilities.askInfo(reader, "Enter a dni");
+                int customerPosition = DatabaseController.searchCustomer(dni);
+                Customer customer = DataBase.getCustomers().get(customerPosition);
+                //----------------------------------------------------------
+                 HashMap<Long,Integer> hasMapCard = ServicesCard.hashmapCardnumberStatus();
+                //----------------------------------------------------------
+                do{
+                    ServicesCard.showCards(customer);
+                    System.out.println("Chose a Card");
+                    int a = reader.nextInt();
+                    //----------------------------------------------------------
+                    Long cardNumber = customer.getCards().get(a).getNumberCard();
+                    int status = hasMapCard.get(cardNumber);
+                    //----------------------------------------------------------
+                    if(status == 1){
+                        String idOrder = employeeDni + Utilities.date() + car.getCarLicense();
+                        Order order = new Order(String.valueOf(cardNumber), car, db.getSearchEmployee(employeeDni).getName(), Utilities.date(), idOrder, customer.getName());
+                        System.out.println(order);
+                        if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
+                            DataBase.getOrders().add(order);
+                            DataBase.getCars().remove(w);
+                            carList2.clear();
+                            break;
+                        }else break;
+                    }if(status ==0){
+                        System.out.println("This card does not have enough balance");
+                        System.out.println("1-Select another card\n" + "2-Exit");
+                        choice =reader.nextInt();
                     }
-                    System.out.println("Select a car");
-                    int choicecar = reader.nextInt();
-                    ;
-                    car = carList2.get(choicecar);
-                    System.out.println(car);
-
-                }
-            } while (choice != 3);
-            //show customer by dni and select one of your cards Enric
-            System.out.println("Customer");
-            String dni = Utilities.askInfo(reader, "Enter a dni");
-            int customerPosition = DatabaseController.searchCustomer(dni);
-            Customer customer = DataBase.getCustomers().get(customerPosition);
-            for(int i = 0; i < customer.getCards().size(); i++ ){
-                System.out.println(i +"- "+ customer.getCards().get(i).getNumberCard());
-            }
-            CardController.getCardNumber();
-
-            System.out.println("Chose a Card");
-            int a = reader.nextInt();
-            Long cardNumber = customer.getCards().get(a).getNumberCard();
-
-            HashMap<Long,Integer> cardsMap = new HashMap<>();
-            for(int i =0 ; i < DataBase.getCards().size(); i++){
-                Long key= DataBase.getCards().get(i);
-
-                int value = random.nextInt(2);
-                cardsMap.put(key,value);
-            }
-            int status =cardsMap.get(cardNumber);
-            //check card balance from an external Data base(boolean) Biaggio
-            //get date Enric
-            String date = String.valueOf(LocalDate.now());
-            date = date.replace("-", "");
-            //generate a unique idOrder by date, dni employee and car licence Enric/Biaggio
-            String idOrder = employeeDni + date + car.getCarLicense();
-            Order order = new Order(String.valueOf(cardNumber), car, db.getSearchEmployee(employeeDni).getName(), date, idOrder, customer.getName());
-            //Confirm or cancel the order
-            System.out.println(order);
-            if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
-                //if you confirm, delete car, save order in Data Base.
-                DataBase.getOrders().add(order);
-                DataBase.getCars().remove(car);
-
-
-            }
+                }while(choice != 2);
+            }else System.out.println("This car no exists in stock");
         }
     }
+
+
+
+
+
 }

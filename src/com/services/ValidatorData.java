@@ -216,7 +216,6 @@ public class ValidatorData {
         }
         return  a;
     }
-
     public String checkIdOrder(String a) {
         String patternIdOrder= "^[0-9]{8}+[A-Z][0-9]{8}[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}$";
         Scanner reader = new Scanner(System.in);

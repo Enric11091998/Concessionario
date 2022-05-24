@@ -4,6 +4,7 @@ import com.model.Car;
 import com.model.DataBase;
 import com.utils.Utilities;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class CarController {
@@ -31,6 +32,17 @@ public class CarController {
             DataBase.getCars().remove(car);
                 }
         else System.out.println("this car License no exists");
+    }
+    public static void printCars(List<Car> cars){
+        for(int i = 0; cars.size() > i;i++)
+        System.out.println(i + "--" + "Brand:" + cars.get(i).getBrand() + " || "
+                + "number of doors:" + cars.get(i).getNumberOfDoors() + " || "
+                + "color:" + cars.get(i).getColor() + " || "
+                + "km:" + cars.get(i).getKm() + " || "
+                + "carLicense:" + cars.get(i).getCarLicense() + " || "
+                + "insurance:" + cars.get(i).getInsurance() + " || "
+                + "price:" + cars.get(i).getPrice() + " || "
+                + "year:" + cars.get(i).getYear() + ".");
     }
 
 }

@@ -4,6 +4,7 @@ import com.model.DataBase;
 import com.model.Employee;
 import com.services.ValidatorData;
 import com.utils.Utilities;
+
 import java.util.Scanner;
 
 public class EmployeeController {
@@ -36,7 +37,7 @@ public class EmployeeController {
                     break;
                 }
             }
-            break;
+        break;
         }
 
     }//method that return a new object Employee with attributes

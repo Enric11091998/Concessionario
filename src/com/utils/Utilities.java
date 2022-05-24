@@ -2,6 +2,7 @@ package com.utils;
 
 import com.services.ValidatorData;
 
+import java.time.LocalDate;
 import java.util.Scanner;
 
 public class Utilities {
@@ -32,5 +33,10 @@ public class Utilities {
             return a;
         }
         return "0";
+    }
+    public static String  date(){
+        String date = String.valueOf(LocalDate.now());
+        date = date.replace("-", "");
+        return date;
     }
 }

@@ -3,6 +3,8 @@ package com;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.controller.CarController;
+import com.controller.CardController;
 import com.controller.OrderController;
 import com.model.*;
 import com.controller.DatabaseController;
@@ -15,6 +17,8 @@ public class Main {//Main
         fakeCars();
         Scanner reader = new Scanner(System.in);
         ViewMenu.MainMenu(reader);
+
+
 
     }
 
@@ -54,6 +58,7 @@ public class Main {//Main
         DataBase.getCars().add(car8);
         DataBase.getCars().add(car9);
     }
+
     public static void fakeCustomers(){
         ArrayList<Card> cards1 = new ArrayList<>(),  cards2 = new ArrayList<>(), cards3 = new ArrayList<>();
         cards1.add(new Card(5555748587548754L,"052022","visa","693"));
@@ -71,6 +76,7 @@ public class Main {//Main
         for(int i = 0; i < 5; i++){
             DatabaseController.addCustomerWithouCard(objects[i]);
         }
+
     }
 
 }//Main

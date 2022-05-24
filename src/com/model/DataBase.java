@@ -1,6 +1,7 @@
 package com.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DataBase {
 
@@ -10,9 +11,11 @@ public class DataBase {
     static ArrayList<Order> orders = new ArrayList<>();
     static ArrayList<Long> cards = new ArrayList<>();
 
+
     public DataBase() {
 
     }
+
     public  static ArrayList<Customer> getCustomers() {
         return customers;
     }

@@ -1,8 +1,5 @@
 package com.model;
 
-import java.util.ArrayList;
-import java.util.Date;
-
 public class Order {
     String date;
     String idOrder;
@@ -21,7 +18,6 @@ public class Order {
         this.nameEmployee = nameEmployee;
         this.nameCustomer = nameCustomer;
     }
-
     public String getIdOrder() {
         return idOrder;
     }

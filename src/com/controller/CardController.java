@@ -1,8 +1,16 @@
 package com.controller;
 
+import com.model.Card;
 import com.model.DataBase;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class CardController {
+    public CardController() {
+    }
 
     public static void getCardNumber(){
         for(int i = 0; i< DataBase.getCustomers().size(); i++){
@@ -10,7 +18,6 @@ public class CardController {
                 DataBase.getCards().add(DataBase.getCustomers().get(i).getCards().get(x).getNumberCard());
             }
         }
-    }
-    public CardController() {
+        //t.stream().map(p -> p.getNumberCard()).collect(Collectors.toList());
     }
 }

@@ -33,7 +33,6 @@ public class Employee {
     public String getName() {
         return name;
     }
-
     public String getRol() {
         return this.rol;
     }
@@ -49,6 +48,7 @@ public class Employee {
     public void setWorkedHours(String workedHours) {
         this.workedHours = workedHours;
     }
+
 
 
     @Override

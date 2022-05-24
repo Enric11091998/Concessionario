@@ -12,6 +12,8 @@ public class Customer {
     public String favoriteBrandCar;
     public ArrayList<Card> cards = new ArrayList<>();
 
+
+
     // empty constructor
     public Customer() {
 
