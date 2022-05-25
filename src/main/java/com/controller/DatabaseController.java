@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.manager_persistences.PersistenceEmployee;
 import com.model.*;
 import com.utils.Utilities;
 import java.util.ArrayList;
@@ -54,13 +55,7 @@ public class DatabaseController {
 
     public void searchEmployee(Scanner reader){ //method to search a specific employee
         String dni = Utilities.askInfo(reader,"Enter a dni");
-        Employee searchedEmployee = null;
-        for (int i = 0; i < DataBase.getEmployees().size(); i++) {
-            if (dni.equals(DataBase.getEmployees().get(i).getDni())) {
-                searchedEmployee = DataBase.getEmployees().get(i);
-                break;
-            }
-        }
+        Employee searchedEmployee = PersistenceEmployee.searchEmployee(dni);
         if (searchedEmployee == null) {
             System.out.println("No Employee was found with this dni");
         } else {

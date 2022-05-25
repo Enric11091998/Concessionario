@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.manager_persistences.PersistenceEmployee;
 import com.model.DataBase;
 import com.model.Employee;
 import com.services.ValidatorData;
@@ -20,10 +21,12 @@ public class EmployeeController {
                 System.out.println(test2);
                 String a = reader.next();
                 vars0[count] = vd.selectValidatorEmployee(String.valueOf(test2), a);
-                boolean dniExists = DatabaseController.getListDNIEmployee().contains(vars0[0]);
-                if(dniExists) {
-                    System.out.println("this DNI already exists");
-                    break;
+                if(count == 0) {
+                    boolean dniExists = PersistenceEmployee.existEmployee(vars0[0]);
+                    if (dniExists) {
+                        System.out.println("this DNI already exists");
+                        break;
+                    }
                 }
                 count++;
                 if(count > 8){
@@ -32,8 +35,8 @@ public class EmployeeController {
                         break;
                     }
                     Employee employee = new Employee(vars0[0], vars0[1], vars0[2], Integer.parseInt(vars0[3]), vars0[4], vars0[5], vars0[6], vars0[7]);
-                    DataBase.getEmployees().add(employee);
-                    System.out.println(DataBase.getEmployees().toString());
+                    PersistenceEmployee.addEmployeeToDB(employee);
+                    //System.out.println(DataBase.getEmployees().toString());
                     break;
                 }
             }
@@ -46,10 +49,10 @@ public class EmployeeController {
         String dni = Utilities.askInfo(reader,"Enter a dni");
         Employee employeeToDelete ;
         DatabaseController db = new DatabaseController();
-        employeeToDelete = db.getSearchEmployee(dni);
+        employeeToDelete = PersistenceEmployee.searchEmployee(dni);
         System.out.println(employeeToDelete);
         if (Utilities.actionVerification(reader, "Delete Employee").equals("Y")) {
-            DataBase.getEmployees().remove(employeeToDelete);
+            PersistenceEmployee.deleteEmployee(employeeToDelete);
         }else{
             System.out.println("employee not deleted");
         }
