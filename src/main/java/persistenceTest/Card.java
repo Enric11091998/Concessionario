@@ -5,7 +5,7 @@ import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.*;
 import java.io.Serializable;
-@Entity
+@Entity(name = "card")
 public class Card {
     @Id
     private long numberCard ;

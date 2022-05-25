@@ -15,12 +15,12 @@ public class Evaluacion {
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
             Customer customer = em.find(Customer.class,"12345678R");
-            Card card = new Card(5561459678457845L,"052026","visa","327");
+            Card card = new Card(5500000000000000L,"052026","visa","247");
             /*List<Card> cardsUser = new ArrayList<>();
             cardsUser.add(card);
-            Customer customer = new Customer("12345678R","BIAGGIO","MOISES","22","789456123","GREEN","LEXUS",cardsUser);*/
+            Customer customer = new Customer("12345678R","BIAGGIO","MOISES","22","789456123","GREEN","LEXUS",cardsUser);
+            em.persist(customer);*/
             customer.getCards().add(card);
-           // em.persist(customer);
             //System.out.println(customer);
             em.getTransaction().commit();
             em.close();

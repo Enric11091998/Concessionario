@@ -1,11 +1,14 @@
 package com.controller;
 
+import com.manager_persistences.Persistence_Customer;
 import com.model.Card;
 import com.model.Customer;
 import com.model.DataBase;
 import com.services.ValidatorData;
 import com.utils.Utilities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class CustomerController {
@@ -26,7 +29,7 @@ public class CustomerController {
                 System.out.println(test2);
                 String a = reader.next();
                 vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
-                boolean dniExists = DatabaseController.searchCustomersTrueOrFalse(vars0[0]);
+                boolean dniExists = Persistence_Customer.existsCustomer(vars0[0]);
                 if(dniExists){
                     System.out.println("this DNI already exists");
                     break;
@@ -35,16 +38,17 @@ public class CustomerController {
                 if(count==7){
                     if(!Utilities.actionVerification(reader,"Register Card").equals("Y")){
                         customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
-                        DatabaseController.addCustomerWithouCard(customer);
+                        Persistence_Customer.customerPersistence(customer);
                         System.out.println(customer);
                         break;
                     }
                 }
                 if(count>10){
-                    customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6]);
+                    List<Card> cards = new ArrayList<>();
                     card =new Card(Long.parseLong(vars0[7]),vars0[8],vars0[9],vars0[10]);
-                    DatabaseController.addCustomerWithouCard(customer);
-                    customer.addCard(card);
+                    cards.add(card);
+                    customer = new Customer(vars0[0],vars0[1],vars0[2],(vars0[3]),vars0[4],vars0[5],vars0[6],cards);
+                    Persistence_Customer.customerPersistence(customer);
                     System.out.println(customer);
                     break;
                 }
@@ -56,26 +60,24 @@ public class CustomerController {
     public static void searchCustomer(Scanner reader){
         Customer customer;
         String dni = Utilities.askInfo(reader,"Enter a dni");
-        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
-        if(c){
-            int w = DatabaseController.searchCustomer(dni);
-            customer= DataBase.getCustomers().get(w);
-            System.out.println(customer);
+        customer = Persistence_Customer.findCustomer(dni);
+        if(customer == null){
+            System.out.println("this custome no exists");
         }
-        else System.out.println("this dni no exists");
+        else System.out.println(customer);
     }
 
     public static void deleteCustomer(Scanner reader){
         Customer customer;
         String dni = Utilities.askInfo(reader,"Enter a dni");
-        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
-        if(c){
-            int w = DatabaseController.searchCustomer(dni);
-            customer= DataBase.getCustomers().get(w);
-            System.out.println(" this " + customer + "is deleted");
-            DataBase.getCustomers().remove(customer);
+        customer = Persistence_Customer.findCustomer(dni);
+        if(customer == null){
+            System.out.println("this custome no exists");
         }
-        else System.out.println("this dni no exists");
+        else {
+            System.out.println(customer);
+            Persistence_Customer.removeCustomer(customer);
+        }
     }
 
     public static void modifyCustomer(Scanner reader){

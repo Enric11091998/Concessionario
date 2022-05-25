@@ -14,9 +14,11 @@ http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
             <property name="javax.persistence.jdbc.password" value="ADMINADMIN"/>
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.MySQL8Dialect"/>
-            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.show_sql" value="false"/>
             <property name="hibernate.format_sql" value="true"/>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
+            <property name="hibernate.conexión.pool_size " value="4"/>
+            <property name="hibernate.c3p0.min_sizE" value="5"/>
         </properties>
     </persistence-unit>
 </persistence>
