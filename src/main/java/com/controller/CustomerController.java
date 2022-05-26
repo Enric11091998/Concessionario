@@ -3,7 +3,6 @@ package com.controller;
 import com.manager_persistences.Persistence_Customer;
 import com.model.Card;
 import com.model.Customer;
-import com.model.DataBase;
 import com.services.ValidatorData;
 import com.utils.Utilities;
 
@@ -64,7 +63,7 @@ public class CustomerController {
         String dni = Utilities.askInfo(reader,"Enter a dni");
         customer = Persistence_Customer.findCustomer(dni);
         if(customer == null){
-            System.out.println("this custome no exists");
+            System.out.println("this customer no exists");
         }
         else System.out.println(customer);
     }
@@ -74,7 +73,7 @@ public class CustomerController {
         String dni = Utilities.askInfo(reader,"Enter a dni");
         customer = Persistence_Customer.findCustomer(dni);
         if(customer == null){
-            System.out.println("this custome no exists");
+            System.out.println("this customer no exists");
         }
         else {
             System.out.println(customer);
