@@ -1,9 +1,8 @@
 package com.manager_persistences;
 
+
+import com.model.Card;
 import com.model.Customer;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import javax.persistence.*;
 
@@ -21,6 +20,7 @@ public class Persistence_Customer {
                 em.getTransaction().commit();
                 em.close();
             } finally {
+
                 emf.close();
             }
             return customer;
@@ -50,7 +50,7 @@ public class Persistence_Customer {
                 EntityManager em = emf.createEntityManager();
                 em.getTransaction().begin();
                 em.persist(customer);
-                em.getTransaction().commit();
+                em.getTransaction().commit();;
                 em.close();
             }finally {
                 emf.close();
@@ -62,17 +62,55 @@ public class Persistence_Customer {
         try{
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            /*Query query = em.createNativeQuery("delete from cards_of_customer where customer_dni =" + customer.getDNI());
-            query.executeUpdate();*/
-            System.out.println(customer.getDNI());
-            Query query2 = em.createNativeQuery("delete from customer where dni = '"+ customer.getDni()+"'" );
-            query2.executeUpdate();
+            em.merge(customer);
+            em.remove(em.find(Customer.class,customer.getDNI()));
             em.getTransaction().commit();
             em.close();
         }finally {
             emf.close();
 
         }
+    }
+
+    public static  void modifyDataCustomer(Customer customer){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        try{
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.merge(customer);
+            em.getTransaction().commit();
+            em.close();
+        }finally {
+            emf.close();
+        }
+    }
+
+    public static boolean searchCard(Long card2) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        Card card;
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        card = em.find(Card.class, card2);
+        if(card == null) {
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            return false;
+        }
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        return true;
+    }
+    public static boolean addCard(Card card, Customer customer) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        EntityManager em = emf.createEntityManager();
+        em.getTransaction().begin();
+        customer.getCards().add(card);
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        return true;
     }
 
 

@@ -29,10 +29,12 @@ public class CustomerController {
                 System.out.println(test2);
                 String a = reader.next();
                 vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
-                boolean dniExists = Persistence_Customer.existsCustomer(vars0[0]);
-                if(dniExists){
-                    System.out.println("this DNI already exists");
-                    break;
+                if(count==0){
+                    boolean dniExists = Persistence_Customer.existsCustomer(vars0[0]);
+                    if(dniExists){
+                        System.out.println("this DNI already exists");
+                        break;
+                    }
                 }
                 count++;
                 if(count==7){
@@ -82,15 +84,12 @@ public class CustomerController {
 
     public static void modifyCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
-        Customer customer ;
-        String dni = Utilities.askInfo(reader,"Enter a dni");
-        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
-        int w = DatabaseController.searchCustomer(dni);
-        customer= DataBase.getCustomers().get(w);
         int i;
-        System.out.println(customer);
-        if(!c) {
-            System.out.println("This dni no exists");
+        Customer customer;
+        String dni = Utilities.askInfo(reader,"Enter a dni");
+        customer = Persistence_Customer.findCustomer(dni);
+        if(customer == null){
+            System.out.println("this customer no exists");
         }
         else  do{
             System.out.println("1-Phone\n" + "2-Favorite color car\n" + "3-Favorite brand car\n" + "4-Return");//for
@@ -101,11 +100,14 @@ public class CustomerController {
                 a = validator.checkPhone(a);
                 customer.setPhone(a);
                 System.out.println(customer);
+                Persistence_Customer.modifyDataCustomer(customer);
             }else if(i==2){
                 System.out.println("Enter a new Favorite color car");
                 String a = reader.next();
                 a = validator.checkColorCar(a);
                 customer.setFavoriteColorCar(a);
+                Persistence_Customer.modifyDataCustomer(customer);
+                customer = Persistence_Customer.findCustomer(customer.getDNI());
                 System.out.println(customer);
             }else if(i==3){
                 System.out.println("Enter a new Favorite brand car");
@@ -113,27 +115,32 @@ public class CustomerController {
                 a = validator.checkCarBrand(a);
                 customer.setFavoriteBrandCar(a);
                 System.out.println(customer);
+                Persistence_Customer.modifyDataCustomer(customer);
             }
         }while(i!=4);
     }
 
     public static void modifyCardCustomer(Scanner reader){
+        int i;
         ValidatorData validator = new ValidatorData();
         Customer customer;
         String dni = Utilities.askInfo(reader,"Enter a dni");
-        boolean c = DatabaseController.searchCustomersTrueOrFalse(dni);
-        int i;
-        do{
-            if(!c) {
-                break;
-            }
-            int w = DatabaseController.searchCustomer(dni);
-            customer= DataBase.getCustomers().get(w);
+        customer = Persistence_Customer.findCustomer(dni);
+        if(customer == null){
+            System.out.println("this customer no exists");
+        }
+        else do{
             int count=0;
             System.out.println("1-Show cards\n"+"2-Add card\n"+"3-Delete card\n"+"4-Return");//for
             i = reader.nextInt();
             if(i==1){
-                System.out.println(customer.getCards().toString());
+                customer = Persistence_Customer.findCustomer(dni);
+                if(customer == null){
+                    System.out.println("this custome no exists");
+                }
+                else {
+                    System.out.println(customer.getCards().toString());
+                }
             }else if(i==2){
                 String[] vars0 = new String[4];
                 String listAddCard = ("numberCard?,expiration?,type?,securityCode?");
@@ -142,24 +149,28 @@ public class CustomerController {
                     System.out.println(test);
                     String a = reader.next();
                     vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test),a);
-                    boolean cardNumberExists =  customer.existsCards(customer,vars0[0]);
-                    if(cardNumberExists){
-                        System.out.println("this numbercard already exists");
-                        break;
+                    if(count==0){
+                        boolean cardNumberExists =  Persistence_Customer.searchCard(Long.parseLong(vars0[0]));
+                        if(cardNumberExists){
+                            System.out.println("this numbercard already exists");
+                            break;
+                        }
                     }
                     if(count == 3 ){
                         Card card = new Card(Long.parseLong(vars0[0]),vars0[1],vars0[2],vars0[3]);
-                        customer.addCard(card);
-                        System.out.println(customer.getCards().toString());
+                        customer.getCards().add(card);
+                        System.out.println(customer);
+                        Persistence_Customer.modifyDataCustomer(customer);
                     }
                     count++;
                 }
             }else if(i==3){
                 String b = Utilities.askInfo(reader,"Enter a Card number");
-                boolean cardNumberExists =  customer.existsCards(customer,b);
+                boolean cardNumberExists =  Persistence_Customer.searchCard(Long.parseLong(b));
                 if(cardNumberExists){
                     customer.deleteCards(customer,b);
-                    System.out.println(customer.getCards().toString());
+                    System.out.println(customer);
+                    Persistence_Customer.modifyDataCustomer(customer);
                 }
                 else System.out.println("this card no exists");
             }
