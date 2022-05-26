@@ -1,4 +1,5 @@
 package com.controller;
+import com.manager_persistences.PersistenceEmployee;
 import com.model.*;
 import com.services.ServicesCar;
 import com.services.ServicesCard;
@@ -38,7 +39,7 @@ public class OrderController {
                     //----------------------------------------------------------
                     if(status == 1){
                         String idOrder = employeeDni + Utilities.date() + car.getCarLicense();
-                        Order order = new Order(String.valueOf(cardNumber), car, db.getSearchEmployee(employeeDni).getName(), Utilities.date(), idOrder, customer.getName());
+                        Order order = new Order(String.valueOf(cardNumber), car, PersistenceEmployee.searchEmployee(dni).getName(), Utilities.date(), idOrder, customer.getName());
                         System.out.println(order);
                         if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
                             DataBase.getOrders().add(order);

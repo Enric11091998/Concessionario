@@ -1,17 +1,19 @@
 package com.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name="car")
 public class Car {
+    @Id
+    String carLicense;
     String brand;
     String numberOfDoors;
     String color;
     double km;
-    String carLicense;
     String insurance;
     double price;
     String year;
-    //Hello
-    //hello
-
 
     //Constructor empty
     public Car(){}

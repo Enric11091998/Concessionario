@@ -1,5 +1,7 @@
 package com.controller;
 
+import com.manager_persistences.PersistenceCar;
+import com.manager_persistences.PersistenceEmployee;
 import com.model.Car;
 import com.model.DataBase;
 import com.utils.Utilities;
@@ -12,10 +14,9 @@ public class CarController {
     public static void searchCar(Scanner reader){
         Car car;
         String carLicense = Utilities.askInfo(reader,"Enter a car license");
-        boolean c = DatabaseController.searchCarsTrueOrFalse(carLicense);
+        boolean c = PersistenceCar.existCar(carLicense);
         if(c){
-            int w = DatabaseController.searchCars(carLicense);
-            car =  DataBase.getCars().get(w);
+            car= PersistenceCar.searchCar(carLicense);
             System.out.println(car);
                     }
         else System.out.println("this car license no exists");
@@ -24,12 +25,11 @@ public class CarController {
     public static void deleteCar(Scanner reader){
         Car car;
         String carLicense = Utilities.askInfo(reader,"Enter a car license");
-        boolean c = DatabaseController.searchCarsTrueOrFalse(carLicense);
+        boolean c = PersistenceCar.existCar(carLicense);
         if(c){
-            int w = DatabaseController.searchCars(carLicense);
-            car =  DataBase.getCars().get(w);
+            car =  PersistenceCar.searchCar(carLicense);
             System.out.println(" this " + car + "is deleted");
-            DataBase.getCars().remove(car);
+            PersistenceCar.deleteCar(car);
                 }
         else System.out.println("this car License no exists");
     }

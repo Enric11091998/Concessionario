@@ -66,8 +66,20 @@ public class PersistenceEmployee {
         try {
             EntityManager employeeDB = emf.createEntityManager();
             employeeDB.getTransaction().begin();
-            Query query2 = employeeDB.createNativeQuery("delete from Employee where dni = '"+ employee.getDni()+"'" );
-            query2.executeUpdate();
+            Query query = employeeDB.createNativeQuery("delete from employee where dni = '"+ employee.getDni()+"'" );
+            query.executeUpdate();
+            employeeDB.getTransaction().commit();
+            employeeDB.close();
+        } finally{
+            emf.close();
+        }
+    }
+    public static void modifyEmployee(Employee employee){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        try {
+            EntityManager employeeDB = emf.createEntityManager();
+            employeeDB.getTransaction().begin();
+            employeeDB.merge(employee);
             employeeDB.getTransaction().commit();
             employeeDB.close();
         } finally{

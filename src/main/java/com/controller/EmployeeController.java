@@ -50,12 +50,14 @@ public class EmployeeController {
         Employee employeeToDelete ;
         DatabaseController db = new DatabaseController();
         employeeToDelete = PersistenceEmployee.searchEmployee(dni);
-        System.out.println(employeeToDelete);
-        if (Utilities.actionVerification(reader, "Delete Employee").equals("Y")) {
-            PersistenceEmployee.deleteEmployee(employeeToDelete);
-        }else{
-            System.out.println("employee not deleted");
-        }
+        if(!(employeeToDelete == null)) {
+            System.out.println(employeeToDelete);
+            if (Utilities.actionVerification(reader, "Delete Employee").equals("Y")) {
+                PersistenceEmployee.deleteEmployee(employeeToDelete);
+            } else {
+                System.out.println("employee not deleted");
+            }
+        }else System.out.println("this employee no exist");
     }//method to delete an Employee
 
     public static void modifyEmployee(Scanner reader){//method to modify an Employee
@@ -63,10 +65,10 @@ public class EmployeeController {
         DatabaseController db = new DatabaseController();
         ValidatorData validator = new ValidatorData();
         Employee employee;
-        employee= db.getSearchEmployee(dni);
+        employee= PersistenceEmployee.searchEmployee(dni);
         int i;
         System.out.println(employee);
-        if(employee.getDni().equals("null")) {
+        if(employee == null) {
             System.out.println("This dni no exists");
         }
         else  do{
@@ -78,18 +80,21 @@ public class EmployeeController {
                 a = validator.checkRol(a);
                 employee.setRol(a);
                 System.out.println(employee);
+                PersistenceEmployee.modifyEmployee(employee);
             }else if(i==2){
                 System.out.println("Enter a new salary");
                 String a = reader.next();
                 a = validator.checkSalaryByMonth(a);
                 employee.setSalaryByMonth(a);
                 System.out.println(employee);
+                PersistenceEmployee.modifyEmployee(employee);
             }else if(i==3){
                 System.out.println("Enter a new time worked in hours by week");
                 String a = reader.next();
                 a = validator.checkWorkedHours(a);
                 employee.setWorkedHours(a);
                 System.out.println(employee);
+                PersistenceEmployee.modifyEmployee(employee);
             }
         }while(i!=4);
 
