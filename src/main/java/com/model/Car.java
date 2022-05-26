@@ -1,36 +1,26 @@
 package com.model;
 
-public class Car {
-    String brand;
-    String numberofdoors;
-    @Override
-    public String toString() {
-        return "brand='" + brand + '\'' +
-                ", numberofdoors='" + numberofdoors + '\'' +
-                ", color='" + color + '\'' +
-                ", km=" + km +
-                ", carLicense='" + carLicense + '\'' +
-                ", insurance='" + insurance + '\'' +
-                ", price=" + price +
-                ", year='" + year + '\'' ;
-    }
+import javax.persistence.Entity;
+import javax.persistence.Id;
 
+@Entity(name="car")
+public class Car {
+    @Id
+    String carLicense;
+    String brand;
+    String numberOfDoors;
     String color;
     double km;
-    String carLicense;
     String insurance;
     double price;
     String year;
-    //Hello
-    //hello
-
 
     //Constructor empty
     public Car(){}
 
     public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price,String year){
         this.brand = brand;
-        this.numberofdoors = numberofdoors;
+        this.numberOfDoors = numberofdoors;
         this.color = color;
         this.km = km;
         this.carLicense = carLicense;
@@ -53,18 +43,8 @@ public class Car {
         return brand;
     }
 
-    public String getYear() {
-        return this.year;
-    }
-    public String getColor() {
-        return color;
-    }
-    public String getCarLicense() {
-        return carLicense;
-    }
-
     public String getNumberOfDoors() {
-        return numberofdoors;
+        return numberOfDoors;
     }
 
     public double getKm() {
@@ -78,4 +58,26 @@ public class Car {
     public double getPrice() {
         return price;
     }
+
+    public String getYear() {
+        return this.year;
+    }
+    public String getColor() {
+        return color;
+    }
+    public String getCarLicense() {
+        return carLicense;
+    }
+    @Override
+    public String toString() {
+        return "brand='" + brand + '\'' +
+                ", numberOfDoors='" + numberOfDoors + '\'' +
+                ", color='" + color + '\'' +
+                ", km=" + km +
+                ", carLicense='" + carLicense + '\'' +
+                ", insurance='" + insurance + '\'' +
+                ", price=" + price +
+                ", year='" + year + '\'' ;
+    }
+
 }

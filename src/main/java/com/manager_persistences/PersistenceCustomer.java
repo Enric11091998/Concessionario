@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 
 
-public class Persistence_Customer {
+public class PersistenceCustomer {
 
     public static Customer findCustomer(String dni) {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");

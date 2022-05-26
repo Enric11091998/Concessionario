@@ -22,7 +22,7 @@ public class ServicesCar {
             if (chociceCar == 1) {
                 System.out.println("Enter year");
                 String year = vd.checkCarYear(reader.next());
-                carList2=   ServicesOrder.listCar(brand,color,year);
+                carList2 =   ServicesOrder.listCar(brand,color,year);
             }else if (chociceCar == 2) {
                 carList2=  ServicesOrder.listCar(brand,color);
             }if(carList2 == null) {

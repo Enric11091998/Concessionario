@@ -9,6 +9,11 @@ import java.util.Scanner;
 public class DatabaseController {
 
     //--------------------Customer-------------//
+    public static <T> T generic(T item){
+
+        return item;
+    }
+
     public static int  searchCustomer(String dni){
         int b = 000000000000000000000000000000000000000000;
         int i ;
