@@ -8,41 +8,38 @@ import java.util.Scanner;
 
 public class ServicesCar {
 
-    public static Car  selectCar(List<Car> carList2, Car car){
+    public static List<Car>  selectCar(List<Car> carList2){
         ValidatorData vd = new ValidatorData();
         Scanner reader = new Scanner(System.in);
-        int choiceCar;
+        int chociceCar;
         do {
             System.out.println("Enter a brand");
             String brand = vd.checkCarBrand(reader.next());
             System.out.println("Enter a color");
             String color = vd.checkColorCar(reader.next());
             System.out.println("1-Year\n" + "2-Not Year\n" + "3-Exit");
-            choiceCar = reader.nextInt();
-            if (choiceCar == 1) {
+            chociceCar = reader.nextInt();
+            if (chociceCar == 1) {
                 System.out.println("Enter year");
                 String year = vd.checkCarYear(reader.next());
-                carList2= ServicesOrder.listCar(brand,color,year);
-            }else if (choiceCar == 2) {
-                carList2= ServicesOrder.listCar(brand,color);
-            }else if (choiceCar == 3) {
-
-            }
-            if(carList2.isEmpty()) {
-                System.out.println("there is not car to match these attributes");
+                carList2 =   ServicesOrder.listCar(brand,color,year);
+            }else if (chociceCar == 2) {
+                carList2=  ServicesOrder.listCar(brand,color);
+            }if(carList2 == null) {
                 break;
+            }if(carList2.isEmpty()){
+                System.out.println("No exists this car in database");
             }
-            car = selectCars(carList2, reader);
             break;
-        } while (choiceCar != 3);
-    return car;
+        } while (chociceCar != 3);
+    return carList2;
     }
 
     public static Car selectCars(List<Car> carList2, Scanner reader){
         printCars(carList2);
         System.out.println("Select a car");
-        int choiceCar = reader.nextInt();
-        Car car = carList2.get(choiceCar);
+        int choicecar = reader.nextInt();
+        Car car = carList2.get(choicecar);
         return car;
     }
 

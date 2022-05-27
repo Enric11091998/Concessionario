@@ -1,5 +1,8 @@
 package com.controller;
 import com.manager_persistences.PersistenceEmployee;
+import com.manager_persistences.PersistenceCar;
+import com.manager_persistences.PersistenceCustomer;
+import com.manager_persistences.PersistenceOrder;
 import com.model.*;
 import com.services.ServicesCar;
 import com.services.ServicesCard;
@@ -16,49 +19,55 @@ public class OrderController {
         DatabaseController db = new DatabaseController();
         CardController.getCardNumber();
         //---------------------------------------------------------
-        System.out.println("Employee");
+        System.out.println("-----------Data by Employee-------------");
         String employeeDni = EmployeeController.confirmIsLoginDni(reader);
         //----------------------------------------------------------
         if(!employeeDni.equals("incorrect dni")){
-           car = ServicesCar.selectCar(carList2,car);
-            if(car != null){
-                System.out.println("Customer");
-                String dni = Utilities.askInfo(reader, "Enter a dni");
-                int customerPosition = DatabaseController.searchCustomer(dni);
-                Customer customer = DataBase.getCustomers().get(customerPosition);
-                //----------------------------------------------------------
-                 HashMap<Long,Integer> hasMapCard = ServicesCard.hashmapCardnumberStatus();
-                //----------------------------------------------------------
-                do{
-                    ServicesCard.showCards(customer);
-                    System.out.println("Chose a Card");
-                    int a = reader.nextInt();
-                    //----------------------------------------------------------
-                    Long cardNumber = customer.getCards().get(a).getNumberCard();
-                    int status = hasMapCard.get(cardNumber);
-                    //----------------------------------------------------------
-                    if(status == 1){
-                        String idOrder = employeeDni + Utilities.date() + car.getCarLicense();
-                        Order order = new Order(String.valueOf(cardNumber), car, PersistenceEmployee.searchEmployee(dni).getName(), Utilities.date(), idOrder, customer.getName());
-                        System.out.println(order);
-                        if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
-                            DataBase.getOrders().add(order);
-                            DataBase.getCars().remove(car);
-                            car = null;
-                            break;
-                        }else break;
-                    }if(status ==0){
-                        System.out.println("This card does not have enough balance");
-                        System.out.println("1-Select another card\n" + "2-Exit");
-                        choice =reader.nextInt();
+            carList2 = ServicesCar.selectCar(carList2);
+
+            if(carList2 != null ){
+                if(carList2.size() != 0){
+                    car = ServicesCar.selectCars(carList2,reader);
+                    System.out.println("-----------Data by Customer-------------");
+                    String dni = Utilities.askInfo(reader, "Enter a dni");
+                    Customer customer = PersistenceCustomer.findCustomer(dni);
+                    if(customer!=null){
+                        HashMap<Long,Integer> hasMapCard = ServicesCard.hashmapCardnumberStatus(customer);
+                        do{
+                            ServicesCard.showCards(customer);
+                            System.out.println("Chose a Card");
+                            int a = reader.nextInt();
+                            //----------------------------------------------------------
+                            Long cardNumber = customer.getCards().get(a).getNumberCard();
+                            int status = hasMapCard.get(cardNumber);
+                            //----------------------------------------------------------
+                            if(status == 1){
+                                String idOrder = employeeDni + Utilities.date() + car.getCarLicense();
+                                Order order = new Order(String.valueOf(cardNumber), car, PersistenceEmployee.searchEmployee(employeeDni).getName(), Utilities.date(), idOrder, customer.getName());
+                                System.out.println(order);
+                                if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
+                                    PersistenceOrder.orderPersistence(order);
+                                    PersistenceCar.removeCar(car);
+                                    carList2.clear();
+                                    break;
+                                }else break;
+                            }if(status ==0){
+                                System.out.println("This card does not have enough balance");
+                                System.out.println("1-Select another card\n" + "2-Exit");
+                                choice =reader.nextInt();
+                            }
+                        }while(choice != 2);
                     }
-                }while(choice != 2);
-            }else System.out.println("This car no exists in stock");
+                    //----------------------------------------------------------
+
+                    //----------------------------------------------------------
+
+                }
+            }
+            if(carList2 == null){
+                System.out.println("bye");
+            }else System.out.println("bye end");
         }
     }
-
-
-
-
 
 }

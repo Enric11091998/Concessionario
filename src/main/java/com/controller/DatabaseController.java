@@ -10,6 +10,11 @@ import java.util.Scanner;
 public class DatabaseController {
 
     //--------------------Customer-------------//
+    public static <T> T generic(T item){
+
+        return item;
+    }
+
     public static int  searchCustomer(String dni){
         int b = 000000000000000000000000000000000000000000;
         int i ;
@@ -33,6 +38,10 @@ public class DatabaseController {
 
     public static void addCustomerWithouCard(Customer customer){
         DataBase.getCustomers().add(customer);
+    }
+
+    public static void addCar(String brand, String numberofdoors, String color, double km, String carLicense,String insurance,double price, String year){
+        DataBase.getCars().add(new Car(brand,numberofdoors,color,km,carLicense,insurance,price,year));
     }
 
     //--------------------Employee-------------//

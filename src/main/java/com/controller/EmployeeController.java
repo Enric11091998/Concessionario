@@ -48,7 +48,6 @@ public class EmployeeController {
     public static void deleteEmployee(Scanner reader){//method to delete an Employee
         String dni = Utilities.askInfo(reader,"Enter a dni");
         Employee employeeToDelete ;
-        DatabaseController db = new DatabaseController();
         employeeToDelete = PersistenceEmployee.searchEmployee(dni);
         if(!(employeeToDelete == null)) {
             System.out.println(employeeToDelete);
@@ -62,7 +61,6 @@ public class EmployeeController {
 
     public static void modifyEmployee(Scanner reader){//method to modify an Employee
         String dni = Utilities.askInfo(reader,"Enter a dni");
-        DatabaseController db = new DatabaseController();
         ValidatorData validator = new ValidatorData();
         Employee employee;
         employee= PersistenceEmployee.searchEmployee(dni);

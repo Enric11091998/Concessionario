@@ -12,7 +12,7 @@ public class PersistenceEmployee {
 
 
     public static void addEmployeeToDB(Employee employee){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
 
         try {
             EntityManager employeeDB = emf.createEntityManager();
@@ -26,7 +26,7 @@ public class PersistenceEmployee {
     }
 
     public static Employee searchEmployee (String dni){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         Employee employee;
         try {
             EntityManager employeeDB = emf.createEntityManager();
@@ -41,7 +41,7 @@ public class PersistenceEmployee {
     }
 
     public static boolean existEmployee(String dni){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
 
 
         EntityManager employeeDB = emf.createEntityManager();
@@ -61,7 +61,7 @@ public class PersistenceEmployee {
         return false;
     }
     public static void deleteEmployee(Employee employee){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
 
         try {
             EntityManager employeeDB = emf.createEntityManager();
@@ -75,7 +75,7 @@ public class PersistenceEmployee {
         }
     }
     public static void modifyEmployee(Employee employee){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         try {
             EntityManager employeeDB = emf.createEntityManager();
             employeeDB.getTransaction().begin();

@@ -29,7 +29,7 @@ public class CarController {
         if(c){
             car =  PersistenceCar.searchCar(carLicense);
             System.out.println(" this " + car + "is deleted");
-            PersistenceCar.deleteCar(car);
+            PersistenceCar.removeCar(car);
                 }
         else System.out.println("this car License no exists");
     }
