@@ -38,6 +38,7 @@ public class Employee {
     public String getName() {
         return name;
     }
+
     public String getRol() {
         return this.rol;
     }
@@ -54,7 +55,45 @@ public class Employee {
         this.workedHours = workedHours;
     }
 
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSalaryByMonth() {
+        return salaryByMonth;
+    }
+
+    public String getWorkedHours() {
+        return workedHours;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     @Override
     public String toString() {

@@ -11,7 +11,6 @@ public class Card {
 
     }
 
-
     public Card(long numberCard, String expiration, String type, String securityCode) {
         this.expiration =expiration;
         this.numberCard =numberCard;

@@ -6,7 +6,7 @@ import java.io.Serializable;
 @Entity(name="car")
 public class Car  {
     @Id
-    @OneToOne
+    @OneToOne(targetEntity = Order.class,cascade = CascadeType.ALL)
     @JoinColumn(name = "idOrder")
     private String carLicense;
     private  String brand;
@@ -31,9 +31,40 @@ public class Car  {
         this.year = year;
 
     }
-    //method to modified km, carLicense, insurance and price
     public void setKLIP(double km, String carLicense, String insurance, double price){
 
+    }
+
+    public void setCarLicense(String carLicense) {
+        this.carLicense = carLicense;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
+    public void setNumberOfDoors(String numberOfDoors) {
+        this.numberOfDoors = numberOfDoors;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public void setKm(double km) {
+        this.km = km;
+    }
+
+    public void setInsurance(String insurance) {
+        this.insurance = insurance;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
 
     public boolean checkExistsCarLicense(String carLicense){

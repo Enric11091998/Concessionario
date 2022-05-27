@@ -5,30 +5,14 @@ import javax.persistence.*;
 @Entity(name="order")
 public class Order {
     @Id
-    String idOrder;
-    String date;
-    String numberCard;
-    @OneToOne
+    private String idOrder;
+    private String date;
+    private String numberCard;
+    @OneToOne(targetEntity = Car.class, cascade = CascadeType.ALL)
     @JoinColumn(name = "carLicense")
-    String carLicense;
-    String nameEmployee;
-    String nameCustomer;
-
-//    public Car getCar() {
-//        return car;
-
-    public String getCarLicense() {
-        return carLicense;
-    }
-
-    public void setCarLicense(String carLicense) {
-        this.carLicense = carLicense;
-    }
-//    }
-
-//    public void setCar(Car car) {
-//        this.car = car;
-//    }
+    private String carLicense;
+    private String nameEmployee;
+    private String nameCustomer;
 
     protected Order(){
     }
@@ -42,6 +26,50 @@ public class Order {
     }
     public String getIdOrder() {
         return idOrder;
+    }
+
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getNumberCard() {
+        return numberCard;
+    }
+
+    public void setNumberCard(String numberCard) {
+        this.numberCard = numberCard;
+    }
+
+    public String getNameEmployee() {
+        return nameEmployee;
+    }
+
+    public void setNameEmployee(String nameEmployee) {
+        this.nameEmployee = nameEmployee;
+    }
+
+    public String getNameCustomer() {
+        return nameCustomer;
+    }
+
+    public void setNameCustomer(String nameCustomer) {
+        this.nameCustomer = nameCustomer;
+    }
+
+    public String getCarLicense() {
+        return carLicense;
+    }
+
+    public void setCarLicense(String carLicense) {
+        this.carLicense = carLicense;
     }
 
     @Override
