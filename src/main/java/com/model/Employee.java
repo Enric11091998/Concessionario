@@ -6,17 +6,17 @@ import javax.persistence.Id;
 @Entity(name="employee")
 public class Employee {
     @Id
-    public String dni;
-    public String name;
-    public String surname;
-    public int age;
-    public String rol;
-    public String salaryByMonth;
-    public String workedHours;
-    public String password;
+    private String dni;
+    private String name;
+    private String surname;
+    private int age;
+    private String rol;
+    private String salaryByMonth;
+    private String workedHours;
+    private String password;
 
     //empty constructor
-    public Employee() {
+    protected Employee() {
     }
 
     //all attributes constructor

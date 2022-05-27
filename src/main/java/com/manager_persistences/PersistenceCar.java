@@ -9,9 +9,9 @@ import java.util.stream.Stream;
 
 
 public class PersistenceCar {
-static List<Car> cars;
+//static List<Car> cars;
     public static Car searchCar(String carLicence){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         Car car;
         try {
             EntityManager carDB = emf.createEntityManager();
@@ -25,9 +25,7 @@ static List<Car> cars;
         return car;
     }
     public static boolean existCar(String carLicence){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseenric");
-
-
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager carDB = emf.createEntityManager();
         carDB.getTransaction().begin();
         Car car = carDB.find(Car.class,carLicence);
@@ -43,44 +41,44 @@ static List<Car> cars;
 
         return false;
     }
-    public  static List<Car> searchCardsbyColorBrand(String color,String brand){
+    public  static List<Car> searchCardsbyColorBrand(String brand,String color){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
-        try {
-            String smt = "SELECT c from car c where c.color = ?1 and c.brand = ?2";
-            em.getTransaction().begin();
-            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,brand).getResultStream();
-            cars = car.collect(Collectors.toList());
-            em.getTransaction().commit();
-            em.close();
-        }finally {
-            emf.close();
-            return cars;
-        }
+        String smt = "SELECT c from car c where c.brand = '"+ brand+"' and c.color = '"+ color+"'";
+        //String smt = "SELECT c from car c where c.color = :color and c.brand = :brand";
+        em.getTransaction().begin();
+        //Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).getResultStream();
+        Stream<Car> car = em.createQuery(smt,Car.class).getResultStream();
+        List<Car> cars = car.collect(Collectors.toList());
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        return cars;
+
 
     }
-    public  static List<Car> searchCardsbyColorBrandYear(String color,String brand,String year){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-        EntityManager em = emf.createEntityManager();
-        try {
-            String smt = "SELECT c from car c where c.color = ?1 and c.brand = ?2 and c.brand = ?3";
-            em.getTransaction().begin();
-            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,brand).setParameter(3,year).getResultStream();
-            cars = car.collect(Collectors.toList());
-            em.getTransaction().commit();
-            em.close();
-        }finally {
-            emf.close();
-            return cars;
-        }
-    }
+//    public  static List<Car> searchCardsbyColorBrandYear(String color,String brand,String year){
+//        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+//        EntityManager em = emf.createEntityManager();
+//        try {
+//            String smt = "SELECT c from car c where c.color = ?1 and c.brand = ?2 and c.brand = ?3";
+//            em.getTransaction().begin();
+//            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,brand).setParameter(3,year).getResultStream();
+//            cars = car.collect(Collectors.toList());
+//            em.getTransaction().commit();
+//            em.close();
+//        }finally {
+//            emf.close();
+//            return cars;
+//        }
+//    }
     public static void removeCar(Car car){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         try{
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.merge(car);
-            em.remove(em.find(Customer.class,car.getCarLicense()));
+            Query query = em.createNativeQuery("delete from car where carLicense = '"+ car.getCarLicense()+"'" );
+            query.executeUpdate();
             em.getTransaction().commit();
             em.close();
         }finally {

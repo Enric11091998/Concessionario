@@ -1,22 +1,24 @@
 package com.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity(name="car")
-public class Car {
+public class Car  {
     @Id
-    String carLicense;
-    String brand;
-    String numberOfDoors;
-    String color;
-    double km;
-    String insurance;
-    double price;
-    String year;
+    @OneToOne
+    @JoinColumn(name = "idOrder")
+    private String carLicense;
+    private  String brand;
+    private String numberOfDoors;
+    private String color;
+    private double km;
+    private String insurance;
+    private double price;
+    private String year;
 
     //Constructor empty
-    public Car(){}
+    protected Car(){}
 
     public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price,String year){
         this.brand = brand;
