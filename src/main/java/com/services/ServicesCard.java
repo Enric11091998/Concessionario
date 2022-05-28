@@ -16,7 +16,7 @@ public class ServicesCard {
     public static  HashMap<Long,Integer> hashmapCardnumberStatus(Customer customer){
         HashMap<Long,Integer> cardsMap = new HashMap<>();
         for(int i = 0; i < customer.getCards().size(); i++){
-            Long key= DataBase.getCards().get(i);
+            Long key= customer.getCards().get(i).getNumberCard();
             int value = random.nextInt(2);
             cardsMap.put(key,value);
         }

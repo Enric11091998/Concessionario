@@ -3,11 +3,9 @@ package com.model;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity(name="car")
-public class Car  {
+@Entity(name = "car")
+public class Car {
     @Id
-    @OneToOne(targetEntity = Order.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "idOrder")
     private String carLicense;
     private  String brand;
     private String numberOfDoors;
@@ -20,9 +18,9 @@ public class Car  {
     //Constructor empty
     protected Car(){}
 
-    public Car(String brand, String numberofdoors, String color, double km, String carLicense, String insurance, double price,String year){
+    public Car(String brand, String numberOfDoors, String color, double km, String carLicense, String insurance, double price,String year){
         this.brand = brand;
-        this.numberOfDoors = numberofdoors;
+        this.numberOfDoors = numberOfDoors;
         this.color = color;
         this.km = km;
         this.carLicense = carLicense;

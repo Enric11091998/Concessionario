@@ -7,12 +7,13 @@ import com.model.*;
 import com.services.ServicesCar;
 import com.services.ServicesCard;
 import com.utils.Utilities;
+import org.junit.Test;
+
 import java.util.*;
 public class OrderController {
 
     static int choice;
     static  List<Car> carList2;
-
     public static void makeCarSale(Scanner reader){
         //---------------------------------------------------------
         System.out.println("-----------Data by Employee-------------");
@@ -39,12 +40,12 @@ public class OrderController {
                             int status = 1;//hasMapCard.get(cardNumber);
                             //----------------------------------------------------------
                             if(status == 1){
-                                String idOrder = employeeDni + Utilities.date() + car.getCarLicense();
-                                Order order = new Order(String.valueOf(cardNumber), car.getCarLicense(), PersistenceEmployee.searchEmployee(employeeDni).getName(), Utilities.date(), idOrder, customer.getName());
-                                System.out.println(order);
+                                String idOrder = employeeDni + car.getCarLicense();
+                                //Order order = new Order(idOrder,String.valueOf(cardNumber),Utilities.date(),car.getCarLicense(), "12345678Z", customer.getName());
+                               OrderDealer o = new OrderDealer(idOrder,car.getCarLicense(),String.valueOf(cardNumber),Utilities.date(),"12345678Z", customer.getName());
+                                System.out.println(o);
                                 if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
-
-                                    PersistenceOrder.orderPersistence(order);
+                                    PersistenceOrder.orderPersistence(o);
                                     PersistenceCar.removeCar(car);
                                     carList2.clear();
                                     break;

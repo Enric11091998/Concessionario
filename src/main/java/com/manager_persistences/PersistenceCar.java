@@ -45,9 +45,7 @@ public class PersistenceCar {
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
         String smt = "SELECT c from car c where c.brand = '"+ brand+"' and c.color = '"+ color+"'";
-        //String smt = "SELECT c from car c where c.color = :color and c.brand = :brand";
         em.getTransaction().begin();
-        //Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).getResultStream();
         Stream<Car> car = em.createQuery(smt,Car.class).getResultStream();
         List<Car> cars = car.collect(Collectors.toList());
         em.getTransaction().commit();

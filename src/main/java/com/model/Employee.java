@@ -19,42 +19,6 @@ public class Employee {
     protected Employee() {
     }
 
-    //all attributes constructor
-    public Employee(String dni, String name, String surname, int age, String rol, String salaryByMonth, String workedHours, String password) {
-        this.dni = dni;
-        this.name = name;
-        this.surname = surname;
-        this.age = age;
-        this.rol = rol;
-        this.salaryByMonth = salaryByMonth;
-        this.workedHours = workedHours;
-        this.password = password;
-    }
-
-    public String getDni() {
-        return this.dni;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getRol() {
-        return this.rol;
-    }
-
-    public void setRol(String rol) {
-        this.rol = rol;
-    }
-
-    public void setSalaryByMonth(String salaryByMonth) {
-        this.salaryByMonth = salaryByMonth;
-    }
-
-    public void setWorkedHours(String workedHours) {
-        this.workedHours = workedHours;
-    }
-
     public void setDni(String dni) {
         this.dni = dni;
     }
@@ -94,6 +58,43 @@ public class Employee {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    //all attributes constructor
+    public Employee(String dni, String name, String surname, int age, String rol, String salaryByMonth, String workedHours, String password) {
+        this.dni = dni;
+        this.name = name;
+        this.surname = surname;
+        this.age = age;
+        this.rol = rol;
+        this.salaryByMonth = salaryByMonth;
+        this.workedHours = workedHours;
+        this.password = password;
+    }
+
+    public String getDni() {
+        return this.dni;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getRol() {
+        return this.rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
+    }
+
+    public void setSalaryByMonth(String salaryByMonth) {
+        this.salaryByMonth = salaryByMonth;
+    }
+
+    public void setWorkedHours(String workedHours) {
+        this.workedHours = workedHours;
+    }
+
 
     @Override
     public String toString() {
