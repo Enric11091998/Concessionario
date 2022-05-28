@@ -1,13 +1,11 @@
 package com.controller;
 import com.manager_persistences.PersistenceCar;
 import com.manager_persistences.PersistenceCustomer;
-import com.manager_persistences.PersistenceEmployee;
 import com.manager_persistences.PersistenceOrder;
 import com.model.*;
 import com.services.ServicesCar;
 import com.services.ServicesCard;
 import com.utils.Utilities;
-import org.junit.Test;
 
 import java.util.*;
 public class OrderController {
@@ -20,12 +18,11 @@ public class OrderController {
         String employeeDni = EmployeeController.confirmIsLoginDni(reader);
         //----------------------------------------------------------
         if(!employeeDni.equals("incorrect dni")){
-            List<Car> cars = new ArrayList<>();
-            carList2 = ServicesCar.selectCar(cars);
+            carList2 = ServicesCar.selectCar(carList2);
 
             if(!(carList2 == null) ){
                 if(carList2.size() != 0){
-                  Car  car = ServicesCar.selectCars(carList2,reader);
+                    Car car = ServicesCar.selectCars(carList2,reader);
                     System.out.println("-----------Data by Customer-------------");
                     String dni = Utilities.askInfo(reader, "Enter a dni");
                     Customer customer = PersistenceCustomer.findCustomer(dni);
@@ -41,8 +38,7 @@ public class OrderController {
                             //----------------------------------------------------------
                             if(status == 1){
                                 String idOrder = employeeDni + car.getCarLicense();
-                                //Order order = new Order(idOrder,String.valueOf(cardNumber),Utilities.date(),car.getCarLicense(), "12345678Z", customer.getName());
-                               OrderDealer o = new OrderDealer(idOrder,car.getCarLicense(),String.valueOf(cardNumber),Utilities.date(),"12345678Z", customer.getName());
+                                OrderDealer o = new OrderDealer(idOrder,car.getCarLicense(),String.valueOf(cardNumber),Utilities.date(),employeeDni, customer.getName());
                                 System.out.println(o);
                                 if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
                                     PersistenceOrder.orderPersistence(o);
