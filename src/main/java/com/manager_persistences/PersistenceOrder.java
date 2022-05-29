@@ -1,8 +1,6 @@
 package com.manager_persistences;
 
 
-import com.model.Customer;
-import com.model.Order;
 import com.model.OrderDealer;
 
 import javax.persistence.EntityManager;
