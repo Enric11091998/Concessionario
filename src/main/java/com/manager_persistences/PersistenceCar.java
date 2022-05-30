@@ -1,16 +1,12 @@
 package com.manager_persistences;
-
 import com.model.Car;
-import com.model.Customer;
 
 import javax.persistence.*;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-
 public class PersistenceCar {
-static List<Car> cars;
     public static Car searchCar(String carLicence){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         Car car;
@@ -27,8 +23,6 @@ static List<Car> cars;
     }
     public static boolean existCar(String carLicence){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-
-
         EntityManager carDB = emf.createEntityManager();
         carDB.getTransaction().begin();
         Car car = carDB.find(Car.class,carLicence);
@@ -44,36 +38,32 @@ static List<Car> cars;
 
         return false;
     }
-    public  static List<Car> searchCardsbyColorBrand(String color,String brand){
+    public  static List<Car> searchCardsbyColorBrand(String brand,String color){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
-        try {
-            String smt = "SELECT c from car c where c.color = ?1 and c.brand = ?2";
-            em.getTransaction().begin();
-            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,brand).getResultStream();
-            cars = car.collect(Collectors.toList());
-            em.getTransaction().commit();
-            em.close();
-        }finally {
-            emf.close();
-            return cars;
-        }
+        String smt = "SELECT c from car c where c.brand = ?1 and c.color = ?2 and c.status = 'unsold' ";
+        em.getTransaction().begin();
+        Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).getResultStream();
+        List<Car> cars = car.collect(Collectors.toList());
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        return cars;
+
 
     }
-    public  static List<Car> searchCardsbyColorBrandYear(String color,String brand,String year){
+    public  static List<Car> searchCardsbyColorBrandYear(String brand,String color,String year){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
-        try {
-            String smt = "SELECT c from car c where c.color = ?1 and c.brand = ?2 and c.brand = ?3";
-            em.getTransaction().begin();
-            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,brand).setParameter(3,year).getResultStream();
-            cars = car.collect(Collectors.toList());
-            em.getTransaction().commit();
-            em.close();
-        }finally {
-            emf.close();
-            return cars;
-        }
+        String smt = "SELECT c from car c where c.brand = ?1 and c.color = ?2 and c.year = ?3 and c.status = 'unsold' ";
+        em.getTransaction().begin();
+        Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).setParameter(3,year).getResultStream();
+        List<Car> cars = car.collect(Collectors.toList());
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+        return cars;
+
     }
     public static void removeCar(Car car){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
@@ -87,6 +77,19 @@ static List<Car> cars;
         }finally {
             emf.close();
 
+        }
+    }
+    public static void statusCar(Car car){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        try{
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            Query query = em.createNativeQuery("update car c set c.status = 'sold' where c.carLicense = '" + car.getCarLicense() +"'" );
+            query.executeUpdate();
+            em.getTransaction().commit();
+            em.close();
+        }finally {
+            emf.close();
         }
     }
 }

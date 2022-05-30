@@ -1,5 +1,8 @@
 package com.model;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 @Entity(name = "card")
 public class Card {
     @Id
@@ -14,9 +17,9 @@ public class Card {
 
     public Card(long numberCard, String expiration, String type, String securityCode) {
         this.expiration =expiration;
-        this.numberCard =numberCard;
-        this.type=type;
-        this.securityCode=securityCode;
+        this.numberCard = numberCard;
+        this.type = type;
+        this.securityCode = securityCode;
     }
 
     public long getNumberCard() {
@@ -50,8 +53,6 @@ public class Card {
     public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
-
-
     @Override
     public String toString() {
         return "Card{" +
@@ -61,6 +62,4 @@ public class Card {
                 ", securityCode=" + getSecurityCode() +
                 '}';
     }
-
-
 }

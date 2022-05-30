@@ -18,7 +18,6 @@ public class Customer {
     @Embedded
     @ElementCollection
     @CollectionTable(name = "cards_of_customer")
-    @OneToMany(targetEntity = Card.class,cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     private List<Card> cards = new ArrayList<>();
 
 
@@ -54,7 +53,6 @@ public class Customer {
     public String getDNI(){
         return this.getDni();
     }
-
     public List<Card> getCards() {
         return cards;
     }
@@ -62,7 +60,6 @@ public class Customer {
     public String getName() {
         return name;
     }
-
     public String getDni() {
         return dni;
     }
@@ -164,7 +161,6 @@ public class Customer {
                 ", cards=" + this.getCards() +
                 '}';
     }
-
 
 
 }

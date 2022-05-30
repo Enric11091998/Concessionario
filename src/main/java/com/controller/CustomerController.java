@@ -3,6 +3,7 @@ package com.controller;
 import com.manager_persistences.PersistenceCustomer;
 import com.model.Card;
 import com.model.Customer;
+import com.model.DataBase;
 import com.services.ValidatorData;
 import com.utils.Utilities;
 
@@ -30,10 +31,10 @@ public class CustomerController {
                 vars0[count] = validator.selectValidatorCustomerAndCard(String.valueOf(test2),a);
                 if(count==0){
                     boolean dniExists = PersistenceCustomer.existsCustomer(vars0[0]);
-                    if(dniExists){
-                        System.out.println("this DNI already exists");
-                        break;
-                    }
+                if(dniExists){
+                    System.out.println("this DNI already exists");
+                    break;
+                }
                 }
                 count++;
                 if(count==7){
@@ -84,7 +85,7 @@ public class CustomerController {
     public static void modifyCustomer(Scanner reader){
         ValidatorData validator = new ValidatorData();
         int i;
-        Customer customer;
+        Customer customer ;
         String dni = Utilities.askInfo(reader,"Enter a dni");
         customer = PersistenceCustomer.findCustomer(dni);
         if(customer == null){

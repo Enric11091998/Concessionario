@@ -13,11 +13,11 @@ public class ServicesCar {
         Scanner reader = new Scanner(System.in);
         int chociceCar;
         do {
-            System.out.println("Enter a brand");
+            System.out.println("Enter a brand car");
             String brand = vd.checkCarBrand(reader.next());
-            System.out.println("Enter a color");
+            System.out.println("Enter a color car");
             String color = vd.checkColorCar(reader.next());
-            System.out.println("1-Year\n" + "2-Not Year\n" + "3-Exit");
+            System.out.println("1-Search by year?\n" + "2-Search without year?\n" + "3-Exit");
             chociceCar = reader.nextInt();
             if (chociceCar == 1) {
                 System.out.println("Enter year");
@@ -27,7 +27,7 @@ public class ServicesCar {
                 carList2=  ServicesOrder.listCar(brand,color);
             }if(carList2 == null) {
                 break;
-            }if(carList2.isEmpty()){
+            }if(carList2.isEmpty()) {
                 System.out.println("No exists this car in database");
             }
             break;
@@ -37,7 +37,7 @@ public class ServicesCar {
 
     public static Car selectCars(List<Car> carList2, Scanner reader){
         printCars(carList2);
-        System.out.println("Select a car");
+        System.out.println("Select a car choosing a number");
         int choicecar = reader.nextInt();
         Car car = carList2.get(choicecar);
         return car;

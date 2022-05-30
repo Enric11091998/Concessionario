@@ -1,6 +1,7 @@
 package com.manager_persistences;
 
 
+
 import com.model.Card;
 import com.model.Customer;
 
@@ -10,20 +11,25 @@ import javax.persistence.*;
 
 public class PersistenceCustomer {
 
-    public static Customer findCustomer(String dni) {
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-            Customer customer;
-            try {
-                EntityManager em = emf.createEntityManager();
-                em.getTransaction().begin();
-                customer = em.find(Customer.class, dni);
-                em.getTransaction().commit();
-                em.close();
-            } finally {
+    public  <T> T testgeneric(T o){
 
-                emf.close();
-            }
-            return customer;
+        return o;
+    }
+
+    public static Customer findCustomer(String dni) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        Customer customer;
+        try {
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            customer = em.find(Customer.class, dni);
+            em.getTransaction().commit();
+            em.close();
+        } finally {
+
+            emf.close();
+        }
+        return customer;
     }
 
     public static boolean existsCustomer(String dni) {
@@ -45,17 +51,17 @@ public class PersistenceCustomer {
     }
 
     public static void customerPersistence(Customer customer){
-            EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-            try{
-                EntityManager em = emf.createEntityManager();
-                em.getTransaction().begin();
-                em.persist(customer);
-                em.getTransaction().commit();;
-                em.close();
-            }finally {
-                emf.close();
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        try{
+            EntityManager em = emf.createEntityManager();
+            em.getTransaction().begin();
+            em.persist(customer);
+            em.getTransaction().commit();;
+            em.close();
+        }finally {
+            emf.close();
 
-            }
+        }
     }
     public static void removeCustomer(Customer customer){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
@@ -72,12 +78,12 @@ public class PersistenceCustomer {
         }
     }
 
-    public static  void modifyDataCustomer(Customer customer){
+    public static <T> void modifyDataCustomer(T o){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         try{
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.merge(customer);
+            em.merge(o);
             em.getTransaction().commit();
             em.close();
         }finally {

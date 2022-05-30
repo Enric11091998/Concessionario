@@ -1,27 +1,19 @@
 package com.manager_persistences;
+import com.model.OrderDealer;
 
-
-import com.model.Customer;
-import com.model.Order;
-
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-
+import javax.persistence.*;
 public class PersistenceOrder {
-
-    public static void orderPersistence(Order order){
+    public static void orderPersistence(OrderDealer o){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         try{
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.persist(order);
-            em.getTransaction().commit();;
+            em.persist(o);
+            em.getTransaction().commit();
             em.close();
         }finally {
             emf.close();
 
         }
     }
-
 }
