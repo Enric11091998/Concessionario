@@ -55,7 +55,7 @@ public class Menu {
                 OrderController.makeCarSale(reader);
             }
             if(choice ==2){
-                DatabaseController.searchOrders(reader);
+                //DatabaseController.searchOrders(reader);
             }
         }while (choice!=3);
     }

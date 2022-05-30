@@ -13,10 +13,10 @@ public class ServicesCard {
             System.out.println(i +"- "+ customer.getCards().get(i).getNumberCard());
         }
     }
-    public static  HashMap<Long,Integer> hashmapCardnumberStatus(){
+    public static  HashMap<Long,Integer> hashmapCardnumberStatus(Customer customer){
         HashMap<Long,Integer> cardsMap = new HashMap<>();
-        for(int i = 0; i < DataBase.getCards().size(); i++){
-            Long key= DataBase.getCards().get(i);
+        for(int i = 0; i < customer.getCards().size(); i++){
+            Long key= customer.getCards().get(i).getNumberCard();
             int value = random.nextInt(2);
             cardsMap.put(key,value);
         }

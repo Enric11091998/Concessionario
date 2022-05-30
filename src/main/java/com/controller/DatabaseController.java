@@ -9,6 +9,10 @@ import java.util.Scanner;
 public class DatabaseController {
 
     //--------------------Customer-------------//
+    public static <T> T generic(T item){
+
+        return item;
+    }
     public static int  searchCustomer(String dni){
         int b = 000000000000000000000000000000000000000000;
         int i ;
@@ -110,19 +114,19 @@ public class DatabaseController {
         }
         return false;
     }
-    public static void searchOrders (Scanner reader){
-        String idOrder = Utilities.askInfo(reader,"Enter an id Order");
-        Order searchedIdOrder = null;
-        for (int i = 0; i < DataBase.getOrders().size(); i++) {
-            if (idOrder.equals(DataBase.getOrders().get(i).getIdOrder())) {
-                searchedIdOrder = DataBase.getOrders().get(i);
-                break;
-            }
-        }
-        if (searchedIdOrder == null) {
-            System.out.println("No Order was found with this id Order");
-        } else {
-            System.out.println("Order found " + searchedIdOrder);
-        }
-    }
+//    public static void searchOrders (Scanner reader){
+//        String idOrder = Utilities.askInfo(reader,"Enter an id Order");
+//        Order searchedIdOrder = null;
+//        for (int i = 0; i < DataBase.getOrders().size(); i++) {
+//            if (idOrder.equals(DataBase.getOrders().get(i).getIdOrder())) {
+//                searchedIdOrder = DataBase.getOrders().get(i);
+//                break;
+//            }
+//        }
+//        if (searchedIdOrder == null) {
+//            System.out.println("No Order was found with this id Order");
+//        } else {
+//            System.out.println("Order found " + searchedIdOrder);
+//        }
+//    }
 }

@@ -1,19 +1,63 @@
 package com.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity(name="employee")
 public class Employee {
-    public String dni;
-    public String name;
-    public String surname;
-    public int age;
-    public String rol;
-    public String salaryByMonth;
-    public String workedHours;
-    public String password;
+    @Id
+    private String dni;
+    private String name;
+    private String surname;
+    private int age;
+    private String rol;
+    private String salaryByMonth;
+    private String workedHours;
+    private String password;
 
     //empty constructor
-    public Employee() {
+    protected Employee() {
     }
 
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public String getSalaryByMonth() {
+        return salaryByMonth;
+    }
+
+    public String getWorkedHours() {
+        return workedHours;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
     //all attributes constructor
     public Employee(String dni, String name, String surname, int age, String rol, String salaryByMonth, String workedHours, String password) {
         this.dni = dni;
@@ -48,7 +92,6 @@ public class Employee {
     public void setWorkedHours(String workedHours) {
         this.workedHours = workedHours;
     }
-
 
 
     @Override
