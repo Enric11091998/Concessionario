@@ -42,7 +42,6 @@ public class OrderController {
                                 System.out.println(o);
                                 if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
                                     PersistenceOrder.orderPersistence(o);
-
                                     //PersistenceCar.statusCar(car);
                                     carList2.clear();
                                     break;
