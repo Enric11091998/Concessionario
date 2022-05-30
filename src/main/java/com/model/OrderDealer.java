@@ -6,13 +6,14 @@ import javax.persistence.*;
 public class OrderDealer {
     @Id
     private String idOrder;
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinColumn(name = "carLicense_fk", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = true)
+    @JoinColumn(name = "carLicense_fk")
     private Car car;
     private String numbercard;
     private String date;
     private String dniemployee;
     private String nameCustomer;
+
     protected OrderDealer(){
 
     }

@@ -28,7 +28,7 @@ public class PersistenceOrder {
         try{
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.persist(o);
+            em.merge(o);
             em.getTransaction().commit();
             em.close();
         }finally {
