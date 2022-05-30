@@ -10,6 +10,11 @@ import javax.persistence.*;
 
 public class PersistenceCustomer {
 
+    public  <T> T testgeneric(T o){
+
+        return o;
+    }
+
     public static Customer findCustomer(String dni) {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
             Customer customer;
@@ -72,12 +77,12 @@ public class PersistenceCustomer {
         }
     }
 
-    public static  void modifyDataCustomer(Customer customer){
+    public static <T> void modifyDataCustomer(T o){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         try{
             EntityManager em = emf.createEntityManager();
             em.getTransaction().begin();
-            em.merge(customer);
+            em.merge(o);
             em.getTransaction().commit();
             em.close();
         }finally {

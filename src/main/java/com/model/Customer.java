@@ -18,7 +18,6 @@ public class Customer {
     @Embedded
     @ElementCollection
     @CollectionTable(name = "cards_of_customer")
-    @OneToMany(targetEntity = Card.class,cascade = CascadeType.ALL,fetch=FetchType.EAGER)
     private List<Card> cards = new ArrayList<>();
 
 
