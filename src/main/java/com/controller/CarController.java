@@ -1,7 +1,6 @@
 package com.controller;
 
 import com.model.Car;
-import com.model.DataBase;
 import com.utils.Utilities;
 import java.util.Scanner;
 

@@ -1,37 +1,36 @@
 package com.view;
 
 import java.util.Scanner;
-
 import com.controller.*;
 import com.services.ServicesEmployee;
 
 public class Menu {
-    //Show and call methods
 
     static  int choice;
 
     public static void customersMenu(Scanner reader){//Register, Search, delete, modify and modifyCard Customers
+        CustomerController cc = new CustomerController();
         do {
             System.out.println("1-Register Customer" + "\n" +"2-Search Customer" + "\n" + "3-Delete Customer"+ "\n" + "4-Modify Customer"+"\n" +"5-Modifiy Cards Customer"+ "\n" +"6-Return to SellerManagementMenu"+ "\n" +"Option?");
             choice = reader.nextInt();
             if(choice ==1){
-                CustomerController.registerCustomer(reader);
+                cc.register(reader);
             }
             if(choice ==2){
-                CustomerController.searchCustomer(reader);
+                cc.search(reader);
             }
             if(choice ==3){
-                CustomerController.deleteCustomer(reader);
+                cc.delete(reader);
             }
             if(choice ==4){
-                CustomerController.modifyCustomer(reader);
+                cc.modify(reader);
             }
             if(choice ==5){
-                CustomerController.modifyCardCustomer(reader);
+                cc.modifyCard(reader);
             }
         }while (choice!=6);
 
-    }//customerMenu
+    }
 
     public static void carMenu(Scanner reader){//carMenu
         do {

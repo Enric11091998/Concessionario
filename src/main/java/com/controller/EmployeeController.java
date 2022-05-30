@@ -2,7 +2,6 @@ package com.controller;
 
 import com.manager_persistences.PersistenceCEOCR;
 import com.manager_persistences.PersistenceEmployee;
-import com.model.DataBase;
 import com.model.Employee;
 import com.services.ValidatorData;
 import com.utils.Utilities;
@@ -102,7 +101,7 @@ public class EmployeeController {
     }//method to modify an Employee
 
     public static void showAllEmployee(){
-        System.out.println(DataBase.getEmployees());
+
     }
 
     public static String confirmIsLoginDni(Scanner reader) {

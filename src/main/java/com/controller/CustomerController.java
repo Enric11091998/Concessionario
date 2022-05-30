@@ -5,17 +5,16 @@ import com.model.Card;
 import com.model.Customer;
 import com.services.ValidatorData;
 import com.utils.Utilities;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class CustomerController {
+public class CustomerController implements CRUD_CE {
 
-    public CustomerController() {
+    public CustomerController()  {
     }
 
-    public static void registerCustomer(Scanner reader){
+    public  void register(Scanner reader){
         ValidatorData validator = new ValidatorData();
         String[] vars0 = new String[11];
         Customer customer ;
@@ -58,7 +57,7 @@ public class CustomerController {
         }
     }
 
-    public static void searchCustomer(Scanner reader){
+    public  void search(Scanner reader){
         Customer customer;
         String dni = Utilities.askInfo(reader,"Enter a dni");
         customer = PersistenceCEOCR.find(dni,1);
@@ -68,7 +67,7 @@ public class CustomerController {
         else System.out.println(customer);
     }
 
-    public static void deleteCustomer(Scanner reader){
+    public  void delete(Scanner reader){
         Customer customer;
         String dni = Utilities.askInfo(reader,"Enter a dni");
         customer = PersistenceCEOCR.find(dni,1);
@@ -81,7 +80,7 @@ public class CustomerController {
         }
     }
 
-    public static void modifyCustomer(Scanner reader){
+    public  void modify(Scanner reader){
         ValidatorData validator = new ValidatorData();
         int i;
         Customer customer;
@@ -119,7 +118,7 @@ public class CustomerController {
         }while(i!=4);
     }
 
-    public static void modifyCardCustomer(Scanner reader){
+    public  void modifyCard(Scanner reader){
         int i;
         ValidatorData validator = new ValidatorData();
         Customer customer;
