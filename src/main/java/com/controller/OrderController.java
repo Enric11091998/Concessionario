@@ -1,7 +1,5 @@
 package com.controller;
-import com.manager_persistences.PersistenceCar;
-import com.manager_persistences.PersistenceCustomer;
-import com.manager_persistences.PersistenceOrder;
+import com.manager_persistences.PersistenceCEOCR;
 import com.model.*;
 import com.services.ServicesCar;
 import com.services.ServicesCard;
@@ -25,7 +23,7 @@ public class OrderController {
                     Car car = ServicesCar.selectCars(carList2,reader);
                     System.out.println("-----------Data by Customer-------------");
                     String dni = Utilities.askInfo(reader, "Enter a dni");
-                    Customer customer = PersistenceCustomer.findCustomer(dni);
+                    Customer customer = PersistenceCEOCR.find(dni,1);
                     if(customer!=null){
                         HashMap<Long,Integer> hasMapCard = ServicesCard.hashmapCardnumberStatus(customer);
                         do{
@@ -41,10 +39,10 @@ public class OrderController {
                                 OrderDealer o = new OrderDealer(idOrder,String.valueOf(cardNumber),Utilities.date(),employeeDni, customer.getName());
                                 System.out.println(o);
                                 if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
-                                    PersistenceOrder.orderPersistence(o);
+                                    PersistenceCEOCR.persistence(o);
                                     o.setCar(car);
-                                    PersistenceOrder.SetCar(o);
-                                    PersistenceCar.statusCar(car);
+                                    PersistenceCEOCR.SetOrderCar(o);
+                                    PersistenceCEOCR.statusCar(car);
                                     carList2.clear();
                                     break;
                                 }else break;

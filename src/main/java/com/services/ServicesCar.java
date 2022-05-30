@@ -1,5 +1,6 @@
 package com.services;
 
+import com.manager_persistences.PersistenceCEOCR;
 import com.model.Car;
 import java.util.List;
 import java.util.Scanner;
@@ -20,9 +21,9 @@ public class ServicesCar {
             if (chociceCar == 1) {
                 System.out.println("Enter year");
                 String year = vd.checkCarYear(reader.next());
-                carList2 =   ServicesOrder.listCar(brand,color,year);
+                carList2 =  PersistenceCEOCR.searchCardsbyAttributes(brand,color,year,2);
             }else if (chociceCar == 2) {
-                carList2=  ServicesOrder.listCar(brand,color);
+                carList2=   PersistenceCEOCR.searchCardsbyAttributes(brand,color,"null",1);
             }if(carList2 == null) {
                 break;
             }if(carList2.isEmpty()){

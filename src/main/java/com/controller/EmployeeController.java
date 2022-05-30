@@ -1,5 +1,6 @@
 package com.controller;
 
+import com.manager_persistences.PersistenceCEOCR;
 import com.manager_persistences.PersistenceEmployee;
 import com.model.DataBase;
 import com.model.Employee;
@@ -48,8 +49,7 @@ public class EmployeeController {
     public static void deleteEmployee(Scanner reader){//method to delete an Employee
         String dni = Utilities.askInfo(reader,"Enter a dni");
         Employee employeeToDelete ;
-        DatabaseController db = new DatabaseController();
-        employeeToDelete = PersistenceEmployee.searchEmployee(dni);
+        employeeToDelete = PersistenceCEOCR.find(dni,2);
         if(!(employeeToDelete == null)) {
         System.out.println(employeeToDelete);
         if (Utilities.actionVerification(reader, "Delete Employee").equals("Y")) {
@@ -62,10 +62,10 @@ public class EmployeeController {
 
     public static void modifyEmployee(Scanner reader){//method to modify an Employee
         String dni = Utilities.askInfo(reader,"Enter a dni");
-        DatabaseController db = new DatabaseController();
+
         ValidatorData validator = new ValidatorData();
         Employee employee;
-        employee= PersistenceEmployee.searchEmployee(dni);
+        employee= PersistenceCEOCR.find(dni,2);
         int i;
         System.out.println(employee);
         if(employee == null) {

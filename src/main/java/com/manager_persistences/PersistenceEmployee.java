@@ -25,25 +25,9 @@ public class PersistenceEmployee {
         }
     }
 
-    public static Employee searchEmployee (String dni){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-        Employee employee;
-        try {
-            EntityManager employeeDB = emf.createEntityManager();
-            employeeDB.getTransaction().begin();
-            employee = employeeDB.find(Employee.class,dni);
-            employeeDB.getTransaction().commit();
-            employeeDB.close();
-        } finally{
-            emf.close();
-        }
-        return employee;
-    }
 
     public static boolean existEmployee(String dni){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-
-
         EntityManager employeeDB = emf.createEntityManager();
         employeeDB.getTransaction().begin();
         Employee employee = employeeDB.find(Employee.class,dni);

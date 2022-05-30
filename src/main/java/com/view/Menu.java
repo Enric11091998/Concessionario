@@ -3,6 +3,7 @@ package com.view;
 import java.util.Scanner;
 
 import com.controller.*;
+import com.services.ServicesEmployee;
 
 public class Menu {
     //Show and call methods
@@ -63,13 +64,13 @@ public class Menu {
     public static int displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
         do {
         System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
-        DatabaseController db = new DatabaseController();
+
         choice = reader.nextInt();
             if(choice ==1){
                 EmployeeController.registerEmployee(reader);
             }
             if(choice ==2){
-                db.searchEmployee(reader);
+                ServicesEmployee.searchEmployee(reader);
             }
             if(choice ==3){
                 EmployeeController.deleteEmployee(reader);

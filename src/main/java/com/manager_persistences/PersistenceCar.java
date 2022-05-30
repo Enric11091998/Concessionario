@@ -1,9 +1,6 @@
 package com.manager_persistences;
 import com.model.Car;
 import javax.persistence.*;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 
 public class PersistenceCar {
@@ -39,59 +36,6 @@ public class PersistenceCar {
 
         return false;
     }
-    public  static List<Car> searchCardsbyColorBrand(String brand,String color){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-        EntityManager em = emf.createEntityManager();
-        String smt = "SELECT c from car c where c.brand = ?1 and c.color = ?2 and c.status = 'unsold' ";
-        em.getTransaction().begin();
-        Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).getResultStream();
-        List<Car> cars = car.collect(Collectors.toList());
-        em.getTransaction().commit();
-        em.close();
-        emf.close();
-        return cars;
 
 
-    }
-    public  static List<Car> searchCardsbyColorBrandYear(String brand,String color,String year){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-        EntityManager em = emf.createEntityManager();
-        String smt = "SELECT c from car c where c.brand = ?1 and c.color = ?2 and c.year = ?3 and c.status = 'unsold' ";
-        em.getTransaction().begin();
-        Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).setParameter(3,year).getResultStream();
-        List<Car> cars = car.collect(Collectors.toList());
-        em.getTransaction().commit();
-        em.close();
-        emf.close();
-        return cars;
-
-    }
-    public static void removeCar(Car car){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-        try{
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-            Query query = em.createNativeQuery("delete from car where carLicense = '"+ car.getCarLicense()+"'" );
-            query.executeUpdate();
-            em.getTransaction().commit();
-            em.close();
-        }finally {
-            emf.close();
-
-        }
-    }
-    public static void statusCar(Car car){
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
-        try{
-            EntityManager em = emf.createEntityManager();
-            em.getTransaction().begin();
-            Query query = em.createNativeQuery("update car c set c.status = 'sold' where c.carLicense = '" + car.getCarLicense() +"'" );
-            query.executeUpdate();
-            em.getTransaction().commit();
-            em.close();
-        }finally {
-            emf.close();
-
-        }
-    }
 }
