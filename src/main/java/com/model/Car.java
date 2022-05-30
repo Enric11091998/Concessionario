@@ -14,6 +14,7 @@ public class Car {
     private String insurance;
     private double price;
     private String year;
+    private String status;
 
     //Constructor empty
     protected Car(){}
@@ -28,6 +29,17 @@ public class Car {
         this.price = price;
         this.year = year;
 
+    }
+    public Car(String brand, String numberOfDoors, String color, double km, String carLicense, String insurance, double price,String year,String status){
+        this.brand = brand;
+        this.numberOfDoors = numberOfDoors;
+        this.color = color;
+        this.km = km;
+        this.carLicense = carLicense;
+        this.insurance = insurance;
+        this.price = price;
+        this.year = year;
+        this.status = status;
     }
     public void setKLIP(double km, String carLicense, String insurance, double price){
 
@@ -99,6 +111,15 @@ public class Car {
     public String getCarLicense() {
         return carLicense;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "brand='" + brand + '\'' +

@@ -1,13 +1,14 @@
 package com.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity(name = "orderDealer")
 public class OrderDealer {
     @Id
     private String idOrder;
-    private String carLicense;
+    @OneToOne(targetEntity = Car.class,cascade = CascadeType.ALL)
+    @JoinColumn(name = "carLicense")
+    private Car car;
     private String numbercard;
     private String date;
     private String dniemployee;
@@ -16,10 +17,10 @@ public class OrderDealer {
 
     }
 
-    public OrderDealer( String idOrder,String carLicense,String numbercard,String date, String dniemployee,String nameCustomer)
+    public OrderDealer( String idOrder,Car car,String numbercard,String date, String dniemployee,String nameCustomer)
     {
         this.idOrder= idOrder;
-        this.carLicense = carLicense;
+        this.car = car;
         this.numbercard = numbercard;
         this.date = date;
         this.dniemployee =dniemployee;
@@ -34,12 +35,12 @@ public class OrderDealer {
         this.idOrder = idOrder;
     }
 
-    public String getCarLicense() {
-        return carLicense;
+    public Car getCar() {
+        return car;
     }
 
-    public void setCarLicense(String carLicense) {
-        this.carLicense = carLicense;
+    public void setCar(Car car) {
+        this.car = car;
     }
 
     public String getNumbercard() {
@@ -86,7 +87,7 @@ public class OrderDealer {
     public String toString() {
         return "OrderDealer{" +
                 "idOrder='" + idOrder + '\'' +
-                ", carLicense='" + carLicense + '\'' +
+                ", car=" + car +
                 ", numbercard='" + numbercard + '\'' +
                 ", date='" + date + '\'' +
                 ", dniemployee='" + dniemployee + '\'' +
