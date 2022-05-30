@@ -60,31 +60,27 @@ public class Menu {
         }while (choice!=3);
     }
 
-    public static void displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
+    public static int displayDealerManagementMenu(Scanner reader) {//displayDealerManagementMenu
+        do {
         System.out.println("1-Register Employee\n2-Search Employee\n3-Delete Employee\n4-Modify Employee\n5-Show all employees\n6-Return \nOption?");
         DatabaseController db = new DatabaseController();
         choice = reader.nextInt();
-        switch(choice) {
-            case 1:
+            if(choice ==1){
                 EmployeeController.registerEmployee(reader);
-                break;
-            case 2:
+            }
+            if(choice ==2){
                 db.searchEmployee(reader);
-                break;
-            case 3:
+            }
+            if(choice ==3){
                 EmployeeController.deleteEmployee(reader);
-                break;
-            case 4:
+            }
+            if(choice ==4){
                 EmployeeController.modifyEmployee(reader);
-                break;
-            case 5:
+            }
+            if(choice ==5){
                 EmployeeController.showAllEmployee();
-                break;
-            case 6:
-                System.out.println("Return");
-                break;
-            default:
-                System.out.println("Please enter valid option");
         }
+        }while (choice!=6);
+        return choice;
     }//displayDealerManagementMenu
 }

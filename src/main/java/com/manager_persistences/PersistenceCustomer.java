@@ -77,7 +77,7 @@ public class PersistenceCustomer {
         }
     }
 
-    public static <T> void modifyDataCustomer(T o){
+    public static <T>  void modifyDataCustomer(T o){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         try{
             EntityManager em = emf.createEntityManager();
