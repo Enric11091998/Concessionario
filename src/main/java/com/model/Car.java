@@ -15,6 +15,16 @@ public class Car {
     private double price;
     private String year;
     private String status;
+    @OneToOne(mappedBy = "car", cascade = CascadeType.ALL)
+    private OrderDealer order;
+
+    public OrderDealer getOrder() {
+        return order;
+    }
+
+    public void setOrder(OrderDealer order) {
+        this.order = order;
+    }
 
     //Constructor empty
     protected Car(){}

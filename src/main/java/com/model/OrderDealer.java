@@ -6,8 +6,8 @@ import javax.persistence.*;
 public class OrderDealer {
     @Id
     private String idOrder;
-    @OneToOne(targetEntity = Car.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "carLicense")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinColumn(name = "carLicense_fk", nullable = false)
     private Car car;
     private String numbercard;
     private String date;
@@ -17,7 +17,7 @@ public class OrderDealer {
 
     }
 
-    public OrderDealer( String idOrder,Car car,String numbercard,String date, String dniemployee,String nameCustomer)
+    public OrderDealer( String idOrder,String numbercard,String date, String dniemployee,String nameCustomer)
     {
         this.idOrder= idOrder;
         this.car = car;
@@ -26,6 +26,16 @@ public class OrderDealer {
         this.dniemployee =dniemployee;
         this.nameCustomer =nameCustomer;
  }
+
+    public OrderDealer( String idOrder,Car car,String numbercard,String date, String dniemployee,String nameCustomer)
+    {
+        this.idOrder= idOrder;
+        this.car = car;
+        this.numbercard = numbercard;
+        this.date = date;
+        this.dniemployee =dniemployee;
+        this.nameCustomer =nameCustomer;
+    }
 
     public String getIdOrder() {
         return idOrder;

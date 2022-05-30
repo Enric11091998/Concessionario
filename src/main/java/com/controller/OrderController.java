@@ -38,12 +38,12 @@ public class OrderController {
                             //----------------------------------------------------------
                             if(status == 1){
                                 String idOrder = employeeDni + car.getCarLicense();
-                                OrderDealer o = new OrderDealer(idOrder,car,String.valueOf(cardNumber),Utilities.date(),employeeDni, customer.getName());
+                                OrderDealer o = new OrderDealer(idOrder,String.valueOf(cardNumber),Utilities.date(),employeeDni, customer.getName());
                                 System.out.println(o);
                                 if(Utilities.actionVerification(reader,"make a purchase").equals("Y")){
-                                    PersistenceCar.removeCar(car);
                                     PersistenceOrder.orderPersistence(o);
-                                    PersistenceCar.statusCar(car);
+
+                                    //PersistenceCar.statusCar(car);
                                     carList2.clear();
                                     break;
                                 }else break;

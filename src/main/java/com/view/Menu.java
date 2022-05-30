@@ -38,10 +38,10 @@ public class Menu {
 
             choice = reader.nextInt();
             if(choice ==1){
-                CarController.searchCar(reader);
+               // CarController.searchCar(reader);
             }
             if(choice ==2){
-                CarController.deleteCar(reader);
+               // CarController.deleteCar(reader);
             }
         }while (choice!=3);
     }
