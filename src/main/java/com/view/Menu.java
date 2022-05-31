@@ -2,6 +2,7 @@ package com.view;
 
 import java.util.Scanner;
 import com.controller.*;
+import com.manager_persistences.PersistenceCEOCR;
 import com.services.ServicesEmployee;
 
 public class Menu {
@@ -33,15 +34,16 @@ public class Menu {
     }
 
     public static void carMenu(Scanner reader){//carMenu
+        CarController cc = new CarController();
         do {
-            System.out.println("1-Search Car" + "\n" +"2-Delete Car" + "\n" + "3-Return to SellerManagement Menu" + "\n" +"Option?");
+            System.out.println("1-Search Car" + "\n" +"2-Remove Car" + "\n" + "3-Return to SellerManagement Menu" + "\n" +"Option?");
 
             choice = reader.nextInt();
             if(choice ==1){
-               // CarController.searchCar(reader);
+                menuSearchCar(reader);
             }
             if(choice ==2){
-               // CarController.deleteCar(reader);
+                cc.removeCar(reader);
             }
         }while (choice!=3);
     }
@@ -83,4 +85,27 @@ public class Menu {
         }while (choice!=6);
         return choice;
     }//displayDealerManagementMenu
+
+    public static  void menuSearchCar(Scanner reader){
+        CarController cc = new CarController();
+        do {
+            System.out.println("1-By license" + "\n" +"2-By color and year" + "\n" + "3-By brand and year" + "\n" +"4-By color and brand" + "\n" + "5-Return" + "\n"+"Option?");
+
+            choice = reader.nextInt();
+            if(choice ==1){
+                cc.searchCarbyLincese(reader);
+            }
+            if(choice ==2){
+                cc.searchCarbyColorandYear(reader);
+            }
+            if(choice ==3){
+                cc.searchCarbyBrandandYear(reader);
+            }
+            if(choice ==4){
+                cc.searchCarbyColorandBrand(reader);
+            }
+        }while (choice!=5);
+    }
+
+
 }

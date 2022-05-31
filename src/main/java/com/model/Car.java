@@ -103,9 +103,11 @@ public class Car {
     public String getYear() {
         return this.year;
     }
+
     public String getColor() {
         return color;
     }
+
     public String getCarLicense() {
         return carLicense;
     }
@@ -120,14 +122,14 @@ public class Car {
 
     @Override
     public String toString() {
-        return "brand='" + brand + '\'' +
-                ", numberOfDoors='" + numberOfDoors + '\'' +
-                ", color='" + color + '\'' +
-                ", km=" + km +
-                ", carLicense='" + carLicense + '\'' +
-                ", insurance='" + insurance + '\'' +
-                ", price=" + price +
-                ", year='" + year + '\'' ;
+        return "brand=" + brand + "||" +
+                "numberOfDoors=" + numberOfDoors + "||" +
+                "color=" + color + "||" +
+                "km=" + km + "||" +
+                "carLicense=" + carLicense + "||" +
+                "insurance=" + insurance + "||" +
+                "price=" + price + "||" +
+                "year=" + year + "||" ;
     }
 
 }

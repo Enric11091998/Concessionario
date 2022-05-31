@@ -10,15 +10,16 @@ import java.util.stream.Stream;
 public class PersistenceCEOCR {
 
 
-    public static <T> T find(String dni, int choice) {
+    public static <T> T find(String id, int choice) {
         Customer customer;
         Employee employee;
+        Car car;
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
 
             if(choice==1){
                 em.getTransaction().begin();
-                customer = em.find(Customer.class, dni);
+                customer = em.find(Customer.class, id);
                 em.getTransaction().commit();
                 em.close();
                 emf.close();
@@ -26,12 +27,20 @@ public class PersistenceCEOCR {
             }
             if(choice==2){
                 em.getTransaction().begin();
-                employee = em.find(Employee.class, dni);
+                employee = em.find(Employee.class, id);
                 em.getTransaction().commit();
                 em.close();
                 emf.close();
                 return (T) employee;
-            }
+            }///carLincense
+             if(choice==3){
+                 em.getTransaction().begin();
+                 car = em.find(Car.class,id);
+                 em.getTransaction().commit();
+                 em.close();
+                 emf.close();
+                 return (T) car;
+        }
             return null;
     }
 
@@ -76,20 +85,27 @@ public class PersistenceCEOCR {
             }
     }
 
-    public static <T> void remove(T o, String dni, int choice){
+    public static <T> void remove(T o, String id, int choice){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
         if(choice==1){
             em.getTransaction().begin();
             em.merge(o);
-            em.remove(em.find(Customer.class,dni));
+            em.remove(em.find(Customer.class,id));
             em.getTransaction().commit();
             em.close();
         }
         if(choice==2){
             em.getTransaction().begin();
             em.merge(o);
-            em.remove(em.find(Employee.class,dni));
+            em.remove(em.find(Employee.class,id));
+            em.getTransaction().commit();
+            em.close();
+        }
+        if(choice==3){
+            em.getTransaction().begin();
+            em.merge(o);
+            em.remove(em.find(Car.class,id));
             em.getTransaction().commit();
             em.close();
         }
@@ -126,7 +142,7 @@ public class PersistenceCEOCR {
         return true;
     }
 
-    public  static List<Car> searchCardsbyAttributes(String brand, String color, String year, int choice){
+    public  static List<Car> searchCarsbyAttributes(String brand, String color, String year, int choice){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
         EntityManager em = emf.createEntityManager();
         if(choice==1){
@@ -140,9 +156,45 @@ public class PersistenceCEOCR {
             return cars;
         }
         if(choice==2){
-            String smt = "SELECT c from car c where c.brand = ?1 and c.color = ?2 and c.status = 'unsold' ";
+            String smt = "SELECT c from car c where c.brand = ?1 and c.color = ?2 and c.year = ?3 and c.status = 'unsold' ";
             em.getTransaction().begin();
             Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,color).setParameter(3,year).getResultStream();
+            List<Car> cars = car.collect(Collectors.toList());
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            return cars;
+        }
+        return null;
+    }
+
+    public  static List<Car> searchCarsbyOptions(String color, String brand, String year, int choice){
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("Databaseprueba");
+        EntityManager em = emf.createEntityManager();
+        if(choice==2){
+            String smt = "SELECT c from car c where c.color = ?1 and c.year = ?2 and c.status = 'unsold' ";
+            em.getTransaction().begin();
+            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,year).getResultStream();
+            List<Car> cars = car.collect(Collectors.toList());
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            return cars;
+        }
+        if(choice==3){
+            String smt = "SELECT c from car c where c.brand = ?1 and c.year = ?2 and c.status = 'unsold' ";
+            em.getTransaction().begin();
+            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,brand).setParameter(2,year).getResultStream();
+            List<Car> cars = car.collect(Collectors.toList());
+            em.getTransaction().commit();
+            em.close();
+            emf.close();
+            return cars;
+        }
+        if(choice==4){
+            String smt = "SELECT c from car c where c.color = ?1 and c.brand = ?2 and c.status = 'unsold' ";
+            em.getTransaction().begin();
+            Stream<Car> car = em.createQuery(smt,Car.class).setParameter(1,color).setParameter(2,brand).getResultStream();
             List<Car> cars = car.collect(Collectors.toList());
             em.getTransaction().commit();
             em.close();
