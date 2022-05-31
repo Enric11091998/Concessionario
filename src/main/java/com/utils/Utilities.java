@@ -1,7 +1,6 @@
 package com.utils;
 
 import com.services.ValidatorData;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 
@@ -12,8 +11,8 @@ public class Utilities {
         if(verification.equals("Y")){
             return verification;
         }
-        verification = "N";
-        return verification;
+            verification = "N";
+            return verification;
     }//met
     public static String askInfo(Scanner reader,String info){
         ValidatorData vd = new ValidatorData();
