@@ -1,19 +1,32 @@
 package com.model;
+
 import javax.persistence.*;
+
 @Entity(name = "orderDealer")
 public class OrderDealer {
     @Id
     private String idOrder;
-    @OneToOne(targetEntity = Car.class,cascade = CascadeType.ALL)
-    @JoinColumn(name = "carLicense")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER,optional = true)
+    @JoinColumn(name = "carLicense_fk")
     private Car car;
     private String numbercard;
     private String date;
     private String dniemployee;
     private String nameCustomer;
+
     protected OrderDealer(){
 
     }
+
+    public OrderDealer( String idOrder,String numbercard,String date, String dniemployee,String nameCustomer)
+    {
+        this.idOrder= idOrder;
+        this.car = car;
+        this.numbercard = numbercard;
+        this.date = date;
+        this.dniemployee =dniemployee;
+        this.nameCustomer =nameCustomer;
+ }
 
     public OrderDealer( String idOrder,Car car,String numbercard,String date, String dniemployee,String nameCustomer)
     {
@@ -23,7 +36,7 @@ public class OrderDealer {
         this.date = date;
         this.dniemployee =dniemployee;
         this.nameCustomer =nameCustomer;
- }
+    }
 
     public String getIdOrder() {
         return idOrder;

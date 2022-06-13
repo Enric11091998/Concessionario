@@ -1,8 +1,6 @@
 package com.services;
 
 import com.model.Customer;
-import com.model.DataBase;
-
 import java.util.HashMap;
 import java.util.Random;
 

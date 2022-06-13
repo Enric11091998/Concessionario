@@ -1,7 +1,6 @@
 package com.model;
 import javax.persistence.*;
 import java.util.ArrayList;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity(name = "customer")
@@ -17,7 +16,7 @@ public class Customer {
     @Column(name = "brand_card")
     private String favoriteBrandCar;
     @Embedded
-    @ElementCollection
+    @ElementCollection(fetch =  FetchType.EAGER)
     @CollectionTable(name = "cards_of_customer")
     private List<Card> cards = new ArrayList<>();
 

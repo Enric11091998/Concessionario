@@ -1,7 +1,6 @@
 package com.utils;
 
 import com.services.ValidatorData;
-
 import java.time.LocalDate;
 import java.util.Scanner;
 

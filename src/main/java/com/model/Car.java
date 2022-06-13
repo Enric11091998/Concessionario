@@ -1,8 +1,7 @@
 package com.model;
 
 import javax.persistence.*;
-
-@Entity(name="car")
+@Entity(name = "car")
 public class Car {
     @Id
     private String carLicense;
@@ -76,6 +75,7 @@ public class Car {
     public void setYear(String year) {
         this.year = year;
     }
+
     public boolean checkExistsCarLicense(String carLicense){
         this.carLicense = carLicense;
         return  false;
@@ -84,7 +84,6 @@ public class Car {
     public String getBrand() {
         return brand;
     }
-
 
     public String getNumberOfDoors() {
         return numberOfDoors;
@@ -101,15 +100,19 @@ public class Car {
     public double getPrice() {
         return price;
     }
+
     public String getYear() {
         return this.year;
     }
+
     public String getColor() {
         return color;
     }
+
     public String getCarLicense() {
         return carLicense;
     }
+
     public String getStatus() {
         return status;
     }
@@ -117,15 +120,17 @@ public class Car {
     public void setStatus(String status) {
         this.status = status;
     }
+
     @Override
     public String toString() {
-        return "brand='" + brand + '\'' +
-                ", numberOfDoors='" + numberOfDoors + '\'' +
-                ", color='" + color + '\'' +
-                ", km=" + km +
-                ", carLicense='" + carLicense + '\'' +
-                ", insurance='" + insurance + '\'' +
-                ", price=" + price +
-                ", year='" + year + '\'' ;
+        return "brand=" + brand + "||" +
+                "numberOfDoors=" + numberOfDoors + "||" +
+                "color=" + color + "||" +
+                "km=" + km + "||" +
+                "carLicense=" + carLicense + "||" +
+                "insurance=" + insurance + "||" +
+                "price=" + price + "||" +
+                "year=" + year + "||" ;
     }
+
 }
