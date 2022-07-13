@@ -11,6 +11,7 @@ public class ServicesCard {
             System.out.println(i +"- "+ customer.getCards().get(i).getNumberCard());
         }
     }
+
     public static  HashMap<Long,Integer> hashmapCardnumberStatus(Customer customer){
         HashMap<Long,Integer> cardsMap = new HashMap<>();
         for(int i = 0; i < customer.getCards().size(); i++){

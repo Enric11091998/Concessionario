@@ -1,6 +1,5 @@
 package com;
 
-
 import java.util.Scanner;
 import com.view.ViewMenu;
 public class Main {//Main
